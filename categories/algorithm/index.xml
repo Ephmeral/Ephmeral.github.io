@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Algorithm - 分类 - </title>
+        <link>http://example.org/categories/algorithm/</link>
+        <description>Algorithm - 分类 - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 19 Apr 2022 20:43:40 &#43;0800</lastBuildDate><atom:link href="http://example.org/categories/algorithm/" rel="self" type="application/rss+xml" /><item>
+    <title>133.客隆图</title>
+    <link>http://example.org/133.%E5%AE%A2%E9%9A%86%E5%9B%BE/</link>
+    <pubDate>Tue, 19 Apr 2022 20:43:40 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>http://example.org/133.%E5%AE%A2%E9%9A%86%E5%9B%BE/</guid>
+    <description><![CDATA[解题思路：本质是遍历图的所有顶点，然后将每个节点深拷贝到新的顶点，图的遍历自然想到DFS和BFS两种方法 问题的关键在于如何深拷贝每个顶点： 首]]></description>
+</item></channel>
+</rss>

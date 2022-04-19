@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Archives on </title>
+    <link>http://example.org/archive/</link>
+    <description>Recent content in Archives on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 19 Apr 2022 22:08:39 +0800</lastBuildDate><atom:link href="http://example.org/archive/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>归档1</title>
+      <link>http://example.org/archive/%E5%BD%92%E6%A1%A31/</link>
+      <pubDate>Tue, 19 Apr 2022 22:08:39 +0800</pubDate>
+      
+      <guid>http://example.org/archive/%E5%BD%92%E6%A1%A31/</guid>
+      <description>归档界面测试这是一个测试界面</description>
+    </item>
+    
+    <item>
+      <title>归档2</title>
+      <link>http://example.org/archive/%E5%BD%92%E6%A1%A32/</link>
+      <pubDate>Tue, 19 Apr 2022 22:08:39 +0800</pubDate>
+      
+      <guid>http://example.org/archive/%E5%BD%92%E6%A1%A32/</guid>
+      <description>归档界面测试这是一个测试界面</description>
+    </item>
+    
+  </channel>
+</rss>
