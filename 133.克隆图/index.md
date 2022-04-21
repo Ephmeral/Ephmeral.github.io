@@ -60,34 +60,4 @@ public:
 };
 ```
 
-### 标题1
-
-121委屈饿阿萨大大aDSADASD
-
-
-
-
-SADSADASDd
-
-
-
-```c++
-class Solution {
-public:
-    vector<int> findOrder(int n, vector<vector<int>>& prerequisites) {
-        if (n == 0) return {};
-        else if (n == 1) return {0};
-        vector<int> res;
-        vector<int> indegree(n);        //顶点的入度
-        vector<vector<int>> graph(n);
-```
-
-
-
-
-
-大苏打
-
-### 标题2
-
 
