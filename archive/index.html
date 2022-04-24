@@ -25,7 +25,7 @@
         <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
         <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript></head>
 
-<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+<body header-desktop="normal" header-mobile="auto"><script type="text/javascript">
         function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
         function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
         function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
@@ -40,7 +40,7 @@
             <a href="/" title=""><span id="desktop-header-typeit" class="typeit"></span></a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item active" href="/archive/"> 归档 </a><a class="menu-item" href="/memo/"> 树洞 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/notes/"> 笔记 </a><a class="menu-item" href="/life/"> 生活 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
                             <i class="fas fa-search fa-fw"></i>
@@ -82,7 +82,7 @@
                     <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/archive/" title="">归档</a><a class="menu-item" href="/memo/" title="">树洞</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="/categories/" title="">分类</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/notes/" title="">笔记</a><a class="menu-item" href="/life/" title="">生活</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
                 <i class="fas fa-adjust fa-fw"></i>
             </a></div>
     </div>
@@ -94,7 +94,13 @@
     <div id="search-dropdown-mobile"></div>
 </div>
 <main class="main">
-            <div class="container"><div class="page archive"><h2 class="single-title animate__animated animate__pulse animate__faster">所有archive</h2><h3 class="group-title">2022</h3><article class="archive-item">
+            <div class="container"><div class="page archive"><h2 class="single-title animate__animated animate__pulse animate__faster">所有archive</h2><h3 class="group-title">最近更新</h3><article class="archive-item">
+                        <a href="/archive/%E5%BD%92%E6%A1%A32/" class="archive-item-link">归档2</a>
+                        <span class="archive-item-date">04-20</span>
+                    </article><article class="archive-item">
+                        <a href="/archive/%E5%BD%92%E6%A1%A31/" class="archive-item-link">归档1</a>
+                        <span class="archive-item-date">04-20</span>
+                    </article><h3 class="group-title">2022</h3><article class="archive-item">
                         <a href="/archive/%E5%BD%92%E6%A1%A32/" class="archive-item-link">归档2</a>
                         <span class="archive-item-date">04-19</span>
                     </article><article class="archive-item">

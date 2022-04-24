@@ -10,12 +10,5 @@
         <name>Silas</name>
     </author><guid>https://silasblog.top/133.%E5%85%8B%E9%9A%86%E5%9B%BE/</guid>
     <description><![CDATA[解题思路：本质是遍历图的所有顶点，然后将每个节点深拷贝到新的顶点，图的遍历自然想到DFS和BFS两种方法 问题的关键在于如何深拷贝每个顶点： 首]]></description>
-</item><item>
-    <title>133.客隆图</title>
-    <link>https://silasblog.top/133.%E5%85%8B%E9%9A%86%E5%9B%BE/</link>
-    <pubDate>Tue, 19 Apr 2022 20:43:40 &#43;0800</pubDate><author>
-        <name>Silas</name>
-    </author><guid>https://silasblog.top/133.%E5%85%8B%E9%9A%86%E5%9B%BE/</guid>
-    <description><![CDATA[解题思路：本质是遍历图的所有顶点，然后将每个节点深拷贝到新的顶点，图的遍历自然想到DFS和BFS两种方法 问题的关键在于如何深拷贝每个顶点： 首]]></description>
 </item></channel>
 </rss>
