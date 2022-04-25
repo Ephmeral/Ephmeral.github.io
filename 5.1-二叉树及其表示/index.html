@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">5.1 二叉树及其表示 - </title><meta name="Description" content=""><meta property="og:title" content="5.1 二叉树及其表示" />
+<meta property="og:description" content="§5.1 二叉树及其表示5.1.1 树有根树从图论的角度看，树等价于连通无环图。因此与一般的图相同，树也由一组顶点（vertex） 以及联接与其间" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://silasblog.top/5.1-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%8F%8A%E5%85%B6%E8%A1%A8%E7%A4%BA/" /><meta property="og:image" content="https://silasblog.top/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-05T15:55:53+08:00" />
+<meta property="article:modified_time" content="2022-04-21T22:06:59+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://silasblog.top/logo.png"/>
+
+<meta name="twitter:title" content="5.1 二叉树及其表示"/>
+<meta name="twitter:description" content="§5.1 二叉树及其表示5.1.1 树有根树从图论的角度看，树等价于连通无环图。因此与一般的图相同，树也由一组顶点（vertex） 以及联接与其间"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content="">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="https://silasblog.top/5.1-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%8F%8A%E5%85%B6%E8%A1%A8%E7%A4%BA/" /><link rel="prev" href="https://silasblog.top/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/" /><link rel="next" href="https://silasblog.top/hello_world/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "5.1 二叉树及其表示",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/silasblog.top\/5.1-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%8F%8A%E5%85%B6%E8%A1%A8%E7%A4%BA\/"
+        },"genre": "posts","keywords": "二叉树","wordcount":  2236 ,
+        "url": "https:\/\/silasblog.top\/5.1-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%8F%8A%E5%85%B6%E8%A1%A8%E7%A4%BA\/","datePublished": "2022-04-05T15:55:53+08:00","dateModified": "2022-04-21T22:06:59+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Silas"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="normal" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/notes/"> 笔记 </a><a class="menu-item" href="/life/"> 生活 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/notes/" title="">笔记</a><a class="menu-item" href="/life/" title="">生活</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#51-二叉树及其表示">§5.1 二叉树及其表示</a>
+      <ul>
+        <li><a href="#511-树">5.1.1 树</a>
+          <ul>
+            <li><a href="#有根树">有根树</a></li>
+            <li><a href="#深度与层次">深度与层次</a></li>
+            <li><a href="#祖先后代与子树">祖先、后代与子树</a></li>
+            <li><a href="#高度">高度</a></li>
+          </ul>
+        </li>
+        <li><a href="#512-二叉树">5.1.2 二叉树</a></li>
+        <li><a href="#513-多叉树">5.1.3 多叉树</a>
+          <ul>
+            <li><a href="#父节点">父节点</a></li>
+            <li><a href="#孩子节点">孩子节点</a></li>
+            <li><a href="#父节点--孩子节点">父节点 + 孩子节点</a></li>
+            <li><a href="#有序多叉树--二叉树">有序多叉树 = 二叉树</a></li>
+            <li><a href="#长子--兄弟">长子 + 兄弟</a></li>
+          </ul>
+        </li>
+        <li><a href="#二叉树">二叉树</a>
+          <ul>
+            <li><a href="#基数">基数</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">5.1 二叉树及其表示</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Silas</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><i class="far fa-folder fa-fw"></i>数据结构</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-05">2022-04-05</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-04-21">2022-04-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2236 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#51-二叉树及其表示">§5.1 二叉树及其表示</a>
+      <ul>
+        <li><a href="#511-树">5.1.1 树</a>
+          <ul>
+            <li><a href="#有根树">有根树</a></li>
+            <li><a href="#深度与层次">深度与层次</a></li>
+            <li><a href="#祖先后代与子树">祖先、后代与子树</a></li>
+            <li><a href="#高度">高度</a></li>
+          </ul>
+        </li>
+        <li><a href="#512-二叉树">5.1.2 二叉树</a></li>
+        <li><a href="#513-多叉树">5.1.3 多叉树</a>
+          <ul>
+            <li><a href="#父节点">父节点</a></li>
+            <li><a href="#孩子节点">孩子节点</a></li>
+            <li><a href="#父节点--孩子节点">父节点 + 孩子节点</a></li>
+            <li><a href="#有序多叉树--二叉树">有序多叉树 = 二叉树</a></li>
+            <li><a href="#长子--兄弟">长子 + 兄弟</a></li>
+          </ul>
+        </li>
+        <li><a href="#二叉树">二叉树</a>
+          <ul>
+            <li><a href="#基数">基数</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="51-二叉树及其表示" class="headerLink">
+    <a href="#51-%e4%ba%8c%e5%8f%89%e6%a0%91%e5%8f%8a%e5%85%b6%e8%a1%a8%e7%a4%ba" class="header-mark"></a>§5.1 二叉树及其表示</h2><h3 id="511-树" class="headerLink">
+    <a href="#511-%e6%a0%91" class="header-mark"></a>5.1.1 树</h3><h4 id="有根树" class="headerLink">
+    <a href="#%e6%9c%89%e6%a0%b9%e6%a0%91" class="header-mark"></a>有根树</h4><p>从图论的角度看，树等价于连通无环图。因此与一般的图相同，树也由一组<strong>顶点（vertex）</strong> 以及联接与其间的若干条<strong>边（edge）</strong> 组成。</p>
+<p>在计算机科学中，往往还会在此基础上，再<em>指定某一特定顶点</em>，并称之为<strong>根（root）</strong>。</p>
+<p>在指定根节点之后，我们也称之为<strong>有根树（rooted tree）</strong>。
+此时，从程序实现的角度，我们也更多地将顶点称作<strong>节点（node）</strong>。</p>
+<h4 id="深度与层次" class="headerLink">
+    <a href="#%e6%b7%b1%e5%ba%a6%e4%b8%8e%e5%b1%82%e6%ac%a1" class="header-mark"></a>深度与层次</h4><p>由树的连通性，每一节点与根之间都有一条路径相联；而根据树的无环性，由根通往每个节点的路径必然唯一。</p>
+<p>因此如图5.1所示，<em>沿每个节点 v到根 r 的唯一通路所经过边的数目</em>，称作 v 的<strong>深度（depth）</strong>，记作 depth(v)。</p>
+<p>依据深度排序，可对所有节点做分层归类。特别地，约定根节点的深度 depth(r) = 0，故属于第0层。</p>
+<h4 id="祖先后代与子树" class="headerLink">
+    <a href="#%e7%a5%96%e5%85%88%e5%90%8e%e4%bb%a3%e4%b8%8e%e5%ad%90%e6%a0%91" class="header-mark"></a>祖先、后代与子树</h4><p>任一节点 v 在通往树根沿途所经过的每个节点都是其<strong>祖先</strong>（ancestor），v 是它们的<strong>后代</strong>（descendant）。</p>
+<p>特别地，v 的祖先/后代包括其本身，而v本身以外的祖先/后代称作真祖先（proper ancestor）/ 真后代（proper descendant）。</p>
+<p>节点 v 历代祖先的层次，自下而上以 1 为单位逐层递减；在每一层次上，v 的祖先至多一个。</p>
+<p>特别地，若节点 u 是 v 的祖先且恰好比 v 高出一层， 则称 u 是 v 的<strong>父亲</strong>（parent），v 是 u 的<strong>孩子</strong>（child）。</p>
+<p>v 的孩子总数，称作其<strong>度数或度</strong>（degree），记作 deg(v)。无孩子的节点称作<strong>叶节点</strong>（leaf），包括根在内的其余节点皆为内部节点（internal node）。</p>
+<p>v 所有的后代及其之间的联边称作<strong>子树</strong>（subtree），记作 subtree(v)。</p>
+<p>![[有根树的逻辑结构.png]]</p>
+<h4 id="高度" class="headerLink">
+    <a href="#%e9%ab%98%e5%ba%a6" class="header-mark"></a>高度</h4><p>树 T 中所有节点[[5.1 二叉树及其表示#深度与层次|深度]]的最大值称作该树的<strong>高度</strong>（height），记作height(T)。</p>
+<p>特别地，本书约定，仅含单个节点的树高度为0，空树高度为-1。</p>
+<p>推而广之，任一节点 v 所对应子树 subtree(v) 的高度，亦称作该节点的高度，记作 height(v)。特别地，全树的高度亦即其根节点 r 的高度，height(T) = height(r)。</p>
+<h3 id="512-二叉树" class="headerLink">
+    <a href="#512-%e4%ba%8c%e5%8f%89%e6%a0%91" class="header-mark"></a>5.1.2 二叉树</h3><p>![[Pasted image 20220405161653.png]]</p>
+<p>如图5.2所示，二叉树（binary tree）中每个节点的度数均<strong>不超过2</strong>。</p>
+<p>因此在二叉树中，同一父节点的孩子都可以左、右相互区分——此时，亦称作<strong>有序二叉树</strong>（ordered binary tree）。本书所提到的二叉树，默认地都是有序的。</p>
+<h3 id="513-多叉树" class="headerLink">
+    <a href="#513-%e5%a4%9a%e5%8f%89%e6%a0%91" class="header-mark"></a>5.1.3 多叉树</h3><p>一般地，树中各节点的孩子数目并不确定。每个节点的孩子均不超过 k 个的有根树，称作 k 叉树（k-ary tree）。</p>
+<h4 id="父节点" class="headerLink">
+    <a href="#%e7%88%b6%e8%8a%82%e7%82%b9" class="header-mark"></a>父节点</h4><p>在多叉树中，根节点以外的任一节点有且仅有一个父节点。</p>
+<p>将各节点组织为向量或列表，其中每个元素除保存<strong>节点本身的信息</strong>（data）外，还需要保存<strong>父节点（parent）的秩或位置</strong>。可为树根指定一个虚构的父节点 -1 或NULL，以便统一判断。
+![[Pasted image 20220405162142.png]]</p>
+<ul>
+<li>所有向量或列表所占的空间总量为 O(n)，线性正比于节点总数 n。</li>
+<li>时间方面，仅需常数时间，即可确定任一节点的父节点；</li>
+<li>但反过来，孩子节点的查找却不得不花费 O(n) 时间访遍所有节点。</li>
+</ul>
+<h4 id="孩子节点" class="headerLink">
+    <a href="#%e5%ad%a9%e5%ad%90%e8%8a%82%e7%82%b9" class="header-mark"></a>孩子节点</h4><p>若注重孩子节点的快速定位，可如图5.4所示，令各节点将其所有的孩子组织为一个向量或列表。如此，对于拥有 r 个孩子的节点，可在 <strong>O(r + 1)</strong> 时间内列举出其所有的孩子。
+![[Pasted image 20220405162446.png]]</p>
+<h4 id="父节点--孩子节点" class="headerLink">
+    <a href="#%e7%88%b6%e8%8a%82%e7%82%b9--%e5%ad%a9%e5%ad%90%e8%8a%82%e7%82%b9" class="header-mark"></a>父节点 + 孩子节点</h4><p>以上父节点表示法和孩子节点表示法各有所长，但也各有所短。为综合二者的优势，消除缺点，可如图5.5所示令各节点既记录父节点，同时也维护一个序列以保存所有孩子。</p>
+<p>尽管如此可以高效地<em>兼顾对父节点和孩子的定位</em>，但在节点插入与删除操作频繁的场合，为动态地维护和更新树的拓扑结构，不得不反复地遍历和调整一些节点所对应的孩子序列。然而，向量和列表等线性结构的此类操作都需耗费大量时间，势必影响到整体的效率。</p>
+<p>![[Pasted image 20220405162533.png]]</p>
+<h4 id="有序多叉树--二叉树" class="headerLink">
+    <a href="#%e6%9c%89%e5%ba%8f%e5%a4%9a%e5%8f%89%e6%a0%91--%e4%ba%8c%e5%8f%89%e6%a0%91" class="header-mark"></a>有序多叉树 = 二叉树</h4><p>解决上述难题的方法之一，就是采用支持高效动态调整的二叉树结构。为此，必须首先建立起从多叉树到二叉树的某种转换关系，并使得在此转换的意义下，任一多叉树都等价于某棵二叉树。</p>
+<p>当然，为了保证作为多叉树特例的二叉树有足够的能力表示任何一棵多叉树，我们只需给多叉树增加一项约束条件——<em>同一节点的所有孩子之间必须具有某一线性次序</em>。</p>
+<p>仿照有序二叉树的定义，凡符合这一条件的多叉树也称作<strong>有序树</strong>（ordered tree）。通常根节点的分支可以按照字典序排列</p>
+<h4 id="长子--兄弟" class="headerLink">
+    <a href="#%e9%95%bf%e5%ad%90--%e5%85%84%e5%bc%9f" class="header-mark"></a>长子 + 兄弟</h4><p>由图5.6(a)的实例可见，有序多叉树中任一非叶节点都有唯一的**“长子”** ，而且从该 “长子” 出发，可按照预先约定或指定的次序遍历所有孩子节点。因此可如图(b)所示，为每个节点设置两个指针，分别指向其 <strong>“长子”</strong> 和<strong>下一“ 兄弟”</strong> 。
+![[Pasted image 20220405163134.png]]</p>
+<p>现在，若将这两个指针分别与二叉树节点的左、右孩子指针统一对应起来，则可进一步地将原有序多叉树转换为如图(c)所示的<strong>常规二叉树</strong>。</p>
+<h3 id="二叉树" class="headerLink">
+    <a href="#%e4%ba%8c%e5%8f%89%e6%a0%91" class="header-mark"></a>二叉树</h3><p><strong>有序有根树 = 二叉树</strong>
+Binary Tree：节点度数不超过 2
+孩子（子树）可以左右区分（有序）</p>
+<ul>
+<li>
+<p>lc() ~ lSubtree()</p>
+</li>
+<li>
+<p>rc() ~ rSubtree()
+<img src="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/Pasted image 20220408084438.png"/></p>
+</li>
+<li>
+<p>深度为 k 的二叉树，至多有 2^k个节点</p>
+</li>
+<li>
+<p>n 个节点，高为 h 的二叉树满足 h + 1 &lt;= n &lt;= 2^(h+1) -1</p>
+</li>
+<li>
+<p>特殊情况：</p>
+<ul>
+<li>n = h + 1：退化为一条单链</li>
+<li>n = 2^(h+1) - 1 ：为满二叉树</li>
+</ul>
+</li>
+</ul>
+<h4 id="基数" class="headerLink">
+    <a href="#%e5%9f%ba%e6%95%b0" class="header-mark"></a>基数</h4><ul>
+<li>设度数为 0、1、2 的节点各有n0、n1、n2个</li>
+<li>边数 <strong>e = n - 1</strong> = n1 + 2 * n2
+<ul>
+<li>1/2 度节点对应于 1/2 条入边</li>
+</ul>
+</li>
+<li>叶节点树 <strong>n0 = n2 + 1</strong>
+<ul>
+<li>n1 与 n0 无关：h = 0 时，1 = 0 + 1；此后，n0与n2同步递增</li>
+</ul>
+</li>
+<li>节点数 n = n0 + n1 + n2 = 1 + n1 + 2n2</li>
+<li>当 n1 = 0 时，有 e = 2 * n2 和 n0 = n2 + 1 = (n + 1) / 2
+<ul>
+<li>此时，节点数为偶数，不含单分支节点</li>
+</ul>
+</li>
+</ul>
+<p>![[Pasted image 20220408085600.png]]</p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-04-21</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span><a class="link-to-mardown" href=/5.1-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%8F%8A%E5%85%B6%E8%A1%A8%E7%A4%BA/index.md target="_blank" rel="noopener noreferrer">阅读原始文档</a>
+                    </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/" class="prev" rel="prev" title="树状数组"><i class="fas fa-angle-left fa-fw"></i>树状数组</a>
+            <a href="/hello_world/" class="next" rel="next" title="Hello_world">Hello_world<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="utterances"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
+            </noscript></div></article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                    由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.3">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Silas</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/fuse/fuse.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/tablesort/tablesort.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"Silas-py/hugoblogtalks"}},"data":{"desktop-header-typeit":"Yimu","mobile-header-typeit":"Yimu"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"table":{"sort":true},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/utterances.min.js" defer></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript></div>
+</body>
+
+</html>

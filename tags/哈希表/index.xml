@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>哈希表 - 标签 - </title>
+        <link>https://silasblog.top/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/</link>
+        <description>哈希表 - 标签 - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 07 Sep 2021 23:06:23 &#43;0800</lastBuildDate><atom:link href="https://silasblog.top/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="self" type="application/rss+xml" /><item>
+    <title>哈希表</title>
+    <link>https://silasblog.top/%E5%93%88%E5%B8%8C%E8%A1%A8/</link>
+    <pubDate>Tue, 07 Sep 2021 23:06:23 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://silasblog.top/%E5%93%88%E5%B8%8C%E8%A1%A8/</guid>
+    <description><![CDATA[哈希表基础和实现 1、概念： 哈希表是通过计算一个关于键值的函数，将所需查询的数据映射到表中一个位置来访问记录，这加快了查找速度。这个映射函数称]]></description>
+</item></channel>
+</rss>
