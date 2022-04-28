@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">《C&#43;&#43;Primer》15章 面向对象程序设计 - </title><meta name="Description" content=""><meta property="og:title" content="《C&#43;&#43;Primer》15章 面向对象程序设计" />
+<meta property="og:description" content="15.1 OOP：概述面向对象程序设计：核心思想是数据抽象、继承和动态绑定 数据抽象：类的接口与实现进行分离 继承：定义相似的类型并对相似关系建模 动态绑" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.silasblog.top/notes/chapter15-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" /><meta property="og:image" content="https://blog.silasblog.top/logo.png"/><meta property="article:section" content="notes" />
+<meta property="article:published_time" content="2022-04-28T14:51:51+08:00" />
+<meta property="article:modified_time" content="2022-04-28T14:51:51+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.silasblog.top/logo.png"/>
+
+<meta name="twitter:title" content="《C&#43;&#43;Primer》15章 面向对象程序设计"/>
+<meta name="twitter:description" content="15.1 OOP：概述面向对象程序设计：核心思想是数据抽象、继承和动态绑定 数据抽象：类的接口与实现进行分离 继承：定义相似的类型并对相似关系建模 动态绑"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content="">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="https://blog.silasblog.top/notes/chapter15-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《C++Primer》15章 面向对象程序设计",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.silasblog.top\/notes\/chapter15-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1\/"
+        },"genre": "notes","keywords": "C\u002b\u002b","wordcount":  2288 ,
+        "url": "https:\/\/blog.silasblog.top\/notes\/chapter15-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1\/","datePublished": "2022-04-28T14:51:51+08:00","dateModified": "2022-04-28T14:51:51+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Silas"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="normal" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/notes/"> 笔记 </a><a class="menu-item" href="/life/"> 生活 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/notes/" title="">笔记</a><a class="menu-item" href="/life/" title="">生活</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">《C&#43;&#43;Primer》15章 面向对象程序设计</h1><div class="content" id="content"><h2 id="151-oop概述" class="headerLink">
+    <a href="#151-oop%e6%a6%82%e8%bf%b0" class="header-mark"></a>15.1 OOP：概述</h2><p><strong>面向对象程序设计</strong>：核心思想是数据抽象、继承和动态绑定</p>
+<ul>
+<li>数据抽象：类的接口与实现进行分离</li>
+<li>继承：定义相似的类型并对相似关系建模</li>
+<li>动态绑定：一定程度上忽略相似类型的区别，用统一的方式使用它们的对象</li>
+</ul>
+<h4 id="继承" class="headerLink">
+    <a href="#%e7%bb%a7%e6%89%bf" class="header-mark"></a>继承</h4><p>通过<strong>继承</strong>联系在一起的类构成一种层次关系，这种层次关系的根部有一个<strong>基类</strong>，其他类直接或间接由基类继承而来，继承得到的类称为<strong>派生类</strong>，继承的关系满足 is a ，即派生类本身也是一种基类的类型</p>
+<p>对于基类中的某些函数，如果派生类需要自定义适合自身的版本，可以在基类中将这些函数声明为<strong>虚函数</strong>，派生类必须在内部对所有的虚函数重新声明</p>
+<h4 id="动态绑定" class="headerLink">
+    <a href="#%e5%8a%a8%e6%80%81%e7%bb%91%e5%ae%9a" class="header-mark"></a>动态绑定</h4><p>使用动态绑定，可以用同一段代码处理基类和派生类的对象</p>
+<p>比如说定义一个函数参入的形参是基类类型，然后打印处基类的成员，此时如果传入一个派生类也同样可以打印派生类的成员，这时调用的函数会根据实际传入的类型进行调用</p>
+<p>动态绑定过程是在函数运行时由实参决定，有时也可以称为<strong>运行时绑定</strong></p>
+<h2 id="152-定义基类和派生类" class="headerLink">
+    <a href="#152-%e5%ae%9a%e4%b9%89%e5%9f%ba%e7%b1%bb%e5%92%8c%e6%b4%be%e7%94%9f%e7%b1%bb" class="header-mark"></a>15.2 定义基类和派生类</h2><h3 id="1521-定义基类" class="headerLink">
+    <a href="#1521-%e5%ae%9a%e4%b9%89%e5%9f%ba%e7%b1%bb" class="header-mark"></a>15.2.1 定义基类</h3><p>首先定义 Quote 类：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Quote</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Quote</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span><span class="c1">//默认构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Quote</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">book</span><span class="p">,</span> <span class="kt">double</span> <span class="n">sales_price</span><span class="p">)</span> <span class="o">:</span> 
+</span></span><span class="line"><span class="cl">					<span class="n">bookNo</span><span class="p">(</span><span class="n">book</span><span class="p">),</span> <span class="n">price</span><span class="p">(</span><span class="n">sales_price</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">isbn</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">bookNo</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//返回给定数量书籍的销售总额
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//派生类负责改写并使用不同的折算算法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">virtual</span> <span class="kt">double</span> <span class="nf">net_price</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">)</span> <span class="k">const</span> 
+</span></span><span class="line"><span class="cl">			<span class="p">{</span> <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">price</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="o">~</span><span class="n">Quote</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span><span class="c1">//对析构函数进行动态绑定
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">bookNo</span><span class="p">;</span> <span class="c1">//书籍ISBN号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">double</span> <span class="n">price</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span> <span class="c1">//普通状态下不打折的价格
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>基类通常定义一个虚析构函数，即使不执行任何操作</p>
+</blockquote>
+<h4 id="成员函数和继承" class="headerLink">
+    <a href="#%e6%88%90%e5%91%98%e5%87%bd%e6%95%b0%e5%92%8c%e7%bb%a7%e6%89%bf" class="header-mark"></a>成员函数和继承</h4><p>派生类可以继承基类的成员，遇见 net_price 这种与类型相关的操作，派生类需要对这些操作提供自己新定义以<strong>覆盖</strong>从基类继承而来的定义</p>
+<p>通常将基类希望派生类进行覆盖的函数定义为<strong>虚函数</strong>，当使用指针或者引用调用虚函数时，该调用将被动态绑定</p>
+<h4 id="访问控制和继承" class="headerLink">
+    <a href="#%e8%ae%bf%e9%97%ae%e6%8e%a7%e5%88%b6%e5%92%8c%e7%bb%a7%e6%89%bf" class="header-mark"></a>访问控制和继承</h4><ul>
+<li>派生类可以继承定义在基类中的成员，但是派生类的成员函数不一定有权访问从基类继承而来的成员</li>
+<li>派生类可以访问公有成员，但是不能访问私有成员</li>
+<li>如果希望基类的派生类有权访问该成员，同时禁止其他用户访问，可以定义为<strong>受保护的</strong>（protected）</li>
+</ul>
+<h3 id="1522-定义派生类" class="headerLink">
+    <a href="#1522-%e5%ae%9a%e4%b9%89%e6%b4%be%e7%94%9f%e7%b1%bb" class="header-mark"></a>15.2.2 定义派生类</h3><p>派生类必须通过<strong>类派生列表</strong>来指明它是从哪个基类继承而来的，类派生列表形式是：首先一个冒号，后面紧跟以逗号分隔的基类列表，每个基类前面可以有以下三种访问说明符之一：public、protected和private</p>
+<p>定义 Bulk_quote 类</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Bulk_quote</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Quote</span> <span class="p">{</span> <span class="c1">//Bulk_quote继承自Quote
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Bulk_quote</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Bulk_quote</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span> <span class="kt">double</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//覆盖基类的函数版本以实现基于大量购买的折扣政策
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">double</span> <span class="nf">net_price</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">)</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">min_qty</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="c1">//适用折扣政策的最低购买量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">double</span> <span class="n">discount</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>  <span class="c1">//以小数表示折扣额
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Bulk_quote 类从基类 Quote 继承了 isbn 函数和 bookNo、price等数据成员，此外还定义了 net_price 的新版本，同时增加了两个新的数据成员</p>
+<h4 id="派生类中的虚函数" class="headerLink">
+    <a href="#%e6%b4%be%e7%94%9f%e7%b1%bb%e4%b8%ad%e7%9a%84%e8%99%9a%e5%87%bd%e6%95%b0" class="header-mark"></a>派生类中的虚函数</h4><p>派生类如果没有覆盖基类的虚函数，则派生类会直接继承基类中的版本</p>
+<p>C++11新标准允许派生类显示注明它使用某个成员函数覆盖了它继承的虚函数，具体做法是在函数定义后面加个关键字 override</p>
+<h4 id="派生类对象即派生类向基类的类型转换" class="headerLink">
+    <a href="#%e6%b4%be%e7%94%9f%e7%b1%bb%e5%af%b9%e8%b1%a1%e5%8d%b3%e6%b4%be%e7%94%9f%e7%b1%bb%e5%90%91%e5%9f%ba%e7%b1%bb%e7%9a%84%e7%b1%bb%e5%9e%8b%e8%bd%ac%e6%8d%a2" class="header-mark"></a>派生类对象即派生类向基类的类型转换</h4><p>派生类对象含有基类对应的成员部分，我们可以将派生类对象当成基类对象来使用，也能将基类指针或引用绑定到派生类对象的基类部分上</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Quote</span> <span class="n">item</span><span class="p">;</span>      <span class="c1">//基类对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Bulk_quote</span> <span class="n">bulk</span><span class="p">;</span> <span class="c1">//派生类对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Quote</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">item</span><span class="p">;</span><span class="c1">//p指向Quote对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">bulk</span><span class="p">;</span>       <span class="c1">//p指向bulk的Quote部分
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Quote</span> <span class="o">&amp;</span><span class="n">r</span> <span class="o">=</span> <span class="n">bulk</span><span class="p">;</span> <span class="c1">//r绑定到bulk的Quote部分
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这种转换称为<strong>派生类到基类的</strong>类型转换</p>
+<h4 id="派生类构造函数" class="headerLink">
+    <a href="#%e6%b4%be%e7%94%9f%e7%b1%bb%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0" class="header-mark"></a>派生类构造函数</h4><p>派生类对象中含有从基类继承的成员，但是派生类不能直接初始化这些成员，派生类必须使用基类的构造函数来初始化它的基类部分</p>
+<p>派生类在初始化成员时，可以通过构造函数初始化列表将实参传给基类构造函数，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//Bulk_quote的构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Bulk_quote</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">book</span><span class="p">,</span> <span class="kt">double</span> <span class="n">p</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">		   <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">qyt</span><span class="p">,</span> <span class="kt">double</span> <span class="n">disc</span><span class="p">)</span> <span class="o">:</span>
+</span></span><span class="line"><span class="cl">		   <span class="n">Quote</span><span class="p">(</span><span class="n">book</span><span class="p">,</span> <span class="n">p</span><span class="p">),</span> <span class="n">min_qty</span><span class="p">(</span><span class="n">qty</span><span class="p">),</span> <span class="n">discount</span><span class="p">(</span><span class="n">disc</span><span class="p">)</span> <span class="p">{}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>派生类首先初始化基类部分，然后按照声明顺序初始化派生类的成员</p>
+</blockquote>
+<h4 id="派生类使用基类的成员" class="headerLink">
+    <a href="#%e6%b4%be%e7%94%9f%e7%b1%bb%e4%bd%bf%e7%94%a8%e5%9f%ba%e7%b1%bb%e7%9a%84%e6%88%90%e5%91%98" class="header-mark"></a>派生类使用基类的成员</h4><p>派生类可以访问基类的公用成员和受保护的成员，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//如果达到购买书籍某个最低限度值，就可以享受折扣价格
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">double</span> <span class="n">Bulk_quote</span><span class="o">::</span><span class="n">net_price</span><span class="p">(</span><span class="n">size_t</span> <span class="n">cnt</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">cnt</span> <span class="o">&gt;=</span> <span class="n">min_qty</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">cnt</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">discount</span><span class="p">)</span> <span class="o">*</span> <span class="n">price</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">cnt</span> <span class="o">*</span> <span class="n">price</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="继承与静态成员" class="headerLink">
+    <a href="#%e7%bb%a7%e6%89%bf%e4%b8%8e%e9%9d%99%e6%80%81%e6%88%90%e5%91%98" class="header-mark"></a>继承与静态成员</h4><p>如果基类定义了一个静态成员，则整个继承体系中只存在该成员的唯一定义，不能派生出来多个各类，每一个静态成员只存在唯一的实例</p>
+<p>静态成员遵循通用的访问控制规则，如果基类中定义为 private 的，派生类无权进行访问；如果静态成员可访问，既可以通过基类使用它，也可以通过派生类使用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">static</span> <span class="kt">void</span> <span class="n">statemen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derived</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="k">const</span> <span class="n">Derived</span><span class="o">&amp;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">Derived</span><span class="o">::</span><span class="n">f</span><span class="p">(</span><span class="k">const</span> <span class="n">Derived</span> <span class="o">&amp;</span><span class="n">derived_obj</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Base</span><span class="o">::</span><span class="n">statemem</span><span class="p">();</span>       <span class="c1">//通过基类访问
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Derived</span><span class="o">::</span><span class="n">statemem</span><span class="p">();</span>    <span class="c1">//通过派生类访问
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">derived_obj</span><span class="p">.</span><span class="n">statemem</span><span class="p">();</span> <span class="c1">//通过基类对象访问
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">statemem</span><span class="p">();</span>             <span class="c1">//通过this对象访问
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="派生类的声明" class="headerLink">
+    <a href="#%e6%b4%be%e7%94%9f%e7%b1%bb%e7%9a%84%e5%a3%b0%e6%98%8e" class="header-mark"></a>派生类的声明</h4><p>派生类声明和其他类差别不大，声明中包含类名但是不包含它的派生列表：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Bulk_quote</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Quote</span><span class="p">;</span><span class="c1">//错误，派生列表不能出现在这
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">Bulk_quote</span><span class="p">;</span>               <span class="c1">//正确：声明派生类的正确方式
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="被用作基类的类" class="headerLink">
+    <a href="#%e8%a2%ab%e7%94%a8%e4%bd%9c%e5%9f%ba%e7%b1%bb%e7%9a%84%e7%b1%bb" class="header-mark"></a>被用作基类的类</h4><p>如果想用某个类作为基类，则这个类必须已经定义而非仅仅声明：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Quote</span><span class="p">;</span><span class="c1">//声明但未定义
+</span></span></span><span class="line"><span class="cl"><span class="c1">//错误：Quote必须被定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">Bulk_quote</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Quote</span> <span class="p">{...};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>一个类不可以派生它本身</p>
+<h4 id="防止继承的发生" class="headerLink">
+    <a href="#%e9%98%b2%e6%ad%a2%e7%bb%a7%e6%89%bf%e7%9a%84%e5%8f%91%e7%94%9f" class="header-mark"></a>防止继承的发生</h4><p>如果不希望某一个类派生出其他类，或者不考虑将它作为一个基类，C++11新标准提供了一种防止继承发生的方法，即在类名后面跟一个关键字 final：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">NoDrived</span> <span class="k">final</span> <span class="p">{</span> <span class="cm">/***/</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Bad</span> <span class="o">:</span> <span class="n">Noderived</span> <span class="p">{</span> <span class="cm">/***/</span> <span class="p">};</span> <span class="c1">//错误：NoDrived是final的
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="1523-类型转换与继承" class="headerLink">
+    <a href="#1523-%e7%b1%bb%e5%9e%8b%e8%bd%ac%e6%8d%a2%e4%b8%8e%e7%bb%a7%e6%89%bf" class="header-mark"></a>15.2.3 类型转换与继承</h3><p>我们可以将基类的指针或引用绑定到派生类对象上，例如：可以用 Quote&amp; 指向一个 Bulk_quote 对象</p>
+<p>==当使用基类的引用（或指针）时，我们并不清楚该引用（指针）所绑定对象的真实类型==，可能该对象时基类的对象，也可能时派生类的对象</p>
+<blockquote>
+<p>智能指针类也支持派生类向基类的类型转换</p>
+</blockquote>
+<h4 id="静态类型和动态类型" class="headerLink">
+    <a href="#%e9%9d%99%e6%80%81%e7%b1%bb%e5%9e%8b%e5%92%8c%e5%8a%a8%e6%80%81%e7%b1%bb%e5%9e%8b" class="header-mark"></a>静态类型和动态类型</h4></div><div id="comments"><div id="utterances"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
+            </noscript></div></div></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                    由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.3">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Silas</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/fuse/fuse.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/tablesort/tablesort.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"Silas-py/hugoblogtalks"}},"data":{"desktop-header-typeit":"Yimu","mobile-header-typeit":"Yimu"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"table":{"sort":true},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/utterances.min.js" defer></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript></div>
+</body>
+
+</html>

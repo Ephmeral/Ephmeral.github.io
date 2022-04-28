@@ -1,0 +1,21 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>C&#43;&#43; - 分类 - </title>
+        <link>https://blog.silasblog.top/categories/c&#43;&#43;/</link>
+        <description>C&#43;&#43; - 分类 - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 28 Apr 2022 14:51:51 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/categories/c&#43;&#43;/" rel="self" type="application/rss+xml" /><item>
+    <title>《C&#43;&#43;Primer》15章 面向对象程序设计</title>
+    <link>https://blog.silasblog.top/notes/chapter15-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</link>
+    <pubDate>Thu, 28 Apr 2022 14:51:51 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/notes/chapter15-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</guid>
+    <description><![CDATA[15.1 OOP：概述面向对象程序设计：核心思想是数据抽象、继承和动态绑定 数据抽象：类的接口与实现进行分离 继承：定义相似的类型并对相似关系建模 动态绑]]></description>
+</item><item>
+    <title>《C&#43;&#43;Primer》第十四章 重载运算与类型转换</title>
+    <link>https://blog.silasblog.top/chapter14-%E9%87%8D%E8%BD%BD%E8%BF%90%E7%AE%97%E4%B8%8E%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</link>
+    <pubDate>Mon, 25 Apr 2022 09:14:08 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/chapter14-%E9%87%8D%E8%BD%BD%E8%BF%90%E7%AE%97%E4%B8%8E%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</guid>
+    <description><![CDATA[第14章 重载运算与类型转换14.1 基本概念重载的运算符是具有特殊名字的函数：它们的名字由关键字 operator 和其后要定义的运算符号共同组成。和其他函数一]]></description>
+</item></channel>
+</rss>
