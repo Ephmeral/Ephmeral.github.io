@@ -10,12 +10,5 @@
         <name>Silas</name>
     </author><guid>https://blog.silasblog.top/5.1-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%8F%8A%E5%85%B6%E8%A1%A8%E7%A4%BA/</guid>
     <description><![CDATA[§5.1 二叉树及其表示5.1.1 树有根树从图论的角度看，树等价于连通无环图。因此与一般的图相同，树也由一组顶点（vertex） 以及联接与其间]]></description>
-</item><item>
-    <title>哈希表</title>
-    <link>https://blog.silasblog.top/%E5%93%88%E5%B8%8C%E8%A1%A8/</link>
-    <pubDate>Tue, 07 Sep 2021 23:06:23 &#43;0800</pubDate><author>
-        <name>Silas</name>
-    </author><guid>https://blog.silasblog.top/%E5%93%88%E5%B8%8C%E8%A1%A8/</guid>
-    <description><![CDATA[哈希表基础和实现 1、概念： 哈希表是通过计算一个关于键值的函数，将所需查询的数据映射到表中一个位置来访问记录，这加快了查找速度。这个映射函数称]]></description>
 </item></channel>
 </rss>
