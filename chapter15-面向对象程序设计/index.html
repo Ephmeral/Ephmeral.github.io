@@ -5,17 +5,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp" />
-    <title class="pjax-title">《C&#43;&#43;Primer》| 第十五章 面向对象程序设计 - </title><meta name="Description" content=""><meta property="og:title" content="《C&#43;&#43;Primer》| 第十五章 面向对象程序设计" />
+    <title class="pjax-title">《C&#43;&#43;Primer》第十五章 面向对象程序设计 - </title><meta name="Description" content=""><meta property="og:title" content="《C&#43;&#43;Primer》第十五章 面向对象程序设计" />
 <meta property="og:description" content="15.1 OOP：概述面向对象程序设计：核心思想是数据抽象、继承和动态绑定 数据抽象：类的接口与实现进行分离 继承：定义相似的类型并对相似关系建模 动态绑" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.silasblog.top/chapter15-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" /><meta property="og:image" content="https://blog.silasblog.top/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-04-28T14:51:51+08:00" />
-<meta property="article:modified_time" content="2022-04-28T14:51:51+08:00" />
+<meta property="article:modified_time" content="2022-05-04T11:26:51+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://blog.silasblog.top/logo.png"/>
 
-<meta name="twitter:title" content="《C&#43;&#43;Primer》| 第十五章 面向对象程序设计"/>
+<meta name="twitter:title" content="《C&#43;&#43;Primer》第十五章 面向对象程序设计"/>
 <meta name="twitter:description" content="15.1 OOP：概述面向对象程序设计：核心思想是数据抽象、继承和动态绑定 数据抽象：类的接口与实现进行分离 继承：定义相似的类型并对相似关系建模 动态绑"/>
 <meta name="application-name" content="">
 <meta name="apple-mobile-web-app-title" content="">
@@ -28,13 +28,13 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "《C++Primer》| 第十五章 面向对象程序设计",
+        "headline": "《C++Primer》第十五章 面向对象程序设计",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/blog.silasblog.top\/chapter15-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1\/"
-        },"genre": "posts","keywords": "C\u002b\u002b","wordcount":  2284 ,
-        "url": "https:\/\/blog.silasblog.top\/chapter15-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1\/","datePublished": "2022-04-28T14:51:51+08:00","dateModified": "2022-04-28T14:51:51+08:00","publisher": {
+        },"genre": "posts","keywords": "C\u002b\u002b","wordcount":  10613 ,
+        "url": "https:\/\/blog.silasblog.top\/chapter15-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1\/","datePublished": "2022-04-28T14:51:51+08:00","dateModified": "2022-05-04T11:26:51+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -149,18 +149,102 @@
         <li><a href="#1523-类型转换与继承">15.2.3 类型转换与继承</a>
           <ul>
             <li><a href="#静态类型和动态类型">静态类型和动态类型</a></li>
+            <li><a href="#不存在基类向派生类的隐式转换">不存在基类向派生类的隐式转换</a></li>
+            <li><a href="#对象之间不存在类型转换">对象之间不存在类型转换</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#153-虚函数">15.3 虚函数</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#虚函数的调用可能在运行时才被解析">虚函数的调用可能在运行时才被解析</a></li>
+            <li><a href="#派生类中的虚函数-1">派生类中的虚函数</a></li>
+            <li><a href="#final-和-override-说明符">final 和 override 说明符</a></li>
+            <li><a href="#虚函数和默认实参">虚函数和默认实参</a></li>
+            <li><a href="#回避虚函数的机制">回避虚函数的机制</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#154-抽象基类">15.4 抽象基类</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#纯虚函数">纯虚函数</a></li>
+            <li><a href="#派生类构造函数只初始化它的直接基类">派生类构造函数只初始化它的直接基类</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#155-访问控制与继承">15.5 访问控制与继承</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#受保护的成员">受保护的成员</a></li>
+            <li><a href="#公共私有和受保护继承">公共、私有和受保护继承</a></li>
+            <li><a href="#派生类向基类转换的可访问性">派生类向基类转换的可访问性</a></li>
+            <li><a href="#友元和继承">友元和继承</a></li>
+            <li><a href="#改变个别成员的可访问性">改变个别成员的可访问性</a></li>
+            <li><a href="#默认的继承保护级别">默认的继承保护级别</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#156-继承中的类作用域">15.6 继承中的类作用域</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#在编译时进行名字查找">在编译时进行名字查找</a></li>
+            <li><a href="#名字冲突与继承">名字冲突与继承</a></li>
+            <li><a href="#名字查找先于类型检查">名字查找先于类型检查</a></li>
+            <li><a href="#虚函数和作用域">虚函数和作用域</a></li>
+            <li><a href="#覆盖重载的函数">覆盖重载的函数</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#157-构造函数与拷贝控制">15.7 构造函数与拷贝控制</a>
+      <ul>
+        <li><a href="#1571-虚析构函数">15.7.1 虚析构函数</a>
+          <ul>
+            <li><a href="#虚函数将阻止合成移动操作">虚函数将阻止合成移动操作</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#1572-合成拷贝控制与继承">15.7.2 合成拷贝控制与继承</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#派生类中删除的拷贝控制和基类的关系">派生类中删除的拷贝控制和基类的关系</a></li>
+            <li><a href="#移动操作和继承">移动操作和继承</a></li>
+          </ul>
+        </li>
+        <li><a href="#1573-派生类的拷贝控制成员">15.7.3 派生类的拷贝控制成员</a>
+          <ul>
+            <li><a href="#定义派生类的拷贝或移动构造函数">定义派生类的拷贝或移动构造函数</a></li>
+            <li><a href="#派生类赋值运算符">派生类赋值运算符</a></li>
+            <li><a href="#派生类析构函数">派生类析构函数</a></li>
+            <li><a href="#构造函数和析构函数中调用虚函数">构造函数和析构函数中调用虚函数</a></li>
+          </ul>
+        </li>
+        <li><a href="#1574-继承的构造函数">15.7.4 继承的构造函数</a>
+          <ul>
+            <li><a href="#继承的构造函数特点">继承的构造函数特点</a></li>
           </ul>
         </li>
       </ul>
     </li>
   </ul>
 </nav></div>
-    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "wide")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">《C&#43;&#43;Primer》| 第十五章 面向对象程序设计</h1><div class="post-meta">
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "wide")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">《C&#43;&#43;Primer》第十五章 面向对象程序设计</h1><div class="post-meta">
             <div class="post-meta-line">
                 <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Silas</a>
                 </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/c++/"><i class="far fa-folder fa-fw"></i>C++</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-28">2022-04-28</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-04-28">2022-04-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2284 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-28">2022-04-28</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-05-04">2022-05-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 10613 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 22 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -201,6 +285,90 @@
         <li><a href="#1523-类型转换与继承">15.2.3 类型转换与继承</a>
           <ul>
             <li><a href="#静态类型和动态类型">静态类型和动态类型</a></li>
+            <li><a href="#不存在基类向派生类的隐式转换">不存在基类向派生类的隐式转换</a></li>
+            <li><a href="#对象之间不存在类型转换">对象之间不存在类型转换</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#153-虚函数">15.3 虚函数</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#虚函数的调用可能在运行时才被解析">虚函数的调用可能在运行时才被解析</a></li>
+            <li><a href="#派生类中的虚函数-1">派生类中的虚函数</a></li>
+            <li><a href="#final-和-override-说明符">final 和 override 说明符</a></li>
+            <li><a href="#虚函数和默认实参">虚函数和默认实参</a></li>
+            <li><a href="#回避虚函数的机制">回避虚函数的机制</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#154-抽象基类">15.4 抽象基类</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#纯虚函数">纯虚函数</a></li>
+            <li><a href="#派生类构造函数只初始化它的直接基类">派生类构造函数只初始化它的直接基类</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#155-访问控制与继承">15.5 访问控制与继承</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#受保护的成员">受保护的成员</a></li>
+            <li><a href="#公共私有和受保护继承">公共、私有和受保护继承</a></li>
+            <li><a href="#派生类向基类转换的可访问性">派生类向基类转换的可访问性</a></li>
+            <li><a href="#友元和继承">友元和继承</a></li>
+            <li><a href="#改变个别成员的可访问性">改变个别成员的可访问性</a></li>
+            <li><a href="#默认的继承保护级别">默认的继承保护级别</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#156-继承中的类作用域">15.6 继承中的类作用域</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#在编译时进行名字查找">在编译时进行名字查找</a></li>
+            <li><a href="#名字冲突与继承">名字冲突与继承</a></li>
+            <li><a href="#名字查找先于类型检查">名字查找先于类型检查</a></li>
+            <li><a href="#虚函数和作用域">虚函数和作用域</a></li>
+            <li><a href="#覆盖重载的函数">覆盖重载的函数</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#157-构造函数与拷贝控制">15.7 构造函数与拷贝控制</a>
+      <ul>
+        <li><a href="#1571-虚析构函数">15.7.1 虚析构函数</a>
+          <ul>
+            <li><a href="#虚函数将阻止合成移动操作">虚函数将阻止合成移动操作</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#1572-合成拷贝控制与继承">15.7.2 合成拷贝控制与继承</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#派生类中删除的拷贝控制和基类的关系">派生类中删除的拷贝控制和基类的关系</a></li>
+            <li><a href="#移动操作和继承">移动操作和继承</a></li>
+          </ul>
+        </li>
+        <li><a href="#1573-派生类的拷贝控制成员">15.7.3 派生类的拷贝控制成员</a>
+          <ul>
+            <li><a href="#定义派生类的拷贝或移动构造函数">定义派生类的拷贝或移动构造函数</a></li>
+            <li><a href="#派生类赋值运算符">派生类赋值运算符</a></li>
+            <li><a href="#派生类析构函数">派生类析构函数</a></li>
+            <li><a href="#构造函数和析构函数中调用虚函数">构造函数和析构函数中调用虚函数</a></li>
+          </ul>
+        </li>
+        <li><a href="#1574-继承的构造函数">15.7.4 继承的构造函数</a>
+          <ul>
+            <li><a href="#继承的构造函数特点">继承的构造函数特点</a></li>
           </ul>
         </li>
       </ul>
@@ -448,18 +616,1048 @@
 </div>
 </div><h3 id="1523-类型转换与继承" class="headerLink">
     <a href="#1523-%e7%b1%bb%e5%9e%8b%e8%bd%ac%e6%8d%a2%e4%b8%8e%e7%bb%a7%e6%89%bf" class="header-mark"></a>15.2.3 类型转换与继承</h3><p>我们可以将基类的指针或引用绑定到派生类对象上，例如：可以用 Quote&amp; 指向一个 Bulk_quote 对象</p>
-<p><strong>当使用基类的引用（或指针）时，我们并不清楚该引用（指针）所绑定对象的真实类型</strong>，可能该对象时基类的对象，也可能时派生类的对象</p>
+<p><strong>==当使用基类的引用（或指针）时，我们并不清楚该引用（指针）所绑定对象的真实类型==</strong>，可能该对象时基类的对象，也可能时派生类的对象</p>
 <blockquote>
 <p>智能指针类也支持派生类向基类的类型转换</p>
 </blockquote>
 <h4 id="静态类型和动态类型" class="headerLink">
-    <a href="#%e9%9d%99%e6%80%81%e7%b1%bb%e5%9e%8b%e5%92%8c%e5%8a%a8%e6%80%81%e7%b1%bb%e5%9e%8b" class="header-mark"></a>静态类型和动态类型</h4></div>
+    <a href="#%e9%9d%99%e6%80%81%e7%b1%bb%e5%9e%8b%e5%92%8c%e5%8a%a8%e6%80%81%e7%b1%bb%e5%9e%8b" class="header-mark"></a>静态类型和动态类型</h4><ul>
+<li>使用存在继承关系的类型时，需要区分一个变量或者表达式的<strong>静态类型</strong>和<strong>动态类型</strong></li>
+<li>静态类型编译时总是已知的，它是变量声明时的类型或者表达式生成的类型</li>
+<li>动态类型则是变量或表达式表示内存中的对象的类型，运行时才可以确定</li>
+<li>如果表达式既不是引用也不是指针，则它的动态类型和静态类型永远一致</li>
+</ul>
+<h4 id="不存在基类向派生类的隐式转换" class="headerLink">
+    <a href="#%e4%b8%8d%e5%ad%98%e5%9c%a8%e5%9f%ba%e7%b1%bb%e5%90%91%e6%b4%be%e7%94%9f%e7%b1%bb%e7%9a%84%e9%9a%90%e5%bc%8f%e8%bd%ac%e6%8d%a2" class="header-mark"></a>不存在基类向派生类的隐式转换</h4><ul>
+<li>派生类可以向基类转换是因为派生类中含有基类的成员，基类的引用或指针可以绑定到该基类部分上</li>
+<li>而基类对象中可能存在派生类对象中的成员，也可能不存在，所以不能从基类向派生类自动类型转换</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Quote</span> <span class="n">base</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">Bulk_quote</span><span class="o">*</span> <span class="n">bulkPtr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">base</span><span class="p">;</span> <span class="c1">//错误：基类不能转换为派生类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Bulk_quote</span><span class="o">&amp;</span> <span class="n">bulkRef</span> <span class="o">=</span> <span class="n">base</span><span class="p">;</span>  <span class="c1">//错误：基类不能转换为派生类
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>==即使一个基类指针或者引用类型绑定在派生类对象上，我们也不能执行从基类向派生类的转换==</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Bulk_quote</span> <span class="n">bulk</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">Quote</span> <span class="o">*</span><span class="n">itemPtr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">bulk</span><span class="p">;</span>        <span class="c1">//正确：动态类型是Bulk_quote
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Bulk_quote</span> <span class="o">*</span><span class="n">bulkPtr</span> <span class="o">=</span> <span class="n">itemPtr</span><span class="p">;</span> <span class="c1">//错误：不能将基类转换为派生类
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>编译器在编译时候无法确定上述转换过程在运行时是否安全，编译器只能检查静态类型来判断是否合法</p>
+<h4 id="对象之间不存在类型转换" class="headerLink">
+    <a href="#%e5%af%b9%e8%b1%a1%e4%b9%8b%e9%97%b4%e4%b8%8d%e5%ad%98%e5%9c%a8%e7%b1%bb%e5%9e%8b%e8%bd%ac%e6%8d%a2" class="header-mark"></a>对象之间不存在类型转换</h4><p>派生类向基类的自动类型转换只能对指针和引用有效，在派生类和基类类型之间不存在这样的转换。</p>
+<p>当对基类进行初始化或者拷贝赋值时，如果传入的是派生类的对象，通常只会将派生类中含有基类的部分进行拷贝复制，而派生类多的部分会被忽略</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Bulk_quote</span> <span class="n">bulk</span><span class="p">;</span>  <span class="c1">//派生类对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Quote</span> <span class="nf">item</span><span class="p">(</span><span class="n">bulk</span><span class="p">);</span> <span class="c1">//使用Quote::Quote(const Quote&amp;)构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">item</span> <span class="o">=</span> <span class="n">bulk</span><span class="p">;</span>      <span class="c1">//调用Quote::operator=(const Quote&amp;)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>当构造 item 时，只会处理 Quote 类中的 bookNo 和 price 两个部分，同时忽略了 bulk 中其他成员</p>
+<blockquote>
+<p>当使用一个派生类对象为基类对象初始化或赋值时，只有派生类对象中基类部分会被拷贝、移动或赋值，它的派生类部分会被忽略</p>
+</blockquote>
+<p>问：给出静态类型和动态类型的定义</p>
+<ul>
+<li>静态类型在编译时就己经确定了，它是变量声明时的类型或表达式生成的类型；</li>
+<li>而动态类型则是变量或表达式表示的内存中的对象的类型，动态类型直到运行时才能知道；</li>
+<li>如果一个变量非指针也非引用，则它的静态类型和动态类型永远一致。但基类的指针或引用的动态类型可能与其动态类型不一致</li>
+</ul>
+<h2 id="153-虚函数" class="headerLink">
+    <a href="#153-%e8%99%9a%e5%87%bd%e6%95%b0" class="header-mark"></a>15.3 虚函数</h2><p>我们使用基类的引用或指针调用一个虚函数的成员函数时，会执行动态绑定，直到运行时我们才能知道到底调用了哪个版本的虚函数，所以所有的虚函数都必须被定义</p>
+<h4 id="虚函数的调用可能在运行时才被解析" class="headerLink">
+    <a href="#%e8%99%9a%e5%87%bd%e6%95%b0%e7%9a%84%e8%b0%83%e7%94%a8%e5%8f%af%e8%83%bd%e5%9c%a8%e8%bf%90%e8%a1%8c%e6%97%b6%e6%89%8d%e8%a2%ab%e8%a7%a3%e6%9e%90" class="header-mark"></a>虚函数的调用可能在运行时才被解析</h4><p>下面是个例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Quote</span> <span class="nf">base</span><span class="p">(</span><span class="s">&#34;0-201-824-1&#34;</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">print_total</span><span class="p">(</span><span class="n">cout</span><span class="p">,</span> <span class="n">base</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>    <span class="c1">//Quote::net_price
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Bulk_quote</span> <span class="nf">derived</span><span class="p">(</span><span class="s">&#34;021-82470-1&#34;</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">print_total</span><span class="p">(</span><span class="n">cout</span><span class="p">,</span> <span class="n">derived</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span> <span class="c1">//Bulk_quote::net_price
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>第一次调用 print_total 时，base 绑定到  Quote 上，运行的是 Quote 定义的版本</li>
+<li>第二次调用时，derived 绑定的 Bulk_quote 版本上，调用的会是 Bulk_quote 定义的版本</li>
+</ul>
+<p><strong>动态绑定只有当通过引用或指针调用虚函数时才会发生</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">base</span> <span class="o">=</span> <span class="n">derived</span><span class="p">;</span>     <span class="c1">//把derived中Quote部分拷贝给base
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">base</span><span class="p">.</span><span class="n">net_price</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span> <span class="c1">//调用Quote::net_price
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用普通类型（非指针非引用）的表达式调用虚函数时，在编译阶段就已经确定下来调用的版本了</p>
+<h4 id="派生类中的虚函数-1" class="headerLink">
+    <a href="#%e6%b4%be%e7%94%9f%e7%b1%bb%e4%b8%ad%e7%9a%84%e8%99%9a%e5%87%bd%e6%95%b0-1" class="header-mark"></a>派生类中的虚函数</h4><ul>
+<li>
+<p>派生类如果覆盖继承而来的虚函数，它的形参类型和返回类型必须和基类函数一致</p>
+</li>
+<li>
+<p>当派生类返回类型是指针或引用时，返回类型存在例外，如果 D 由 B 派生而来，则派生类的返回类型可以时 B* ，而基类返回类型为 D*</p>
+</li>
+</ul>
+<h4 id="final-和-override-说明符" class="headerLink">
+    <a href="#final-%e5%92%8c-override-%e8%af%b4%e6%98%8e%e7%ac%a6" class="header-mark"></a>final 和 override 说明符</h4><p>派生类如果定义了一个函数和虚函数名字相同但是形参列表不同，编译器会认为这个函数和原有函数相互独立，这样的话就不符合我们的想法，派生类没有覆盖基类中的虚函数。或者是在派生类定义函数时因为疏忽打错了函数名，也会出现上述情况</p>
+<p>C++11新标准提供 <strong>override 关键字</strong>来说明派生类中的虚函数，这样使得程序员意图更清晰同时编译器也可以发现错误</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">B</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="kt">void</span> <span class="nf">f1</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="kt">void</span> <span class="nf">f2</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">f3</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">D1</span> <span class="o">:</span> <span class="n">B</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">f1</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span> <span class="c1">//正确：f1与基类f1匹配
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">void</span> <span class="nf">f2</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>       <span class="c1">//错误：形参不匹配
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">void</span> <span class="nf">f3</span><span class="p">()</span> <span class="k">override</span><span class="p">;</span>          <span class="c1">//错误：f3不是虚函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">void</span> <span class="nf">f4</span><span class="p">()</span> <span class="k">override</span><span class="p">;</span>          <span class="c1">//错误：基类没有名为f4函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果我们使用 <strong>final 关键字</strong>，则之后尝试覆盖该函数操作都会失败</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">D2</span> <span class="o">:</span> <span class="n">B</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//从B继承f2()和f3()，覆盖f1(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">void</span> <span class="nf">f1</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="k">const</span> <span class="k">final</span><span class="p">;</span><span class="c1">//不允许后续其他类覆盖f1(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">D3</span> <span class="o">:</span> <span class="n">D2</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">f2</span><span class="p">();</span>          <span class="c1">//正确：覆盖从基类B间接继承来的f2()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">void</span> <span class="nf">f1</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span> <span class="c1">//错误：D2将f1声明为final
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>final 和 override 说明符出现在形参列表（包括任何const和引用修饰符）以及尾置返回类型之后</strong></p>
+<h4 id="虚函数和默认实参" class="headerLink">
+    <a href="#%e8%99%9a%e5%87%bd%e6%95%b0%e5%92%8c%e9%bb%98%e8%ae%a4%e5%ae%9e%e5%8f%82" class="header-mark"></a>虚函数和默认实参</h4><p>虚函数也可以像其他函数一样拥有默认实参，基类和派生类定义的默认实参最好相同</p>
+<h4 id="回避虚函数的机制" class="headerLink">
+    <a href="#%e5%9b%9e%e9%81%bf%e8%99%9a%e5%87%bd%e6%95%b0%e7%9a%84%e6%9c%ba%e5%88%b6" class="header-mark"></a>回避虚函数的机制</h4><p>如果希望对虚函数的调用不要进行动态绑定，而是强迫执行虚函数的特定版本，可以使用<strong>作用域运算符</strong>实现这一目的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">double</span> <span class="n">undiscounted</span> <span class="o">=</span> <span class="n">basePtr</span><span class="o">-&gt;</span><span class="n">Quote</span><span class="o">::</span><span class="n">net_price</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>通常情况下，只有成员函数（或友元）中代码才需要使用作用域运算符回避虚函数机制</li>
+<li>通常当一个派生类的虚函数想调用基类中虚函数版本时，需要回避虚函数的机制</li>
+<li>如果派生类虚函数中没有使用作用域运算符，运行时被解析成调用自身版本，导致无限循环</li>
+</ul>
+<h2 id="154-抽象基类" class="headerLink">
+    <a href="#154-%e6%8a%bd%e8%b1%a1%e5%9f%ba%e7%b1%bb" class="header-mark"></a>15.4 抽象基类</h2><h4 id="纯虚函数" class="headerLink">
+    <a href="#%e7%ba%af%e8%99%9a%e5%87%bd%e6%95%b0" class="header-mark"></a>纯虚函数</h4><p>我们如果将虚函数定义为<strong>纯虚函数</strong>，含有该函数的类是<strong>抽象基类</strong>，抽象基类负责定义接口，而后续其他类可以覆盖该接口</p>
+<p><strong>我们在函数体的位置（即分号前面）书写 =0 就可以将一个虚函数说明为纯虚函数</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Disc_quote</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Quote</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Disc_quote</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Disc_quote</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">book</span><span class="p">,</span> <span class="kt">double</span> <span class="n">price</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">				<span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">qty</span><span class="p">,</span> <span class="kt">double</span> <span class="n">price</span><span class="p">)</span> <span class="o">:</span>
+</span></span><span class="line"><span class="cl">				<span class="n">Quote</span><span class="p">(</span><span class="n">book</span><span class="p">,</span> <span class="n">price</span><span class="p">),</span> <span class="n">quantity</span><span class="p">(</span><span class="n">qty</span><span class="p">),</span> <span class="n">discount</span><span class="p">(</span><span class="n">dis</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">double</span> <span class="nf">net_price</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">)</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">quantity</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">double</span> <span class="n">discount</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>纯虚函数无须定义，我们也可以为其定义，但函数体必须写在类的外部，即我们不能在类的内部为一个 =0 的函数提供函数体</p>
+</li>
+<li>
+<p><strong>我们不能直接创建一个抽象基类的对象</strong></p>
+</li>
+</ul>
+<h4 id="派生类构造函数只初始化它的直接基类" class="headerLink">
+    <a href="#%e6%b4%be%e7%94%9f%e7%b1%bb%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%e5%8f%aa%e5%88%9d%e5%a7%8b%e5%8c%96%e5%ae%83%e7%9a%84%e7%9b%b4%e6%8e%a5%e5%9f%ba%e7%b1%bb" class="header-mark"></a>派生类构造函数只初始化它的直接基类</h4><p>下面重新实现 Bulk_quote</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Bulk_quote</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Disc_quote</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Bulk_quote</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Bulk_quote</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">book</span><span class="p">,</span> <span class="kt">double</span> <span class="n">price</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">				<span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">qty</span><span class="p">,</span> <span class="kt">double</span> <span class="n">price</span><span class="p">)</span> <span class="o">:</span>
+</span></span><span class="line"><span class="cl">				<span class="n">Disc_quote</span><span class="p">(</span><span class="n">book</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">qty</span><span class="p">,</span> <span class="n">disc</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">double</span> <span class="nf">net_price</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">)</span> <span class="k">const</span> <span class="k">override</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>每个类各自控制其对象的初始化过程，即使 Bulk_quote 中没有任何数据成员，也需要提供一个构造函数，初始化它的直接基类，也就是 Disc_quote</p>
+<h2 id="155-访问控制与继承" class="headerLink">
+    <a href="#155-%e8%ae%bf%e9%97%ae%e6%8e%a7%e5%88%b6%e4%b8%8e%e7%bb%a7%e6%89%bf" class="header-mark"></a>15.5 访问控制与继承</h2><p>每个类分别控制自己成员初始化过程，每个类还控制着其成员对于派生类来说是否<strong>可访问</strong></p>
+<h4 id="受保护的成员" class="headerLink">
+    <a href="#%e5%8f%97%e4%bf%9d%e6%8a%a4%e7%9a%84%e6%88%90%e5%91%98" class="header-mark"></a>受保护的成员</h4><p>protected 关键字可以控制那些它希望与派生类分享但是不想和其他公共访问使用的成员</p>
+<ul>
+<li>和私有成员类似，受保护的成员对于类的用户是不可访问的</li>
+<li>和公有成员类型，受保护的成员对于派生类和友元是可访问的</li>
+<li>派生类的成员或友元<strong>只能通过派生类对象</strong>来访问基类中受保护的成员</li>
+<li>派生类对于基类对象中受保护成员没有任何访问权限</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">prot_mem</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Sneaky</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">friend</span> <span class="kt">void</span> <span class="nf">clobber</span><span class="p">(</span><span class="n">Sneaky</span><span class="o">&amp;</span><span class="p">);</span><span class="c1">//能访问Sneaky::prot_mem
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">friend</span> <span class="kt">void</span> <span class="nf">clobber</span><span class="p">(</span><span class="n">Base</span><span class="o">&amp;*</span><span class="p">);</span> <span class="c1">//不能访问Base::prot_mem
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">int</span> <span class="n">j</span><span class="p">;</span> <span class="c1">//默认为private
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//正确：可以访问Sneaky对象的private和protected成员
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">clobber</span><span class="p">(</span><span class="n">Sneaky</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="n">s</span><span class="p">.</span><span class="n">j</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">prot_mem</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//错误：不能访问Base中的protected成员
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">clobber</span><span class="p">(</span><span class="n">Base</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="n">b</span><span class="p">.</span><span class="n">prot_mem</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的最后一条的含义是一个派生类成员和友元只能访问派生类继承过来属于基类那部分的受保护成员（这些成员，派生类自己本身也有，成员和友元可以访问自己本身的受保护的成员），而不能直接访问基类对象中的受保护成员</p>
+<h4 id="公共私有和受保护继承" class="headerLink">
+    <a href="#%e5%85%ac%e5%85%b1%e7%a7%81%e6%9c%89%e5%92%8c%e5%8f%97%e4%bf%9d%e6%8a%a4%e7%bb%a7%e6%89%bf" class="header-mark"></a>公共、私有和受保护继承</h4><p>类对继承而来的成员的访问权限受到两个因素影响：一是基类在该成员的访问说明符，二是派生类的派生列表中的访问说明符</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="n">pub_mem</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">prot_mem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">char</span> <span class="n">priv_mem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Pub_Derv</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//正确：派生类能访问protected成员
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">int</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">prot_mem</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//错误：派生类不能访问private成员
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">char</span> <span class="nf">g</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">priv_mem</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Priv_Derv</span> <span class="o">:</span> <span class="k">private</span> <span class="n">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//private不影响派生类访问权限
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">int</span> <span class="nf">f1</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">prot_mem</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>派生类访问说明符对于派生类的成员能否访问直接基类的成员没有什么影响，如上 Pub_Derv 和 Priv_Derv 都可以访问基类 Base 中的 prot_mem</p>
+<p>派生类访问说明符是控制派生类用户（包括派生类的派生类）对于基类成员的访问权限，相当于将基类成员定义为相应的访问说明符</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Pub_Derv</span> <span class="n">d1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">Priv_Derv</span> <span class="n">d2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">d1</span><span class="p">.</span><span class="n">pub_mem</span><span class="p">();</span> <span class="c1">//正确：pub_mem在派生类中是public的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">d2</span><span class="p">.</span><span class="n">pub_mem</span><span class="p">();</span> <span class="c1">//错误：pub_mem在派生类中是protected的
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时在 Priv_Derv 中基类的成员被定义为 private 的了，这样它创建的对象就不可以直接访问</p>
+<h4 id="派生类向基类转换的可访问性" class="headerLink">
+    <a href="#%e6%b4%be%e7%94%9f%e7%b1%bb%e5%90%91%e5%9f%ba%e7%b1%bb%e8%bd%ac%e6%8d%a2%e7%9a%84%e5%8f%af%e8%ae%bf%e9%97%ae%e6%80%a7" class="header-mark"></a>派生类向基类转换的可访问性</h4><p>派生类向基类的转换是否可访问由使用该转换的代码决定，同时派牛类的派生访问说明符也会有影响。假定D 继承自B :·</p>
+<ul>
+<li>只有当 D 公有地继承 B 时，用户代码才能使用派生类向基类的转换；如果 D 继承 B 的方式是受保护的或者私有的，则用户代码不能使用该转换。</li>
+<li>不论 D 以什么方式继承B , D 的成员函数和友元都能使用派生类向基类的转换： 派生类向其直接基类的类型转换对千派牛类的成员和友元来说水远是可访问的。</li>
+<li>如果 D 继承 B 的方式是公有的或者受保护的，则 D 的派生类的成员和友元可以使用 D 向 B 的类型转换； 反之，如果 D 继承 B 的方式是私有的，则不能使用。</li>
+</ul>
+<h4 id="友元和继承" class="headerLink">
+    <a href="#%e5%8f%8b%e5%85%83%e5%92%8c%e7%bb%a7%e6%89%bf" class="header-mark"></a>友元和继承</h4><p>友元关系不能传递，也不能继承，基类的友元在访问派生类成员时不具有特殊性</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">friend</span> <span class="k">class</span> <span class="nc">Pal</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">prot_mem</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Sneaky</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">friend</span> <span class="kt">void</span> <span class="nf">clobber</span><span class="p">(</span><span class="n">Sneaky</span><span class="o">&amp;</span><span class="p">);</span><span class="c1">//能访问Sneaky::prot_mem
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">friend</span> <span class="kt">void</span> <span class="nf">clobber</span><span class="p">(</span><span class="n">Base</span><span class="o">&amp;*</span><span class="p">);</span> <span class="c1">//不能访问Base::prot_mem
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">int</span> <span class="n">j</span><span class="p">;</span> <span class="c1">//默认为private
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Pal</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">f</span><span class="p">(</span><span class="n">Base</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">b</span><span class="p">.</span><span class="n">prot_mem</span><span class="p">;</span> <span class="p">}</span> <span class="c1">//正确：Pal是Base友元
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">int</span> <span class="nf">f</span><span class="p">(</span><span class="n">Sneaky</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">s</span><span class="p">.</span><span class="n">j</span><span class="p">;</span> <span class="p">}</span>      <span class="c1">//错误：Pal不是Sneaky友元
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">int</span> <span class="nf">f3</span><span class="p">(</span><span class="n">Sneaky</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">s</span><span class="p">.</span><span class="n">prot_mem</span><span class="p">;</span> <span class="p">}</span><span class="c1">//正确：Pal是Base友元
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>f3 访问了派生类中基类部分的成员，Pal 是基类的友元，Pal 能够访问 Base 对象的成员</p>
+<p>友元只对做出声明的类有效，而友元的基类或派生类不具有特殊访问能力</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">D2</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Pal</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">mem</span><span class="p">(</span><span class="n">Base</span> <span class="n">b</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">		<span class="p">{</span> <span class="k">return</span> <span class="n">b</span><span class="p">.</span><span class="n">prot_mem</span><span class="p">;</span> <span class="p">}</span> <span class="c1">//错误友元不能继承
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="改变个别成员的可访问性" class="headerLink">
+    <a href="#%e6%94%b9%e5%8f%98%e4%b8%aa%e5%88%ab%e6%88%90%e5%91%98%e7%9a%84%e5%8f%af%e8%ae%bf%e9%97%ae%e6%80%a7" class="header-mark"></a>改变个别成员的可访问性</h4><p>如果需要改变派生类继承的某个名字的访问性，可以使用 using 声明达到这个目的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">()</span> <span class="n">cont</span> <span class="p">{</span> <span class="k">return</span> <span class="n">n</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Dervied</span> <span class="o">:</span> <span class="k">private</span> <span class="n">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">using</span> <span class="n">Base</span><span class="o">::</span><span class="n">size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">using</span> <span class="n">Base</span><span class="o">::</span><span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Derived 为私有继承，继承的size 和 n 默认情况下是 Derived 的私有成员，使用 using 声明语句，可以改变这个成员的可访问性，此时的 Derived 用户都可以使用 size，而只有 Derived 的派生类才可以使用 n</p>
+<p>using 声明控制的访问权限仅由声明语句前面的访问说明符决定</p>
+<h4 id="默认的继承保护级别" class="headerLink">
+    <a href="#%e9%bb%98%e8%ae%a4%e7%9a%84%e7%bb%a7%e6%89%bf%e4%bf%9d%e6%8a%a4%e7%ba%a7%e5%88%ab" class="header-mark"></a>默认的继承保护级别</h4><p>默认情况下，class 关键字的派生类是<strong>私有继承</strong>的，struct 关键字的派生类是<strong>公有继承</strong>的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span> <span class="p">{</span> <span class="cm">/**/</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">D1</span> <span class="o">:</span> <span class="n">Base</span> <span class="p">{</span> <span class="cm">/**/</span> <span class="p">};</span> <span class="c1">//默认public继承
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">D2</span> <span class="o">:</span> <span class="n">Base</span> <span class="p">{</span> <span class="cm">/**/</span> <span class="p">};</span>  <span class="c1">//默认private继承
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>struct 和 class 关键字唯一区别就是默认成员访问说明符默认派生访问说明符的区别</p>
+<blockquote>
+<p>一个私有派生的类最好显示的声明 private，不要仅仅依赖默认设置</p>
+</blockquote>
+<h2 id="156-继承中的类作用域" class="headerLink">
+    <a href="#156-%e7%bb%a7%e6%89%bf%e4%b8%ad%e7%9a%84%e7%b1%bb%e4%bd%9c%e7%94%a8%e5%9f%9f" class="header-mark"></a>15.6 继承中的类作用域</h2><p>每个类定义自己的作用域，在这个作用域类定义类的成员</p>
+<p>存在继承关系时，派生类的作用域<strong>嵌套</strong>在基类作用域之内，当一个名字在派生类的作用域无法解析，编译器会继续在外层的基类作用域中寻找改名字的含义</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Bulk_quote</span> <span class="n">bulk</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">bulk</span><span class="p">.</span><span class="n">isbn</span><span class="p">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>名字 isbn 解析过程如下：</p>
+<ol>
+<li>我们通过 Bulk_quote 对象调用 isbn 的，首先在 Bulk_quote 中查找，没有找到 isbn</li>
+<li>Bulk_quote 由 Disc_quote 派生而来，记下来在 Disc_quote 中查找，仍然找不到</li>
+<li>Disc_quote 由 Quote 派生而来，接着在 Quote 中查找，此时找到了 isbn，最终被解析为 Quote 中的 isbn</li>
+</ol>
+<h4 id="在编译时进行名字查找" class="headerLink">
+    <a href="#%e5%9c%a8%e7%bc%96%e8%af%91%e6%97%b6%e8%bf%9b%e8%a1%8c%e5%90%8d%e5%ad%97%e6%9f%a5%e6%89%be" class="header-mark"></a>在编译时进行名字查找</h4><p>一个对象、引用或指针的静态类型决定了对象哪些成员是可见的，静态类型和动态类型可能不一样，但是能使用哪些成员依然由静态类型决定</p>
+<p>我们在 Disc_quote 中添加一个新成员</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Disc_quote</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Quote</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">size_t</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span> <span class="n">discount_policy</span><span class="p">()</span> <span class="k">const</span> 
+</span></span><span class="line"><span class="cl">			<span class="p">{</span> <span class="k">return</span> <span class="p">{</span><span class="n">quantity</span><span class="p">,</span> <span class="n">discount</span><span class="p">};</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//其他成员与前面一致
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们只能通过 Disc_quote 及派生类对象、引用或指针使用 discount_policy</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Bulk_quote</span> <span class="n">bulk</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">Bulk_quote</span> <span class="o">*</span><span class="n">bulkPtr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">bulk</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">Quote</span> <span class="o">*</span><span class="n">itemPtr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">bulk</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">bulkPtr</span><span class="o">-&gt;</span><span class="n">discount_policy</span><span class="p">();</span><span class="c1">//正确：bulkPtr类型为Bulk_quote*
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">itemPtr</span><span class="o">-&gt;</span><span class="n">discount_policy</span><span class="p">();</span><span class="c1">//错误：itemPtr类型为Quote*
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="名字冲突与继承" class="headerLink">
+    <a href="#%e5%90%8d%e5%ad%97%e5%86%b2%e7%aa%81%e4%b8%8e%e7%bb%a7%e6%89%bf" class="header-mark"></a>名字冲突与继承</h4><p>和其他作用域一样，派生类也能重用定义在基类中的名字，此时定义在内层作用域（即派生类）的名字将隐藏定义在外层作用域（即基类）的名字</p>
+<p><strong>可以通过作用域运算符来使用一个被隐藏的基类成员</strong></p>
+<h4 id="名字查找先于类型检查" class="headerLink">
+    <a href="#%e5%90%8d%e5%ad%97%e6%9f%a5%e6%89%be%e5%85%88%e4%ba%8e%e7%b1%bb%e5%9e%8b%e6%a3%80%e6%9f%a5" class="header-mark"></a>名字查找先于类型检查</h4><p>声明在内层作用域的函数并不会重载声明在外层作用域的函数，<strong>定义在派生类中的函数也不会重载基类中的成员</strong></p>
+<p>如果派生类和基类某个成员同名，派生类将在其作用域内隐藏该基类成员，即使形参列表不一样，基类成员仍然会被隐藏</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="nf">memfcn</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Derived</span> <span class="o">:</span> <span class="n">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="nf">memfcn</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span><span class="c1">//隐藏基类的memfcn
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Derived</span> <span class="n">d</span><span class="p">;</span> <span class="n">Base</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span><span class="p">.</span><span class="n">memfcn</span><span class="p">();</span>       <span class="c1">//调用 Base::memfcn
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">d</span><span class="p">.</span><span class="n">memfcn</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>     <span class="c1">//调用 Derived::memfcn
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">d</span><span class="p">.</span><span class="n">memfcn</span><span class="p">();</span>       <span class="c1">//错误：基类memfcn被隐藏了
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">d</span><span class="p">.</span><span class="n">Base</span><span class="o">::</span><span class="n">memfcn</span><span class="p">();</span> <span class="c1">//正确：调用Base::memfcn
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="虚函数和作用域" class="headerLink">
+    <a href="#%e8%99%9a%e5%87%bd%e6%95%b0%e5%92%8c%e4%bd%9c%e7%94%a8%e5%9f%9f" class="header-mark"></a>虚函数和作用域</h4><p>15.3说到基类和派生类的虚函数必须有相同的形参列表，如果基类和派生类虚函数接受实参不一样，<strong>无法通过基类的引用或指针调用派生类的虚函数</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="kt">int</span> <span class="n">fcn</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">D1</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//隐藏了基类的fcn，这个fcn不是虚函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//D1继承了Base::fcn()定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">int</span> <span class="n">fcn</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="kt">void</span> <span class="nf">f2</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="err">；</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">D2</span> <span class="o">:</span> <span class="k">public</span> <span class="n">D1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">fcn</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span><span class="c1">//非虚函数，隐藏了D1::fcn(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">int</span> <span class="nf">fcn</span><span class="p">();</span>   <span class="c1">//覆盖了Base的虚函数fcn
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">void</span> <span class="nf">f2</span><span class="p">();</span>   <span class="c1">//覆盖了D1虚函数f2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下面是使用几种函数的方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Base</span> <span class="n">bobj</span><span class="p">;</span> <span class="n">D1</span> <span class="n">d1obj</span><span class="p">;</span> <span class="n">D2</span> <span class="n">d2obj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Base</span> <span class="o">*</span><span class="n">bp1</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">bobj</span><span class="p">,</span> <span class="o">*</span><span class="n">bp2</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">d1obj</span><span class="p">,</span> <span class="o">*</span><span class="n">bp3</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">d2obj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">bp1</span><span class="o">-&gt;</span><span class="n">fcn</span><span class="p">();</span> <span class="c1">//虚调用，运行时调用Base::fcn
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">bp2</span><span class="o">-&gt;</span><span class="n">fcn</span><span class="p">();</span> <span class="c1">//虚调用，运行时调用Base::fcn
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">bp3</span><span class="o">-&gt;</span><span class="n">fcn</span><span class="p">();</span> <span class="c1">//需调用，运行时调用D2::fcn
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">D1</span> <span class="o">*</span><span class="n">d1p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">d1obj</span><span class="p">;</span> <span class="n">D2</span> <span class="o">*</span><span class="n">d2p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">d2obj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">bp2</span><span class="o">-&gt;</span><span class="n">f2</span><span class="p">();</span> <span class="c1">//错误：Base没有名为f2成员
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">d1p</span><span class="o">-&gt;</span><span class="n">f2</span><span class="p">();</span> <span class="c1">//虚调用，运行时调用D1::f2()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">d2p</span><span class="o">-&gt;</span><span class="n">f2</span><span class="p">();</span> <span class="c1">//虚调用，运行时调用D2::f2()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">Base</span> <span class="o">*</span><span class="n">p1</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">d2obj</span><span class="p">;</span> <span class="n">D1</span> <span class="o">*</span><span class="n">p2</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">d2obj</span><span class="p">;</span> <span class="n">D2</span> <span class="o">*</span><span class="n">p3</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">d2obj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">p1</span><span class="o">-&gt;</span><span class="n">fcn</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span> <span class="c1">//错误，Base中没有fcn(int)函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">p2</span><span class="o">-&gt;</span><span class="n">fcn</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span> <span class="c1">//静态绑定，调用D1::fcn(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">p3</span><span class="o">-&gt;</span><span class="n">fcn</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span> <span class="c1">//静态绑定，调用D2::fcn(int)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="覆盖重载的函数" class="headerLink">
+    <a href="#%e8%a6%86%e7%9b%96%e9%87%8d%e8%bd%bd%e7%9a%84%e5%87%bd%e6%95%b0" class="header-mark"></a>覆盖重载的函数</h4><p>成员函数无论是否为虚函数都能被重载，如果派生类希望所有的重载版本对于它都是可见的，那么它就需要覆盖所有的版本，或者一个都不覆盖</p>
+<p>如果只需要覆盖其中一些函数，但是不得不自己重新定义覆盖基类的每一个版本，否则未重新定义的函数会被隐藏</p>
+<p>通过使用 using 声明，就无须覆盖所有版本。using 声明语句指定一个名字而不指定形参列表，所有一条基类成员函数的 using 声明语句就可以把该函数所有重载实例添加到派生类作用域中。此时派生类只需要定义特有的函数就行了</p>
+<h2 id="157-构造函数与拷贝控制" class="headerLink">
+    <a href="#157-%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%e4%b8%8e%e6%8b%b7%e8%b4%9d%e6%8e%a7%e5%88%b6" class="header-mark"></a>15.7 构造函数与拷贝控制</h2><h3 id="1571-虚析构函数" class="headerLink">
+    <a href="#1571-%e8%99%9a%e6%9e%90%e6%9e%84%e5%87%bd%e6%95%b0" class="header-mark"></a>15.7.1 虚析构函数</h3><p>当我们 delete 一个动态分配的对象指针时，将执行析构函数，如果指向继承体系中的某个类型，则有可能出现指针的静态类型与被删除对象动态类型不符合的情况，这样的话编译器必须确保执行正确的析构函数</p>
+<p><strong>通过将基类中的析构函数定义为虚函数来确保执行正确的析构函数版本</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Quote</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//如果我们删除指向派生类对象的基类指针，需要虚析构函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">virtual</span> <span class="o">~</span><span class="n">Quote</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span> <span class="c1">//动态绑定析构函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>析构函数的虚属性也会继承，基类的析构函数为虚函数就可以确保 delete 基类指针时能够调用正确的析构函数版本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Quote</span> <span class="o">*</span><span class="n">itemPtr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Quote</span><span class="p">;</span> <span class="c1">//静态类型与动态类型一致
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">delete</span> <span class="n">itemPtr</span><span class="p">;</span>             <span class="c1">//调用Quote的析构函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">itemPtr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bulk_Quote</span><span class="p">;</span>   <span class="c1">//静态类型与动态类型一致
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">delete</span> <span class="n">itemPtr</span><span class="p">;</span>             <span class="c1">//调用Bulk_quote析构函数
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>如果基类的析构函数不是虚函数，则 delete 一个指向派生类对象的基类函数将产生未定义的行为</p>
+</blockquote>
+<h4 id="虚函数将阻止合成移动操作" class="headerLink">
+    <a href="#%e8%99%9a%e5%87%bd%e6%95%b0%e5%b0%86%e9%98%bb%e6%ad%a2%e5%90%88%e6%88%90%e7%a7%bb%e5%8a%a8%e6%93%8d%e4%bd%9c" class="header-mark"></a>虚函数将阻止合成移动操作</h4><p>如果一个类定义了一个析构函数，即使通过=default 的形式使用了合成版本，编译器也不会为这个类合成移动操作</p>
+<h2 id="1572-合成拷贝控制与继承" class="headerLink">
+    <a href="#1572-%e5%90%88%e6%88%90%e6%8b%b7%e8%b4%9d%e6%8e%a7%e5%88%b6%e4%b8%8e%e7%bb%a7%e6%89%bf" class="header-mark"></a>15.7.2 合成拷贝控制与继承</h2><p>基类和派生类的合成拷贝控制成员的行为与其他合成的构造函数、赋值运算符或析构函数类似，它们对类本身成员依次进行初始化、赋值和销毁操作，此外还负责对直接基类部分进行初始化、赋值、销毁的操作</p>
+<p><em>这里需要注意的就是顺序问题：</em></p>
+<ul>
+<li>对于构造函数，派生类使用合成的构造函数时，会自动先调用直接基类的构造函数，然后再初始化自己的成员，直接基类又会进一步调用基类的构造函数</li>
+<li><strong>构造函数整体的表现为，先初始化基类成员-&gt;初始化直接基类-&gt;派生类</strong></li>
+<li>对于析构函数，合成的析构函数体是空的，隐式的析构部分负责销毁类的成员，对于派生类的析构函数来说，除了销毁自己的成员外，还负责销毁派生类的直接基类，依次进行</li>
+<li>整体表现为，<strong>先调用派生类析构函数-&gt;直接基类析构函数-&gt;基类析构函数</strong></li>
+</ul>
+<h4 id="派生类中删除的拷贝控制和基类的关系" class="headerLink">
+    <a href="#%e6%b4%be%e7%94%9f%e7%b1%bb%e4%b8%ad%e5%88%a0%e9%99%a4%e7%9a%84%e6%8b%b7%e8%b4%9d%e6%8e%a7%e5%88%b6%e5%92%8c%e5%9f%ba%e7%b1%bb%e7%9a%84%e5%85%b3%e7%b3%bb" class="header-mark"></a>派生类中删除的拷贝控制和基类的关系</h4><ul>
+<li>如果基类拷贝控制成员是被删除的或者不可访问，派生类中对于的成员也是被删除的</li>
+<li>如果基类中有一个不可访问或删除的析构函数，派生类中合成的默认和拷贝构造函数是删除的，因为编译器无法销毁派生类对象中基类部分</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">B</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">B</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">B</span><span class="p">(</span><span class="k">const</span> <span class="n">B</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//其他成员，无移动构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">B</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//没有声明任何构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">D</span> <span class="n">d</span><span class="p">;</span>                <span class="c1">//正确：D合成默认构造函数使用B默认构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">D</span> <span class="nf">d2</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>            <span class="c1">//错误：D合成拷贝构造函数是删除的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">D</span> <span class="nf">d3</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">d</span><span class="p">));</span> <span class="c1">//错误：隐式使用D被删除的拷贝构造函数
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><em>如果基类中没有默认、拷贝或移动构造函数，一般情况下派生类也不会定义相应的操作</em></p>
+<h4 id="移动操作和继承" class="headerLink">
+    <a href="#%e7%a7%bb%e5%8a%a8%e6%93%8d%e4%bd%9c%e5%92%8c%e7%bb%a7%e6%89%bf" class="header-mark"></a>移动操作和继承</h4><p>大多数基类会定义一个<strong>虚析构函数</strong>，默认情况下，基类不含有合成的移动操作，派生类也没有</p>
+<p>如果需要移动操作，首先应该在基类中进行定义，可以使用合成的版本，但是要显示的定义，一旦定义移动操作，还有同时定义拷贝操作（3/5准则）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Quote</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Quote</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Quote</span><span class="p">(</span><span class="k">const</span> <span class="n">Quote</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Quote</span><span class="p">(</span><span class="n">Quote</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Quote</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">Quote</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Quote</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Quote</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="o">~</span><span class="n">Quote</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="1573-派生类的拷贝控制成员" class="headerLink">
+    <a href="#1573-%e6%b4%be%e7%94%9f%e7%b1%bb%e7%9a%84%e6%8b%b7%e8%b4%9d%e6%8e%a7%e5%88%b6%e6%88%90%e5%91%98" class="header-mark"></a>15.7.3 派生类的拷贝控制成员</h3><ul>
+<li>派生类构造函数初始化阶段不仅需要初始化派生类自己的成员，还负责初始化派生类对象中基类部分</li>
+<li>派生类的拷贝、移动构造函数、赋值运算符也类似，拷贝移动赋值派生类成员的同时，也要对基类部分进行相同的操作</li>
+<li>而<strong>析构函数只负责销毁派生类自己分配的资源</strong>，派生类中基类部分是自动销毁的</li>
+</ul>
+<h4 id="定义派生类的拷贝或移动构造函数" class="headerLink">
+    <a href="#%e5%ae%9a%e4%b9%89%e6%b4%be%e7%94%9f%e7%b1%bb%e7%9a%84%e6%8b%b7%e8%b4%9d%e6%88%96%e7%a7%bb%e5%8a%a8%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0" class="header-mark"></a>定义派生类的拷贝或移动构造函数</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span> <span class="p">{</span> <span class="cm">/***/</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">D</span><span class="p">(</span><span class="k">const</span> <span class="n">D</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span> <span class="o">:</span> <span class="n">Base</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="c1">//拷贝基类成员
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="cm">/*D的成员初始值*/</span> <span class="p">{</span><span class="cm">/**/</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">D</span><span class="p">(</span><span class="n">D</span><span class="o">&amp;&amp;</span> <span class="n">d</span><span class="p">)</span> <span class="o">:</span> <span class="n">Base</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">d</span><span class="p">))</span> <span class="c1">//移动基类成员
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="cm">/*D的成员初始值*/</span> <span class="p">{</span><span class="cm">/**/</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>初始值 Base(d) 将一个 D 对象传递给基类构造函数，值得注意的是，这里传给基类拷贝构造函数是一个 D 对象，它会自动匹配 Base 中的拷贝构造函数</p>
+<p>如果没有提供基类初始值的话，基类部分被默认初始化，而不是从其他对象拷贝而来</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//D这个拷贝构造函数很可能是不正确的定义
+</span></span></span><span class="line"><span class="cl"><span class="c1">//基类部分被默认初始化，而非拷贝
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">D</span><span class="p">(</span><span class="k">const</span> <span class="n">D</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span> <span class="cm">/*成员初始值，但是没有提供基类初始值*/</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span><span class="cm">/**/</span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="派生类赋值运算符" class="headerLink">
+    <a href="#%e6%b4%be%e7%94%9f%e7%b1%bb%e8%b5%8b%e5%80%bc%e8%bf%90%e7%ae%97%e7%ac%a6" class="header-mark"></a>派生类赋值运算符</h4><p>和拷贝移动构造函数一样，赋值运算符也必须显示为基类部分进行赋值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">D</span> <span class="o">&amp;</span><span class="n">D</span><span class="o">::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">D</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Base</span><span class="o">::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">rhs</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//D的其他成员赋值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//酌情使用自赋值和释放已有资源
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="派生类析构函数" class="headerLink">
+    <a href="#%e6%b4%be%e7%94%9f%e7%b1%bb%e6%9e%90%e6%9e%84%e5%87%bd%e6%95%b0" class="header-mark"></a>派生类析构函数</h4><p>派生类析构函数只负责销毁派生类自己分配的资源</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">D</span> <span class="o">:</span> <span class="k">public</span> <span class="n">B</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//Base::~Base()被自动执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="o">~</span><span class="n">D</span><span class="p">()</span> <span class="p">{</span> <span class="cm">/*销毁D分配的资源*/</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="构造函数和析构函数中调用虚函数" class="headerLink">
+    <a href="#%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%e5%92%8c%e6%9e%90%e6%9e%84%e5%87%bd%e6%95%b0%e4%b8%ad%e8%b0%83%e7%94%a8%e8%99%9a%e5%87%bd%e6%95%b0" class="header-mark"></a>构造函数和析构函数中调用虚函数</h4><p>书上这里写的有点绕，我的理解就是：</p>
+<ul>
+<li>在基类的构造或析构函数中调用虚函数时，执行的版本时基类的虚函数版本</li>
+<li>在派生类的构造或析构函数中调用虚函数时，执行的是派生类的虚函数版本</li>
+</ul>
+<p>我自己也写了下面的代码进行了测试，确实是这样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Base</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Base default constructor&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Base</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="o">:</span> <span class="n">num</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Base constructor&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">print_num</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="kt">void</span> <span class="nf">print_num</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;this is a base virtual, num = &#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">num</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="o">~</span><span class="n">Base</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;this is a Base destructor&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">print_num</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derived</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Derived</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="o">:</span><span class="n">Base</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">		<span class="n">print_num</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cnt</span> <span class="o">=</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">print_num</span><span class="p">()</span> <span class="k">override</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;this is a derived virtual, num = &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">num</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;cnt is &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">cnt</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="o">~</span><span class="n">Derived</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;this is a Derived destructor&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">print_num</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">cnt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Derived</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Derived</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;===========&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">delete</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/*打印结果，先执行了构造函数的调用，然后是析构函数的调用
+</span></span></span><span class="line"><span class="cl"><span class="cm">silas@Silas-PC:~/cpp$ g++ construct_virtual.cpp &amp;&amp; ./a.out
+</span></span></span><span class="line"><span class="cl"><span class="cm">Base constructor
+</span></span></span><span class="line"><span class="cl"><span class="cm">this is a base virtual, num = 10
+</span></span></span><span class="line"><span class="cl"><span class="cm">this is a derived virtual, num = 10
+</span></span></span><span class="line"><span class="cl"><span class="cm">cnt is 0
+</span></span></span><span class="line"><span class="cl"><span class="cm">===========
+</span></span></span><span class="line"><span class="cl"><span class="cm">this is a Derived destructor
+</span></span></span><span class="line"><span class="cl"><span class="cm">this is a derived virtual, num = 10
+</span></span></span><span class="line"><span class="cl"><span class="cm">cnt is 5
+</span></span></span><span class="line"><span class="cl"><span class="cm">this is a Base destructor
+</span></span></span><span class="line"><span class="cl"><span class="cm">this is a base virtual, num = 10
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="1574-继承的构造函数" class="headerLink">
+    <a href="#1574-%e7%bb%a7%e6%89%bf%e7%9a%84%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0" class="header-mark"></a>15.7.4 继承的构造函数</h3><p>C++11新标准下，派生类可以重用直接基类定义的构造函数，一个类只负责初始化它的直接基类，也只继承直接基类的构造函数。</p>
+<p>类不能继承默认、拷贝和移动构造函数，如果派生类没有直接定义这些构造函数，编译器将为派生类合成它们</p>
+<p>派生类继承基类构造函数的方式是提供一条注明了直接基类名的 using 声明语句</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Bulk_quote</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Disc_quote</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">using</span> <span class="n">Disc_quote</span><span class="o">::</span><span class="n">Disc_quote</span><span class="p">;</span><span class="c1">//继承了Disc_quote构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">double</span> <span class="nf">net_price</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>using 声明语句作用在构造函数时，将令编译器产生代码，对于基类的每个构造函数，在派生类都会生成一个与之对应的构造函数，形如：<code>derived(parms) : base(args) {}</code></p>
+<p>在上面Bulk_quote 中，继承的构造函数等价于：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Bulk_quote</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">book</span><span class="p">,</span> <span class="kt">double</span> <span class="n">price</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">		   <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">qty</span><span class="p">,</span> <span class="kt">double</span> <span class="n">disc</span><span class="p">)</span> <span class="o">:</span>
+</span></span><span class="line"><span class="cl">		   <span class="n">Disc_quote</span><span class="p">(</span><span class="n">book</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">qty</span><span class="p">,</span> <span class="n">disc</span><span class="p">)</span> <span class="p">{}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><em>如果派生类有自己的成员，这些成员将会被默认初始化</em></p>
+<h4 id="继承的构造函数特点" class="headerLink">
+    <a href="#%e7%bb%a7%e6%89%bf%e7%9a%84%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%e7%89%b9%e7%82%b9" class="header-mark"></a>继承的构造函数特点</h4><ol>
+<li>和普通成员 using 声明不一样，using 不会改变构造函数的访问级别，如，基类的私有构造函数在派生类中还是一个私有的构造函数</li>
+<li>using 声明不能指定 explicit 或 constexpr，基类构造函数是 explicit 或 constexpr，派生类也是如此</li>
+<li>基类构造函数中的默认实参不会被继承，派生类会获得多个继承的构造函数，其中每个构造函数分别省略掉一个含义默认实参的形参</li>
+<li>如果派生类定义的构造函数和基类构造函数有相同形参列表，这些构造函数不会被继承</li>
+<li>默认、 拷贝和移动构造函数不会被继承，这些按照正常合成规则被合成</li>
+</ol>
+</div>
 
         <div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2022-04-28</span>
+                <span>更新于 2022-05-04</span>
             </div>
             <div class="post-info-license"></div>
         </div>
