@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">《C&#43;&#43;Primer》| 第十六章 模板与泛型编程 - </title><meta name="Description" content=""><meta property="og:title" content="《C&#43;&#43;Primer》| 第十六章 模板与泛型编程" />
+<meta property="og:description" content="16.1 定义模板如果希望定义两个函数，来比较两个值，对于不同类型，可以通过定义多个重载函数来实现这样的功能 1 2 3 4 5 6 7 8 9 10 11 12 //如果两个值相" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.silasblog.top/chapter16-%E6%A8%A1%E6%9D%BF%E4%B8%8E%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/" /><meta property="og:image" content="https://blog.silasblog.top/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-07T08:45:45+08:00" />
+<meta property="article:modified_time" content="2022-05-07T08:45:45+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.silasblog.top/logo.png"/>
+
+<meta name="twitter:title" content="《C&#43;&#43;Primer》| 第十六章 模板与泛型编程"/>
+<meta name="twitter:description" content="16.1 定义模板如果希望定义两个函数，来比较两个值，对于不同类型，可以通过定义多个重载函数来实现这样的功能 1 2 3 4 5 6 7 8 9 10 11 12 //如果两个值相"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content="">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="https://blog.silasblog.top/chapter16-%E6%A8%A1%E6%9D%BF%E4%B8%8E%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/" /><link rel="prev" href="https://blog.silasblog.top/chapter15-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《C++Primer》| 第十六章 模板与泛型编程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.silasblog.top\/chapter16-%E6%A8%A1%E6%9D%BF%E4%B8%8E%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B\/"
+        },"genre": "posts","keywords": "C\u002b\u002b","wordcount":  4752 ,
+        "url": "https:\/\/blog.silasblog.top\/chapter16-%E6%A8%A1%E6%9D%BF%E4%B8%8E%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B\/","datePublished": "2022-05-07T08:45:45+08:00","dateModified": "2022-05-07T08:45:45+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Silas"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="normal" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><img src='https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/console.png'/> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"><i class='folder-open-solid'></i> 分类 </a><a class="menu-item" href="/series/"> 系列 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title=""><img src='https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/console.png'/>文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title=""><i class='folder-open-solid'></i>分类</a><a class="menu-item" href="/series/" title="">系列</a><a class="menu-item" href="/about/" title="">关于</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#161-定义模板">16.1 定义模板</a>
+      <ul>
+        <li><a href="#1611-函数模板">16.1.1 函数模板</a>
+          <ul>
+            <li><a href="#实例化函数模板">实例化函数模板</a></li>
+            <li><a href="#模板类型参数">模板类型参数</a></li>
+            <li><a href="#非类型模板参数">非类型模板参数</a></li>
+            <li><a href="#inline-和-constexpr-的函数模板">inline 和 constexpr 的函数模板</a></li>
+            <li><a href="#编写类型无关的代码">编写类型无关的代码</a></li>
+            <li><a href="#模板编译">模板编译</a></li>
+            <li><a href="#大多数编译错误在实例化期间报告">大多数编译错误在实例化期间报告</a></li>
+          </ul>
+        </li>
+        <li><a href="#1612-类模板">16.1.2 类模板</a>
+          <ul>
+            <li><a href="#定义类模板">定义类模板</a></li>
+            <li><a href="#实例化类模板">实例化类模板</a></li>
+            <li><a href="#类模板的成员函数">类模板的成员函数</a></li>
+            <li><a href="#类模板成员函数实例化">类模板成员函数实例化</a></li>
+            <li><a href="#类代码内简化模板类名的使用">类代码内简化模板类名的使用</a></li>
+            <li><a href="#类模板外使用类模板名">类模板外使用类模板名</a></li>
+            <li><a href="#类模板和友元">类模板和友元</a></li>
+            <li><a href="#一对一友好关系">一对一友好关系</a></li>
+            <li><a href="#通用和特定模板的友好关系">通用和特定模板的友好关系</a></li>
+            <li><a href="#令模板自己的类型参数成为友元">令模板自己的类型参数成为友元</a></li>
+            <li><a href="#模板类型别名">模板类型别名</a></li>
+            <li><a href="#类模板的static成员">类模板的static成员</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "wide")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">《C&#43;&#43;Primer》| 第十六章 模板与泛型编程</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Silas</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/c++/"><i class="far fa-folder fa-fw"></i>C++</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-07">2022-05-07</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-05-07">2022-05-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4752 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#161-定义模板">16.1 定义模板</a>
+      <ul>
+        <li><a href="#1611-函数模板">16.1.1 函数模板</a>
+          <ul>
+            <li><a href="#实例化函数模板">实例化函数模板</a></li>
+            <li><a href="#模板类型参数">模板类型参数</a></li>
+            <li><a href="#非类型模板参数">非类型模板参数</a></li>
+            <li><a href="#inline-和-constexpr-的函数模板">inline 和 constexpr 的函数模板</a></li>
+            <li><a href="#编写类型无关的代码">编写类型无关的代码</a></li>
+            <li><a href="#模板编译">模板编译</a></li>
+            <li><a href="#大多数编译错误在实例化期间报告">大多数编译错误在实例化期间报告</a></li>
+          </ul>
+        </li>
+        <li><a href="#1612-类模板">16.1.2 类模板</a>
+          <ul>
+            <li><a href="#定义类模板">定义类模板</a></li>
+            <li><a href="#实例化类模板">实例化类模板</a></li>
+            <li><a href="#类模板的成员函数">类模板的成员函数</a></li>
+            <li><a href="#类模板成员函数实例化">类模板成员函数实例化</a></li>
+            <li><a href="#类代码内简化模板类名的使用">类代码内简化模板类名的使用</a></li>
+            <li><a href="#类模板外使用类模板名">类模板外使用类模板名</a></li>
+            <li><a href="#类模板和友元">类模板和友元</a></li>
+            <li><a href="#一对一友好关系">一对一友好关系</a></li>
+            <li><a href="#通用和特定模板的友好关系">通用和特定模板的友好关系</a></li>
+            <li><a href="#令模板自己的类型参数成为友元">令模板自己的类型参数成为友元</a></li>
+            <li><a href="#模板类型别名">模板类型别名</a></li>
+            <li><a href="#类模板的static成员">类模板的static成员</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="161-定义模板" class="headerLink">
+    <a href="#161-%e5%ae%9a%e4%b9%89%e6%a8%a1%e6%9d%bf" class="header-mark"></a>16.1 定义模板</h2><p>如果希望定义两个函数，来比较两个值，对于不同类型，可以通过定义多个重载函数来实现这样的功能</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//如果两个值相等，返回0，v1小于v2返回-1，v2小于v1返回1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">compare</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">v1</span><span class="p">,</span> <span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">v2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">v1</span> <span class="o">&lt;</span> <span class="n">v2</span><span class="p">)</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">v2</span> <span class="o">&lt;</span> <span class="n">v1</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">compare</span><span class="p">(</span><span class="k">const</span> <span class="kt">double</span> <span class="o">&amp;</span><span class="n">v1</span><span class="p">,</span> <span class="k">const</span> <span class="kt">double</span> <span class="o">&amp;</span><span class="n">v2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">v1</span> <span class="o">&lt;</span> <span class="n">v2</span><span class="p">)</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">v2</span> <span class="o">&lt;</span> <span class="n">v1</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这两个函数几乎相同，唯一的区别是<strong>参数的类型</strong>，函数体完全一样</p>
+<p>如果还需要定义其他类型的比较函数，显然这样定义比较麻烦，可以用到下面介绍的函数模板进行简化</p>
+<h3 id="1611-函数模板" class="headerLink">
+    <a href="#1611-%e5%87%bd%e6%95%b0%e6%a8%a1%e6%9d%bf" class="header-mark"></a>16.1.1 函数模板</h3><ul>
+<li>通过定义一个<strong>函数模板</strong>，而不需要为每个类型都定义一个新函数；</li>
+<li>一个函数模板就是一个公式，可以用来生成针对特定类型的函数版本</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">compare</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">v1</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">v2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">v1</span> <span class="o">&lt;</span> <span class="n">v2</span><span class="p">)</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">v2</span> <span class="o">&lt;</span> <span class="n">v1</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>模板定义以<strong>关键字 template</strong> 开始，后跟一个<strong>模板参数列表</strong>，这是一个逗号分隔的一个或多个<strong>模板参数</strong>的列表，用（&lt;&gt;）包围起来</p>
+<blockquote>
+<p>模板定义中，模板参数列表不能为空</p>
+</blockquote>
+<p>模板参数列表类似函数参数列表，在调用时为函数提供实参来初始化形参；模板参数列表中的类型，只有当调用时，通过显式或隐式指定<strong>模板实参</strong>，将其绑定到模板参数上，根据具体使用情况来确定</p>
+<h4 id="实例化函数模板" class="headerLink">
+    <a href="#%e5%ae%9e%e4%be%8b%e5%8c%96%e5%87%bd%e6%95%b0%e6%a8%a1%e6%9d%bf" class="header-mark"></a>实例化函数模板</h4><p><em>当调用一个函数模板时，编译器用函数实参来推断模板实参</em></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">compare</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">//T为int
+</span></span></span><span class="line"><span class="cl"><span class="c1">//实参类型为int, 编译器推断出模板实参为int，将其绑定到模板参数T
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>编译器用推断出来的模板参数来<strong>实例化</strong>一个特定版本的函数，对于上面的调用，会实例化出 <code>int compare(const int&amp;, const int&amp;);</code> 函数</p>
+<p>同样对于下面的调用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">vec1</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span> <span class="n">vec2</span><span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">compare</span><span class="p">(</span><span class="n">vec1</span><span class="p">,</span> <span class="n">vec2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//实例化出 int compare(const vector&lt;int&gt;&amp;, const vector&lt;int&gt;&amp;)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>编译器会实例化另一个 compare 版本，其中 T 被替换为 <code>vector&lt;int&gt;</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">compare</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="n">v1</span><span class="p">,</span> <span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="n">v2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">v1</span> <span class="o">&lt;</span> <span class="n">v2</span><span class="p">)</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">v2</span> <span class="o">&lt;</span> <span class="n">v1</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这些编译器生成的版本通常称为模板的==实例==</p>
+<h4 id="模板类型参数" class="headerLink">
+    <a href="#%e6%a8%a1%e6%9d%bf%e7%b1%bb%e5%9e%8b%e5%8f%82%e6%95%b0" class="header-mark"></a>模板类型参数</h4><p>上面定义的 compare 函数有一个模板<strong>类型参数</strong>，一般可以将类型参数看作类型说明符，就像内置类型或类类型说明符一样使用</p>
+<p>类型参数可以用来指定返回类型，函数参数类型，以及函数体内用于变量声明或类型转换</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">T</span> <span class="n">foo</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">T</span> <span class="n">tmp</span> <span class="o">=</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span> <span class="c1">//tmp类型将时指针p指向的类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span> <span class="n">tmp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>类型参数前必须使用关键字 class 或 typename</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//错误：U前面需要加上关键字class或typename
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="o">&gt;</span> <span class="n">T</span> <span class="n">calc</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span><span class="p">,</span> <span class="k">const</span> <span class="n">U</span><span class="o">&amp;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>这两个关键字含义相同，可以互换使用</strong></p>
+<h4 id="非类型模板参数" class="headerLink">
+    <a href="#%e9%9d%9e%e7%b1%bb%e5%9e%8b%e6%a8%a1%e6%9d%bf%e5%8f%82%e6%95%b0" class="header-mark"></a>非类型模板参数</h4><ul>
+<li>一个<strong>非类型参数</strong>表示一个值而非一个类型，通过一个特定的类型名而非关键字 class 或 typename 来指定非类型参数</li>
+<li>一个模板被实例化时，非类型参数被用户提供或编译器推断出的值所替代，<em>这些值必须是常量表达式</em></li>
+</ul>
+<p>例如：编写一个 compare 版本处理字符串字面常量，这种字面常量是 const char 数组，用于不能拷贝一个数组，所以将自己的参数定义为<strong>数组的引用</strong>，由于希望比较不同长度的字符串字面值常量，模板定义了两个非类型的参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="kt">unsigned</span> <span class="n">N</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">M</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">compare</span><span class="p">(</span><span class="k">const</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">p1</span><span class="p">)[</span><span class="n">N</span><span class="p">],</span> <span class="k">const</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">p2</span><span class="p">)[</span><span class="n">M</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nf">strcmp</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>调用这个版本时：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">compare</span><span class="p">(</span><span class="s">&#34;hi&#34;</span><span class="p">,</span> <span class="s">&#34;mom&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//编译器会用字面值常量的大小代替N，M
+</span></span></span><span class="line"><span class="cl"><span class="c1">//编译器会在末尾插入一个空字符作为终结符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">//编译器会实例出下面版本
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">compare</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">p1</span><span class="p">)[</span><span class="mi">3</span><span class="p">],</span> <span class="k">const</span> <span class="kt">char</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">p2</span><span class="p">)[</span><span class="mi">4</span><span class="p">]);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>一个非类型参数可以是一个整型、一个指向对象或函数类型的指针或（左值）引用</li>
+<li><strong>绑定到非类型整型参数的实参必须是一个常量表达式</strong></li>
+<li>绑定到指针或引用必须具有静态生存期，不能用普通（非static）局部变量或动态对象作为指针引用的实参</li>
+<li>指针参数也可以用 nullptr 或值为 0 的常量表达式来实例化</li>
+</ul>
+<h4 id="inline-和-constexpr-的函数模板" class="headerLink">
+    <a href="#inline-%e5%92%8c-constexpr-%e7%9a%84%e5%87%bd%e6%95%b0%e6%a8%a1%e6%9d%bf" class="header-mark"></a>inline 和 constexpr 的函数模板</h4><p>inline 和 constexpr 说明符放在模板参数列表后面，返回类型之前</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//正确：inline说明符在模板参数列表之后
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="kr">inline</span> <span class="n">T</span> <span class="n">min</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//错误：inline位置不正确
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">inline</span> <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">T</span> <span class="n">min</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="编写类型无关的代码" class="headerLink">
+    <a href="#%e7%bc%96%e5%86%99%e7%b1%bb%e5%9e%8b%e6%97%a0%e5%85%b3%e7%9a%84%e4%bb%a3%e7%a0%81" class="header-mark"></a>编写类型无关的代码</h4><p>编写泛型代码两个重要原则：</p>
+<ol>
+<li>模板中的函数参数是 const 的引用</li>
+<li>函数体中的条件判断仅用 &lt; 比较运算</li>
+</ol>
+<ul>
+<li>使用 const 的引用，保证了函数可以用于不能拷贝的类型，设为引用处理大对象时，函数运行速度会更快</li>
+<li>只使用 &lt; 运算符，降低了函数对要处理类型的要求，这些类型必须支持 &lt;，而不必同时支持 &gt;</li>
+<li>如果需要类型无关和可移植性，可以使用 less 函数对象来定义</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="kt">int</span> <span class="n">compare</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">v1</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">v2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">less</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">))</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">less</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()(</span><span class="n">v2</span><span class="p">,</span> <span class="n">v1</span><span class="p">))</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="模板编译" class="headerLink">
+    <a href="#%e6%a8%a1%e6%9d%bf%e7%bc%96%e8%af%91" class="header-mark"></a>模板编译</h4><p>编译器遇见一个模板定义时，并不生成代码，只有当实例化出模板的一个特定版本时，编译器才会生成代码</p>
+<p>模板为了生成一个实例化版本，需要函数模板或类模板成员函数的定义，与非模板代码不同，模板的头文件通常即包括声明也包括定义</p>
+<h4 id="大多数编译错误在实例化期间报告" class="headerLink">
+    <a href="#%e5%a4%a7%e5%a4%9a%e6%95%b0%e7%bc%96%e8%af%91%e9%94%99%e8%af%af%e5%9c%a8%e5%ae%9e%e4%be%8b%e5%8c%96%e6%9c%9f%e9%97%b4%e6%8a%a5%e5%91%8a" class="header-mark"></a>大多数编译错误在实例化期间报告</h4><p>模板直到实例化才会生成代码，通常编译器在三个阶段报告错误：</p>
+<ol>
+<li>编译模板本身，基本的语法错误（忘记分号，变量名拼错等）</li>
+<li>编译器遇到模板使用时，函数模板会检查实参数目是否正确，参数类型是否匹配，类模板是否提供了正确数目的模板实参</li>
+<li>模板实例化时，只有这个阶段才会发现类型相关的错误</li>
+</ol>
+<p>例如：之前的 compare 函数，如果传入一个类类型</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Sales_data</span> <span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">compare</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">//错误：Sales_data未定义&lt;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样的错误只有等到实例化 compare 才会发现</p>
+<h3 id="1612-类模板" class="headerLink">
+    <a href="#1612-%e7%b1%bb%e6%a8%a1%e6%9d%bf" class="header-mark"></a>16.1.2 类模板</h3><p><strong>类模板</strong>用来生成类的蓝图，类模板必须提供额外的信息，来确定模板的参数类型，一般在模板名后尖括号中提供实参</p>
+<h4 id="定义类模板" class="headerLink">
+    <a href="#%e5%ae%9a%e4%b9%89%e7%b1%bb%e6%a8%a1%e6%9d%bf" class="header-mark"></a>定义类模板</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Blob</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">typedef</span> <span class="n">T</span> <span class="n">value_type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">typedef</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">size_type</span> <span class="n">size_type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Blob</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Blob</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">il</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//Blob中元素数目
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">size_type</span> <span class="nf">size</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">bool</span> <span class="nf">empty</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">empty</span><span class="p">();</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">push_back</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">push_back</span><span class="p">(</span><span class="n">t</span><span class="p">);}</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">pop_back</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//元素访问
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">T</span><span class="o">&amp;</span> <span class="n">back</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="n">T</span><span class="o">&amp;</span> <span class="k">operator</span><span class="p">[](</span><span class="n">size_type</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//若data[i]无效，抛出msg
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">void</span> <span class="nf">check</span><span class="p">(</span><span class="n">size_type</span> <span class="n">i</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">msg</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="err">；</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="实例化类模板" class="headerLink">
+    <a href="#%e5%ae%9e%e4%be%8b%e5%8c%96%e7%b1%bb%e6%a8%a1%e6%9d%bf" class="header-mark"></a>实例化类模板</h4><p>使用一个类模板时，需要提供额外信息，这些额外信息是<strong>显示模板实参</strong>列表，它们被绑定到模板参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//使用类模板，必须提供元素类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Blob</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">ia</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="n">Blob</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">ia2</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>ia 和 ia2会实例化以下特定版本的 <code>Blob&lt;int&gt; </code>
+`</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;&gt;</span> <span class="k">class</span> <span class="nc">Blob</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">typedef</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">size_type</span> <span class="n">size_type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Blob</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Blob</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">il</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当编译器从 Blob 模板中实例化一个类时，它会重写 Blob 模板，将参数 T 的每个实例替换成给定的模板实参</p>
+<blockquote>
+<p>一个类模板的每个实例都形成一个独立的类，类型 <code>Blob&lt;string&gt;</code> 与其他任何 Blob类型都没有关系，也不会对任何其他 Blob 类型的成员具有特殊的访问权限</p>
+</blockquote>
+<h4 id="类模板的成员函数" class="headerLink">
+    <a href="#%e7%b1%bb%e6%a8%a1%e6%9d%bf%e7%9a%84%e6%88%90%e5%91%98%e5%87%bd%e6%95%b0" class="header-mark"></a>类模板的成员函数</h4><p>与其他类一样，既可以在类模板内部，也可以在外部定义其成员函数，且<strong>定义在类模板内的成员函数被隐式声明为内联函数</strong></p>
+<ul>
+<li>类模板的成员函数本身是一个普通函数</li>
+<li>每个类模板的实例都有自己版本的成员函数</li>
+<li>类模板的成员函数具有和模板相同的模板参数</li>
+<li>定义在类模板之外的成员函数就必须以关键字 template 开始，后接参数列表</li>
+</ul>
+<p>简单说就是在类模板内部定义成员函数，可以直接使用参数 T，而在类模板外部定义成员函数，前面需要加上 template 等</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">ret</span><span class="o">-</span><span class="n">type</span> <span class="n">Blob</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">member</span><span class="o">-</span><span class="n">name</span><span class="p">(</span><span class="n">parm</span><span class="o">-</span><span class="n">list</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里必须加上 template 这行</p>
+<h4 id="类模板成员函数实例化" class="headerLink">
+    <a href="#%e7%b1%bb%e6%a8%a1%e6%9d%bf%e6%88%90%e5%91%98%e5%87%bd%e6%95%b0%e5%ae%9e%e4%be%8b%e5%8c%96" class="header-mark"></a>类模板成员函数实例化</h4><p>默认情况下，类模板的成员函数只有当程序使用它的时候才进行实例化</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 实例化Blob&lt;int&gt;和接受initializer_list&lt;int&gt;的构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Blob</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">squares</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">squares</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">squares</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">i</span><span class="p">;</span> <span class="c1">//实例化Blob&lt;int&gt;::operator[](size_t)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果一个成员函数没有被使用，则它不会被实例化</p>
+<h4 id="类代码内简化模板类名的使用" class="headerLink">
+    <a href="#%e7%b1%bb%e4%bb%a3%e7%a0%81%e5%86%85%e7%ae%80%e5%8c%96%e6%a8%a1%e6%9d%bf%e7%b1%bb%e5%90%8d%e7%9a%84%e4%bd%bf%e7%94%a8" class="header-mark"></a>类代码内简化模板类名的使用</h4><p>在使用一个类模板类型时必须提供模板实参，但是在类模板自己的作用域中，可以直接使用模板名而不提供实参</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">BlobPtr</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">BlobPtr</span><span class="p">()</span> <span class="o">:</span> <span class="n">curr</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//其他构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">T</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">*</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">auto</span> <span class="n">p</span> <span class="o">=</span> <span class="n">check</span><span class="p">(</span><span class="n">curr</span><span class="p">,</span> <span class="s">&#34;derederence past edn&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">)[</span><span class="n">curr</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//递增和递减
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">BlobPtr</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">++</span><span class="p">();</span> <span class="c1">//求值运算符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">BlobPtr</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">--</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//其他成员
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">curr</span><span class="p">;</span> <span class="c1">//数组中的位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里前置递增和递减成员返回的时 BlobPtr&amp;，而不是 <code>BlobPtr&lt;T&gt;&amp;</code>，在类模板作用域中，编译器处理模板自身引用会自动提供模板匹配的实参</p>
+<h4 id="类模板外使用类模板名" class="headerLink">
+    <a href="#%e7%b1%bb%e6%a8%a1%e6%9d%bf%e5%a4%96%e4%bd%bf%e7%94%a8%e7%b1%bb%e6%a8%a1%e6%9d%bf%e5%90%8d" class="header-mark"></a>类模板外使用类模板名</h4><p>在类模板外定义成员时，此时不在类的作用域，直到遇见类名菜进入类的作用域</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//后置++版本
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">BlobPtr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">BlobPtr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">++</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">BlobPtr</span> <span class="n">ret</span> <span class="o">=</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">++*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回类型位于类的作用域之外，所以必须指出返回类型是一个实例化的 BlobPtr，在函数体内已经进入类的作用域，则定义 ret 时无须重复提供模板实参，如果不通过模板实参，编译器假定使用的类型与成员实例化所用类型一致，等价于：<code>BlobPtr&lt;T&gt; ret = *this;</code></p>
+<h4 id="类模板和友元" class="headerLink">
+    <a href="#%e7%b1%bb%e6%a8%a1%e6%9d%bf%e5%92%8c%e5%8f%8b%e5%85%83" class="header-mark"></a>类模板和友元</h4><ul>
+<li>一个类包含一个友元声明，类与友元各自是否是模板是互相无关的</li>
+<li>如果一个模板包括一个非模板友元，则友元可以访问所以模板实例</li>
+<li>如果友元自身也是模板，类可以授权给所有友元模板实例，也可以只授权给特定实例</li>
+</ul>
+<h4 id="一对一友好关系" class="headerLink">
+    <a href="#%e4%b8%80%e5%af%b9%e4%b8%80%e5%8f%8b%e5%a5%bd%e5%85%b3%e7%b3%bb" class="header-mark"></a>一对一友好关系</h4><p>类模板与另一个（类或函数）模板间友好关系的最常见的形式是建立<em>对应实例及其友元间的友好关系</em>。例如，我们的 Blob 类应该将 BlobPtr 类和一个模板版本的 Blob</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">BlobPtr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//需要提前声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Blob</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span> <span class="n">Blob</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span><span class="p">,</span> <span class="k">const</span> <span class="n">Blob</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Blob</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">friend</span> <span class="k">class</span> <span class="nc">BlobPtr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">friend</span> <span class="kt">bool</span> <span class="k">operator</span><span class="o">==&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">				<span class="p">(</span><span class="k">const</span> <span class="n">Blob</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span><span class="p">,</span> <span class="k">const</span> <span class="n">Blob</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//其他成员
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>友元的声明用 Blob 的模板形参作为自己的模板实参，友好关系被限定在相同类型实例化的 Blob 和 BlobPtr 相等运算符之间</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//BlobPtr&lt;char&gt;和operator==&lt;char&gt;都是本对象的友元
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Blob</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">ca</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="c1">//BlobPtr&lt;int&gt;和operator==&lt;int&gt;都是本对象的友元
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Blob</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">ia</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面例子中，ca 对 ia 或其他实例没有特殊访问权限</p>
+<h4 id="通用和特定模板的友好关系" class="headerLink">
+    <a href="#%e9%80%9a%e7%94%a8%e5%92%8c%e7%89%b9%e5%ae%9a%e6%a8%a1%e6%9d%bf%e7%9a%84%e5%8f%8b%e5%a5%bd%e5%85%b3%e7%b3%bb" class="header-mark"></a>通用和特定模板的友好关系</h4><p>一个类也可以将另一个模板的每个实例都声明为自己的友元，或者限定特定的实例为友元</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Pal</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">C</span> <span class="p">{</span> <span class="c1">//C是普通非模板类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">friend</span> <span class="k">class</span> <span class="nc">Pal</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span><span class="p">;</span><span class="c1">//C实例化Pal是C的友元
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//Pal2的所有实例都是C的友元，这种情况无须前置声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="k">friend</span> <span class="k">class</span> <span class="nc">Pal2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">C2</span> <span class="p">{</span><span class="c1">//C2是个模板类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//C2每个实例将相同实例的Pal声明为友元
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">friend</span> <span class="k">class</span> <span class="nc">Pal</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//Pal2所有实例都是C2每个实例的友元，不需要前置声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">X</span><span class="o">&gt;</span> <span class="k">friend</span> <span class="k">class</span> <span class="nc">Pal2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//Pal3是一个非模板类，它是C2所有实例的友元
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">friend</span> <span class="k">class</span> <span class="nc">Pal3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><em>为了让所有实例都成为友元，友元声明中必须使用与类模板不同的模板参数</em></p>
+<h4 id="令模板自己的类型参数成为友元" class="headerLink">
+    <a href="#%e4%bb%a4%e6%a8%a1%e6%9d%bf%e8%87%aa%e5%b7%b1%e7%9a%84%e7%b1%bb%e5%9e%8b%e5%8f%82%e6%95%b0%e6%88%90%e4%b8%ba%e5%8f%8b%e5%85%83" class="header-mark"></a>令模板自己的类型参数成为友元</h4><p>在C++11新标准中，可以将模板类型参数声明为友元</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Type</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Bar</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">friend</span> <span class="n">Type</span><span class="p">;</span> <span class="c1">//访问权限授予实例化Bar的类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时，对于某个类型 <code>Foo</code>，<code>Foo</code> 将称为 <code>Bar&lt;Foo&gt;</code> 的友元，<code>Sales_data</code> 将成为 <code>Bar&lt;Sales_data&gt;</code> 的友元</p>
+<h4 id="模板类型别名" class="headerLink">
+    <a href="#%e6%a8%a1%e6%9d%bf%e7%b1%bb%e5%9e%8b%e5%88%ab%e5%90%8d" class="header-mark"></a>模板类型别名</h4><p>类模板一个实例定义了一个类类型，我们可以定义一个 typedef 来引用实例化的类： <code>typedef Blob&lt;string&gt; StrBlob;</code></p>
+<p>由于模板不是一个类型，我们不能定义一个 <code>typedef</code> 引用一个模板，即不能定义一个 <code>typedef</code> 引用 <code>Blob&lt;T&gt;</code></p>
+<p>但是新标准允许为类模板定义一个类型别名：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="k">using</span> <span class="n">twin</span> <span class="o">=</span> <span class="n">pair</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">twin</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">authors</span><span class="p">;</span> <span class="c1">//authors是一个pair&lt;string, strin&gt;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用别名时，也需要像模板那样指出特定类型的 twin</p>
+<p>使用一个模板类型别名时，可以固定一个或多个模板参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="k">using</span> <span class="n">partNo</span> <span class="o">=</span> <span class="n">pair</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="kt">unsigned</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">partNo</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">books</span><span class="p">;</span> <span class="c1">//是pair&lt;string, unsigned&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">partNo</span><span class="o">&lt;</span><span class="n">Vehicle</span><span class="o">&gt;</span> <span class="n">books</span><span class="p">;</span> <span class="c1">//是pair&lt;Vehicle, unsigned&gt;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="类模板的static成员" class="headerLink">
+    <a href="#%e7%b1%bb%e6%a8%a1%e6%9d%bf%e7%9a%84static%e6%88%90%e5%91%98" class="header-mark"></a>类模板的static成员</h4><p><strong>对于类模板的static成员，每个模板的实例都有属于自己的 static 成员实例</strong></p>
+<p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">ctr</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//其他成员
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">ctr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//其他成员
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>对于任意的 <code>Foo&lt;X&gt;</code> 实例对象共享相同的 <code>ctr</code> 对象和 <code>count</code> 函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//实例化static成员Foo&lt;string&gt;::ctr和Foo&lt;string&gt;::count
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Foo</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">fs</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//所有三个对象共享相同的Foo&lt;int&gt;::ctr和Foo&lt;int&gt;::count成员
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Foo</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">fi</span><span class="p">,</span> <span class="n">fi2</span><span class="p">,</span> <span class="n">fi3</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在类外部也可以定义static成员，与定义模板成员函数类似：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">size_t</span> <span class="n">Foo</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">ctr</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//定义并初始化ctr
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用一个静态成员时，可以通过作用域运算符直接访问成员，为了访问static成员，必须提供一个特定的实例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Foo</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">fi</span><span class="p">;</span> <span class="c1">//实例化Foo&lt;int&gt;和static数据成员ctr
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">auto</span> <span class="n">ct</span> <span class="o">=</span> <span class="n">Foo</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">count</span><span class="p">();</span><span class="c1">//实例化Foo&lt;int&gt;::count
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ct</span> <span class="o">=</span> <span class="n">fi</span><span class="p">.</span><span class="n">count</span><span class="p">();</span>            <span class="c1">//使用Foo&lt;int&gt;::count
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ct</span> <span class="o">=</span> <span class="n">Foo</span><span class="o">::</span><span class="n">count</span><span class="p">();</span>          <span class="c1">//错误：未明确哪个模板实例
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>类似模板类的其他成员函数，一个static成员函数只有在使用时才会实例化</p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-05-07</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span><a class="link-to-mardown" href=/chapter16-%E6%A8%A1%E6%9D%BF%E4%B8%8E%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/index.md target="_blank" rel="noopener noreferrer">阅读原始文档</a>
+                    </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/c&#43;&#43;/">C&#43;&#43;</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/chapter15-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" class="prev" rel="prev" title="《C&#43;&#43;Primer》第十五章 面向对象程序设计"><i class="fas fa-angle-left fa-fw"></i>《C&#43;&#43;Primer》第十五章 面向对象程序设计</a></div>
+</div>
+<div id="comments"><div id="utterances"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
+            </noscript></div></article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                    由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.3">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Silas</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/fuse/fuse.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/tablesort/tablesort.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ephmeral/hugoblogtalks"}},"data":{"desktop-header-typeit":"Ephmeral","mobile-header-typeit":"Ephmeral"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"table":{"sort":true},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/utterances.min.js" defer></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript></div>
+</body>
+
+</html>
