@@ -11,7 +11,7 @@
     </author><guid>https://blog.silasblog.top/chapter16-%E6%A8%A1%E6%9D%BF%E4%B8%8E%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/</guid>
     <description><![CDATA[16.1 定义模板如果希望定义两个函数，来比较两个值，对于不同类型，可以通过定义多个重载函数来实现这样的功能 1 2 3 4 5 6 7 8 9 10 11 12 //如果两个值相]]></description>
 </item><item>
-    <title>《C&#43;&#43;Primer》第十五章 面向对象程序设计</title>
+    <title>《C&#43;&#43;Primer》| 第十五章 面向对象程序设计</title>
     <link>https://blog.silasblog.top/chapter15-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</link>
     <pubDate>Thu, 28 Apr 2022 14:51:51 &#43;0800</pubDate><author>
         <name>Silas</name>
