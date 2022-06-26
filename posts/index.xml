@@ -3,7 +3,14 @@
         <title>所有文章 - </title>
         <link>https://blog.silasblog.top/posts/</link>
         <description>所有文章 | </description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 07 May 2022 08:45:45 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 26 Jun 2022 17:31:09 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>NJU-ICS2021 | PA0&amp;PA1实验小结</title>
+    <link>https://blog.silasblog.top/nju-ics2021-pa0pa1%E5%B0%8F%E7%BB%93/</link>
+    <pubDate>Sun, 26 Jun 2022 17:31:09 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/nju-ics2021-pa0pa1%E5%B0%8F%E7%BB%93/</guid>
+    <description><![CDATA[前言这里简单记录一下自己做PA实验的体会，既是及时做个整理总结，也希望能够帮助到后续做PA实验的同学。 首先声明本人非南大学生，也并非科班学生]]></description>
+</item><item>
     <title>《C&#43;&#43;Primer》| 第十六章 模板与泛型编程</title>
     <link>https://blog.silasblog.top/chapter16-%E6%A8%A1%E6%9D%BF%E4%B8%8E%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/</link>
     <pubDate>Sat, 07 May 2022 08:45:45 &#43;0800</pubDate><author>

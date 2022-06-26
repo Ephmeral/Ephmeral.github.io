@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">NJU-ICS2021 | PA0&amp;PA1实验小结 - </title><meta name="Description" content=""><meta property="og:title" content="NJU-ICS2021 | PA0&amp;PA1实验小结" />
+<meta property="og:description" content="前言这里简单记录一下自己做PA实验的体会，既是及时做个整理总结，也希望能够帮助到后续做PA实验的同学。 首先声明本人非南大学生，也并非科班学生" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.silasblog.top/nju-ics2021-pa0pa1%E5%B0%8F%E7%BB%93/" /><meta property="og:image" content="https://blog.silasblog.top/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-06-26T17:31:09+08:00" />
+<meta property="article:modified_time" content="2022-06-26T17:31:09+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.silasblog.top/logo.png"/>
+
+<meta name="twitter:title" content="NJU-ICS2021 | PA0&amp;PA1实验小结"/>
+<meta name="twitter:description" content="前言这里简单记录一下自己做PA实验的体会，既是及时做个整理总结，也希望能够帮助到后续做PA实验的同学。 首先声明本人非南大学生，也并非科班学生"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content="">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="https://blog.silasblog.top/nju-ics2021-pa0pa1%E5%B0%8F%E7%BB%93/" /><link rel="prev" href="https://blog.silasblog.top/chapter16-%E6%A8%A1%E6%9D%BF%E4%B8%8E%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "NJU-ICS2021 | PA0\u0026PA1实验小结",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.silasblog.top\/nju-ics2021-pa0pa1%E5%B0%8F%E7%BB%93\/"
+        },"genre": "posts","keywords": "ICS, PA","wordcount":  3776 ,
+        "url": "https:\/\/blog.silasblog.top\/nju-ics2021-pa0pa1%E5%B0%8F%E7%BB%93\/","datePublished": "2022-06-26T17:31:09+08:00","dateModified": "2022-06-26T17:31:09+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Silas"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="normal" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"><i class='folder-open-solid'></i> 分类 </a><a class="menu-item" href="/series/"> 系列 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title=""><i class='folder-open-solid'></i>分类</a><a class="menu-item" href="/series/" title="">系列</a><a class="menu-item" href="/about/" title="">关于</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#pa0-实验环境配置">PA0 实验环境配置</a></li>
+    <li><a href="#pa1">PA1</a>
+      <ul>
+        <li><a href="#pa1-1-寄存器的模拟">PA1-1 寄存器的模拟</a></li>
+        <li><a href="#pa1-2-alu的模拟">PA1-2 ALU的模拟</a></li>
+        <li><a href="#pa1-3-fpu的实现">PA1-3 FPU的实现</a>
+          <ul>
+            <li><a href="#阶码-exp--0--sig_grs--23--3--1">阶码 exp == 0 &amp;&amp; sig_grs &raquo; (23 + 3) == 1</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#小结">小结</a></li>
+  </ul>
+</nav></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">NJU-ICS2021 | PA0&amp;PA1实验小结</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Silas</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/lab/"><i class="far fa-folder fa-fw"></i>Lab</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-26">2022-06-26</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-06-26">2022-06-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3776 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#pa0-实验环境配置">PA0 实验环境配置</a></li>
+    <li><a href="#pa1">PA1</a>
+      <ul>
+        <li><a href="#pa1-1-寄存器的模拟">PA1-1 寄存器的模拟</a></li>
+        <li><a href="#pa1-2-alu的模拟">PA1-2 ALU的模拟</a></li>
+        <li><a href="#pa1-3-fpu的实现">PA1-3 FPU的实现</a>
+          <ul>
+            <li><a href="#阶码-exp--0--sig_grs--23--3--1">阶码 exp == 0 &amp;&amp; sig_grs &raquo; (23 + 3) == 1</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#小结">小结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="前言" class="headerLink">
+    <a href="#%e5%89%8d%e8%a8%80" class="header-mark"></a>前言</h2><p>这里简单记录一下自己做PA实验的体会，既是及时做个整理总结，也希望能够帮助到后续做PA实验的同学。</p>
+<p>首先声明本人非南大学生，也并非科班学生，之前学过一点CSAPP，了解过部分汇编、计组相关内容，如果没学过相关课程的话，可以看一下中国大学 MOOC 上，南大的计算机系统基础课程，总共有 5 门课，前三门是基础知识，后面两门结合实践，我这里主要学了第 5 门课程，也就是<a href="https://www.icourse163.org/course/NJU-1464941173" target="_blank" rel="noopener noreffer">计算机系统基础（五）：x86模拟器编程实践</a>。</p>
+<p>PA实验也是围绕这个课程开展的，不过这门课在中国大学 MOOC 上可能未开放（有时候因为学期结束了，不能上），所以另外推荐授课老师的B站：<a href="https://space.bilibili.com/284613991" target="_blank" rel="noopener noreffer">我是汪犬人的个人空间_哔哩哔哩_Bilibili</a>，可以从老师主页看到相关录屏课程，然后就是PA实验代码和框架代码：</p>
+<p>Guide的仓库及其镜像地址：</p>
+<ul>
+<li>GitHub: <a href="http://github.com/ics-nju-wl/icspa-public-guide" target="_blank" rel="noopener noreffer">http://github.com/ics-nju-wl/icspa-public-guide</a></li>
+<li>Gitee: <a href="https://gitee.com/wlicsnju/icspa-public-guide" target="_blank" rel="noopener noreffer">https://gitee.com/wlicsnju/icspa-public-guide</a></li>
+</ul>
+<p>实验框架代码及其镜像地址：</p>
+<ul>
+<li>GitHub: <a href="http://github.com/ics-nju-wl/icspa-public" target="_blank" rel="noopener noreffer">http://github.com/ics-nju-wl/icspa-public</a></li>
+<li>Gitee: <a href="https://gitee.com/wlicsnju/icspa-public" target="_blank" rel="noopener noreffer">https://gitee.com/wlicsnju/icspa-public</a></li>
+</ul>
+<h2 id="pa0-实验环境配置" class="headerLink">
+    <a href="#pa0-%e5%ae%9e%e9%aa%8c%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae" class="header-mark"></a>PA0 实验环境配置</h2><p>实验指导上写的很详细，过多内容就不赘述，这里主要记录下自己做实验遇见的一些坑和一些思考</p>
+<p>课程推荐的是 Debian ，如果从官网上可以比较难找课程推荐的版本（我最开始就没有找到，也是看了MOOC上讨论区才找到），具体地址如下：</p>
+<p><a href="https://www.debian.org/releases/buster/debian-installer/" target="_blank" rel="noopener noreffer">https://www.debian.org/releases/buster/debian-installer/</a></p>
+<p>这是课程对应的Debian 10 buster版本，其他的环境配置跟着实验指导一步一步来就好，暂时没遇见什么问题</p>
+<h2 id="pa1" class="headerLink">
+    <a href="#pa1" class="header-mark"></a>PA1</h2><p>PA1主要是实现数据在 NEMU 模拟器上的表示和运算，包括整数和浮点数的表示、存储和运算</p>
+<h3 id="pa1-1-寄存器的模拟" class="headerLink">
+    <a href="#pa1-1-%e5%af%84%e5%ad%98%e5%99%a8%e7%9a%84%e6%a8%a1%e6%8b%9f" class="header-mark"></a>PA1-1 寄存器的模拟</h3><p>PA1-1 需要需要数据在计算机内部存储形式，也就是实现寄存器，这里框架代码已经给出来了，利用 C 语言中的 union ，看一下这个答案：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">union</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">union</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">union</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="kt">uint32_t</span> <span class="n">_32</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">				<span class="kt">uint16_t</span> <span class="n">_16</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">				<span class="kt">uint8_t</span> <span class="n">_8</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">			<span class="p">};</span>
+</span></span><span class="line"><span class="cl">			<span class="kt">uint32_t</span> <span class="n">val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span> <span class="n">gpr</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">		<span class="k">struct</span> <span class="p">{</span> <span class="c1">// do not change the order of the registers
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="kt">uint32_t</span> <span class="n">eax</span><span class="p">,</span> <span class="n">ecx</span><span class="p">,</span> <span class="n">edx</span><span class="p">,</span> <span class="n">ebx</span><span class="p">,</span> <span class="n">esp</span><span class="p">,</span> <span class="n">ebp</span><span class="p">,</span> <span class="n">esi</span><span class="p">,</span> <span class="n">edi</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">};</span>
+</span></span><span class="line"><span class="cl">	<span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">CPU_STATE</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里用到了 union 联合体，为什么用 union 就可以实现需求呢？</p>
+<blockquote>
+<p>具体需求如下：
+我们希望以<code>cpu.eax</code>形式访问的和以<code>cpu.gpr[0]._32</code>形式访问的是同一个模拟寄存器，同时<code>cpu.gpr[0]._16</code>能够访问到<code>cpu.eax</code>的低16位也就是<code>ax寄存器</code>，<code>cpu.gpr[0]._8[0]</code>访问到<code>cpu.eax</code>的低8位也就是<code>al</code>寄存器等。</p>
+</blockquote>
+<p>这里相当于是模拟了 i386 中寄存器的结构</p>
+<p><img
+        class="lazyload"
+        data-src="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220516201641.png"
+        data-srcset="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220516201641.png, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220516201641.png 1.5x, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220516201641.png 2x"
+        data-sizes="auto"
+        alt="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220516201641.png"
+        title="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220516201641.png"></p>
+<p>要理解上面为什么可以实现，首先需要找到 union 联合体的在内存储存方式</p>
+<blockquote>
+<p>union 相当于一个结构，它的所有成员相对于基地址的偏移量都为0，此结构空间要大到足够容纳最“宽”的成员
+——摘自K&amp;R C语言p130</p>
+</blockquote>
+<p>我的理解，一个 union 宽度是它的成员中最大的那个，其他的成员和它存放在同一个地址，相对于起始地址偏移量都为0</p>
+<p>举个例子：加入现在一个union 有两个成员，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">union</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">char</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">short</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="n">u</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们可以知道这个 union 所需要的字节数为一个 int 也就是4个字节，假设现在c = 0x12345615，并且存放在0x80000000这个地址开始位置，那么具体存放内容如下（假设这里为小端存放）</p>
+<p><img
+        class="lazyload"
+        data-src="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220516204024.png"
+        data-srcset="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220516204024.png, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220516204024.png 1.5x, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220516204024.png 2x"
+        data-sizes="auto"
+        alt="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220516204024.png"
+        title="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220516204024.png"></p>
+<p>此时，对于 <code>u.a = 0x15</code>，而 <code>u.b = 0x5615</code>，相比较起始地址偏移量都为0，char 占用一个字节，则 a 即为 0x15，short 占用两个字节，b 即为 0x5615 了，下面是C程序验证我们的结论</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">union</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">char</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">short</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="n">u</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">u</span><span class="p">.</span><span class="n">c</span> <span class="o">=</span> <span class="mh">0x12345615</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;u.a = 0x%x</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;u.b = 0x%x</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">u</span><span class="p">.</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;u.c = 0x%x</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">u</span><span class="p">.</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">silas@Silas-PC:~/ics4$ gcc -g -o union union.c &amp;&amp; ./union
+</span></span></span><span class="line"><span class="cl"><span class="cm">u.a = 0x15
+</span></span></span><span class="line"><span class="cl"><span class="cm">u.b = 0x5615
+</span></span></span><span class="line"><span class="cl"><span class="cm">u.c = 0x12345615
+</span></span></span><span class="line"><span class="cl"><span class="cm">**/</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面提到一个小端存放，这个在实验指导书上提到：</p>
+<blockquote>
+<p>x86采用小端方式存储数据，它规定了超过一个字节的数据的存储规则：<strong>低有效字节放在低地址，高有效字节放在高地址。</strong></p>
+</blockquote>
+<p>这样就比较好理解，为什么下面 union 这个可以模拟出i386 对应寄存器的结构</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">union</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">uint32_t</span> <span class="n">_32</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">uint16_t</span> <span class="n">_16</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">uint8_t</span> <span class="n">_8</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>_32</code> 在内存中宽度最大，也对应32位的寄存器，例如 eax，而<code>_16</code> 为16为，由于是小端存放，最低有效字节放在低地址，取出16位即为这个值的后16位，也就相当于是寄存器的后16位，同理可以理解 <code>_8[2]</code> 对应的过程</p>
+<p>注意另外一点，这里将_32 放在了前面，而不是 <code>_8[2]</code> 根据前面的分析，这里应该也是可以的，但是 union 另外一个特点就是初始化的时候，只能用第一个成员类型的值进行初始化，所以将最宽的成员放在第一位，防止初始化时丢失了后面的精度</p>
+<p>下面是代码验证：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">union</span> <span class="n">u_tag</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">char</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">short</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="n">u</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">u</span><span class="p">.</span><span class="n">c</span> <span class="o">=</span> <span class="mh">0x12345615</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;u.a = 0x%x</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">u</span><span class="p">.</span><span class="n">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;u.b = 0x%x</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">u</span><span class="p">.</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;u.c = 0x%x</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">u</span><span class="p">.</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">union</span> <span class="n">u_tag</span> <span class="n">u2</span> <span class="o">=</span> <span class="p">{</span><span class="mh">0x12345615</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;u.a = 0x%x</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">u2</span><span class="p">.</span><span class="n">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;u.b = 0x%x</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">u2</span><span class="p">.</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;u.c = 0x%x</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">u2</span><span class="p">.</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 
+</span></span></span><span class="line"><span class="cl"><span class="cm">silas@Silas-PC:~/ics4$ gcc -g -o union union.c &amp;&amp; ./union
+</span></span></span><span class="line"><span class="cl"><span class="cm">union.c: In function ‘main’:
+</span></span></span><span class="line"><span class="cl"><span class="cm">union.c:16:20: warning: overflow in conversion from ‘int’ to ‘char’ changes value from ‘305419797’ to ‘21’ [-Woverflow]
+</span></span></span><span class="line"><span class="cl"><span class="cm">   16 |  union u_tag u2 = {0x12345615};
+</span></span></span><span class="line"><span class="cl"><span class="cm">      |                    ^~~~~~~~~~
+</span></span></span><span class="line"><span class="cl"><span class="cm">u.a = 0x15
+</span></span></span><span class="line"><span class="cl"><span class="cm">u.b = 0x5615
+</span></span></span><span class="line"><span class="cl"><span class="cm">u.c = 0x12345615
+</span></span></span><span class="line"><span class="cl"><span class="cm">u.a = 0x15
+</span></span></span><span class="line"><span class="cl"><span class="cm">u.b = 0x15
+</span></span></span><span class="line"><span class="cl"><span class="cm">u.c = 0x15
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到由于 union 第一个成员位 char a，只能存放 1 个字节，初始化后会损失精度</p>
+<p>至此，差不多解释了为什么使用 union 可以实现模拟寄存器的功能</p>
+<h3 id="pa1-2-alu的模拟" class="headerLink">
+    <a href="#pa1-2-alu%e7%9a%84%e6%a8%a1%e6%8b%9f" class="header-mark"></a>PA1-2 ALU的模拟</h3><p>这里需要对整数的各个运算来进行模拟，其实实现中比较好实现，直接用 C 语言中对应操作即可，比如说 alu_add 的实现，结果 res = src + dest，包括后续的加减、移位、逻辑和乘除运算基本上都是可以这样来实现</p>
+<p>但是最为关键的是需要对标志位进行设置，这就需要结合 i386 手册了（实验指导上给了相应链接 <a href="http://css.csail.mit.edu/6.858/2014/readings/i386.pdf" target="_blank" rel="noopener noreffer">i386 手册: </a>）</p>
+<p>PA中需要设置的是CF、PF、ZF、SF 和 OF （AF不需要设置）</p>
+<ul>
+<li>CF：进位标志符，这个主要看运算结果是否超过了最高的有效位，相当于是进位了，或者是看运算是否向高位借位了</li>
+</ul>
+<blockquote>
+<p>这里可以类比十进制，比如说89+83，相加的时候 3 + 9 = 12 &gt; 10 这里要进位，而CF标志位则是看最高位是否发生了进位，或者是两个数相减的时候 如91-87，个位上 1 - 7 不够减，所以需要向十位借位，这种情况 CF 会被设置为 1</p>
+</blockquote>
+<ul>
+<li>PF：奇偶标志位，看结果中所有bit 位中 1 的个数是否为偶数，偶数 PF = 1，奇数 PF = 0</li>
+<li>ZF：零标志位，看结果是否为 0，如果结果为0 则ZF = 1，否则 ZF = 0</li>
+<li>SF：符号标志位，看结果是否为负，如果为负，SF = 1，否则 SF = 0 （PA中由于模拟的是无符号数，所以看最高有效位是否为 1 来判断结果是否为负数）</li>
+<li>OF：溢出标志位，计算中如果发生溢出则设置为1，溢出包括两种，一个是结果值太大，超过了能表示的最大范围就发生了溢出，另外一个是结果值太小，小于能表示的最小值就发生了溢出</li>
+</ul>
+<blockquote>
+<p>这里注意 CF 和 OF 的区别：
+在王爽汇编语言P218书中写到，CF 是针对无符号运算的标志位，OF 是针对有符号的标志位，同样位数情况下无符号的范围，这样就会在解释两个数值相加的时候，如果解释为无符号可能不会产生溢出，而解释为有符号会产生溢出</p>
+<p>在PA中模拟的是无符号数，所以两者可能会有区别？其实我自己之前实现的时候，很多时候两个标志位实现逻辑就很类似</p>
+</blockquote>
+<p>另外就是 PF、ZF 和 SF  这三个其实对于每个运算都是一样的，可以直接代码复用</p>
+<h3 id="pa1-3-fpu的实现" class="headerLink">
+    <a href="#pa1-3-fpu%e7%9a%84%e5%ae%9e%e7%8e%b0" class="header-mark"></a>PA1-3 FPU的实现</h3><p>这个主要实现IEEE 754 单精度浮点数(float)的运算，框架代码已经给出大部分内容了，只需要根据实验手册进行补充即可，最重要的应该就是实现 <code>internal_normalize()</code> 规格化函数</p>
+<p>其实这部分代码框架也都设计好了，不过开始没反应过来，自己花了不少时间没用在刀刃上，下面自己在做实验的时候遇见几个坑点：</p>
+<ol>
+<li>第一个是粘位的处理</li>
+</ol>
+<p>最开始我就是判断每次移位之前，判断(sig_grs &raquo; 1) 是否大于 1，开始看错了以为是舍入位左边有非零数字，粘位就为1，后来仔细看了代码框架，发现原来的粘位处理操作是 <code>sticky = stickt | (sig_grs &amp; 0x1);</code> 这才发现问题，另外就是注意粘位判断粘位是否为1，要在移位之前进行判断。</p>
+<ol start="2">
+<li>
+<p>出现溢出或零的情况
+最开始处理溢出或者零的时候，我把sig_grs 直接设置为 P_ZERO_F 或者 P_INF_F 等等这些，然后发现不对，这里应该直接返回，同时要根据符号位，判断正负的情况</p>
+</li>
+<li>
+<p>处理舍入的时候
+最开始没弄懂 GRS 位是怎么舍入的，直接将 sig_grs += 0x4 了，我以为只要 GRS 大于0x4 然后就直接进位，后面发现不是怎么回事，这里应该是浮点数默认的向偶数位舍入（这里参考了CSAPP p83)，其实就是我们经常听到的四舍六入五成双，举个例子：</p>
+</li>
+</ol>
+<p>对于十进制(这里保留一位)：</p>
+<ul>
+<li>10.04 -&gt; 最后一位是4，直接丢弃，最后结果是 10.0</li>
+<li>10.06 -&gt; 最后一位是6，大于5直接进位，结果是10.1</li>
+<li>10.05 -&gt; 最后一位是5，要让进位的成为偶数，5前面的0已经是偶数了，所以这里直接丢弃5，结果是10.0</li>
+<li>10.15 -&gt; 这里和上面就不一样了，5前面是奇数，所以要进位，结果是10.2</li>
+</ul>
+<p>对于二进制，这里 GRS 是3位，所以取半即 0x4(0b100)</p>
+<ul>
+<li>如果GRS 大于 0x4 直接进位</li>
+<li>如果 GRS 小于 0x4 直接丢弃后面尾数</li>
+<li>如果 GRS 等于 0x4，这里需要判断前面一位是否为偶数，偶数直接丢弃 GRS，奇数进行进位</li>
+</ul>
+<p>舍入想清楚就基本上很容易解决了
+（重新看了MOOC视频，发现老师这里讲的挺清楚的，不过自己最开始看了下视频，如何根据实验手册做的，就把视频内容给忘记了，看来还是需要好好看一下视频的内容）</p>
+<h4 id="阶码-exp--0--sig_grs--23--3--1" class="headerLink">
+    <a href="#%e9%98%b6%e7%a0%81-exp--0--sig_grs--23--3--1" class="header-mark"></a>阶码 exp == 0 &amp;&amp; sig_grs &raquo; (23 + 3) == 1</h4><p>在规格化过程中，遇见这种情况，两个非规格化数运算后得到了一个规格化数，指数需要加 1，即 exp = exp + 1</p>
+<p>简单分析下为什么要加1，首先 exp == 0，表示是两个非规格化数相加减（因为加减过程中会对阶，两个数应该同时为规格化或者非规格化数），非规格化数基本形式是 0.bbbb&hellip;(小数点后面26个位)，两个非规格化数相加为规格化数的情况就是相当于，第一位小数都为1，即 0.1bbb&hellip; 和 0.1bbb&hellip; 相加的情况，此时进位，结果为 1.bbbb&hellip;，结果上是一个规格化数，exp 应该等于 1，相当于是右规了一位</p>
+<h2 id="小结" class="headerLink">
+    <a href="#%e5%b0%8f%e7%bb%93" class="header-mark"></a>小结</h2><p>PA1的实验大概花了13.5h，感觉这部分内容在框架代码的基础上，查阅i386手册基本上都能实现相应的功能，最大的感受是在浮点数运算的实现时候，对浮点数规格化、舍入等有了更深入的了解</p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-06-26</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span><a class="link-to-mardown" href=/nju-ics2021-pa0pa1%E5%B0%8F%E7%BB%93/index.md target="_blank" rel="noopener noreferrer">阅读原始文档</a>
+                    </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ics/">ICS</a>,&nbsp;<a href="/tags/pa/">PA</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/chapter16-%E6%A8%A1%E6%9D%BF%E4%B8%8E%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/" class="prev" rel="prev" title="《C&#43;&#43;Primer》| 第十六章 模板与泛型编程"><i class="fas fa-angle-left fa-fw"></i>《C&#43;&#43;Primer》| 第十六章 模板与泛型编程</a></div>
+</div>
+<div id="comments"><div id="utterances"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
+            </noscript></div></article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                    由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.3">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Silas</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/fuse/fuse.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/tablesort/tablesort.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ephmeral/hugoblogtalks"}},"data":{"desktop-header-typeit":"Ephmeral","mobile-header-typeit":"Ephmeral"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"table":{"sort":true},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/utterances.min.js" defer></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript></div>
+</body>
+
+</html>
