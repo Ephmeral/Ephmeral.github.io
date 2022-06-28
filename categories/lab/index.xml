@@ -3,7 +3,14 @@
         <title>Lab - 分类 - </title>
         <link>https://blog.silasblog.top/categories/lab/</link>
         <description>Lab - 分类 - </description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 26 Jun 2022 17:31:09 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/categories/lab/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 28 Jun 2022 10:50:48 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/categories/lab/" rel="self" type="application/rss+xml" /><item>
+    <title>NJU-ICS2021 PA2-1实验小结</title>
+    <link>https://blog.silasblog.top/nju-ics2021-pa2-1%E5%B0%8F%E7%BB%93/</link>
+    <pubDate>Tue, 28 Jun 2022 10:50:48 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/nju-ics2021-pa2-1%E5%B0%8F%E7%BB%93/</guid>
+    <description><![CDATA[前言PA2-1 需要实现每个指令的解码和执行，具体需要在项目根目录下先执行 make test_pa-2-1，查看当前缺少哪条指令，然后去实现对应指令即]]></description>
+</item><item>
     <title>NJU-ICS2021 | PA0&amp;PA1实验小结</title>
     <link>https://blog.silasblog.top/nju-ics2021-pa0pa1%E5%B0%8F%E7%BB%93/</link>
     <pubDate>Sun, 26 Jun 2022 17:31:09 &#43;0800</pubDate><author>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">NJU-ICS2021 PA2-1 - </title><meta name="Description" content=""><meta property="og:title" content="NJU-ICS2021 PA2-1" />
+<meta property="og:description" content="前言PA2-1 需要实现每个指令的解码和执行，具体需要在项目根目录下先执行 make test_pa-2-1，查看当前缺少哪条指令，然后去实现对应指令即" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.silasblog.top/nju-ics2021-pa2-1/" /><meta property="og:image" content="https://blog.silasblog.top/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-06-28T10:50:48+08:00" />
+<meta property="article:modified_time" content="2022-06-28T10:51:05+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.silasblog.top/logo.png"/>
+
+<meta name="twitter:title" content="NJU-ICS2021 PA2-1"/>
+<meta name="twitter:description" content="前言PA2-1 需要实现每个指令的解码和执行，具体需要在项目根目录下先执行 make test_pa-2-1，查看当前缺少哪条指令，然后去实现对应指令即"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content="">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="https://blog.silasblog.top/nju-ics2021-pa2-1/" /><link rel="prev" href="https://blog.silasblog.top/nju-ics2021-pa0pa1%E5%B0%8F%E7%BB%93/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "NJU-ICS2021 PA2-1",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.silasblog.top\/nju-ics2021-pa2-1\/"
+        },"genre": "posts","keywords": "ICS, PA","wordcount":  2007 ,
+        "url": "https:\/\/blog.silasblog.top\/nju-ics2021-pa2-1\/","datePublished": "2022-06-28T10:50:48+08:00","dateModified": "2022-06-28T10:51:05+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Silas"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="normal" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"><i class='folder-open-solid'></i> 分类 </a><a class="menu-item" href="/series/"> 系列 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title=""><i class='folder-open-solid'></i>分类</a><a class="menu-item" href="/series/" title="">系列</a><a class="menu-item" href="/about/" title="">关于</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#指令的查阅过程">指令的查阅过程</a></li>
+    <li><a href="#个人踩坑点">个人踩坑点</a></li>
+    <li><a href="#部分指令的实现">部分指令的实现</a></li>
+    <li><a href="#小结">小结</a></li>
+  </ul>
+</nav></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">NJU-ICS2021 PA2-1</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Silas</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/lab/"><i class="far fa-folder fa-fw"></i>Lab</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-28">2022-06-28</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-06-28">2022-06-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2007 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#指令的查阅过程">指令的查阅过程</a></li>
+    <li><a href="#个人踩坑点">个人踩坑点</a></li>
+    <li><a href="#部分指令的实现">部分指令的实现</a></li>
+    <li><a href="#小结">小结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="前言" class="headerLink">
+    <a href="#%e5%89%8d%e8%a8%80" class="header-mark"></a>前言</h2><p>PA2-1 需要实现每个指令的解码和执行，具体需要在项目根目录下先执行 make test_pa-2-1，查看当前缺少哪条指令，然后去实现对应指令即可，直到所有测试用例通过（除了最后一个test_float）</p>
+<h2 id="指令的查阅过程" class="headerLink">
+    <a href="#%e6%8c%87%e4%bb%a4%e7%9a%84%e6%9f%a5%e9%98%85%e8%bf%87%e7%a8%8b" class="header-mark"></a>指令的查阅过程</h2><p>下面是开始做实验时候，记录的查阅手册过程（仅供参考）</p>
+<p>除了已经通过的 <code>mov</code> 测试用例，下一个 <code>mov-cmp</code> 的测试用例，<code>make_test-pa-2-1</code> 出现报错，然后定位到 <code>0x83 f8 01 cmp $0x1, %eax</code> 这条指令</p>
+<p>下面查阅手册：</p>
+<ul>
+<li>
+<p>这条指令前面不是 <code>0x66</code> 说明 <code>0x83</code> 即为 <code>opcode</code></p>
+</li>
+<li>
+<p>查阅 i-386 手册附录 A，找到 <code>0x83</code> 对应的的指令为 <code>Grp1 Ev, Iv</code> 对应到 Nemu 中即为 <code>Grp1 Iv, Ev</code></p>
+</li>
+<li>
+<p>这里因为是一组<code>Grp1 Iv, Ev</code>，所以需要继续查表，先看一下下一位 <code>0xf8</code> 的寄存器对应的为111
+<img
+        class="lazyload"
+        data-src="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621150355.png"
+        data-srcset="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621150355.png, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621150355.png 1.5x, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621150355.png 2x"
+        data-sizes="auto"
+        alt="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621150355.png"
+        title="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621150355.png"></p>
+</li>
+<li>
+<p>反过来查找Grp1对应的 111位置，发现为 <code>cmp</code> ，也符合反汇编的结果
+<img
+        class="lazyload"
+        data-src="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621150540.png"
+        data-srcset="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621150540.png, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621150540.png 1.5x, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621150540.png 2x"
+        data-sizes="auto"
+        alt="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621150540.png"
+        title="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621150540.png"></p>
+</li>
+<li>
+<p><code>opcode</code> 后面跟着的是 <code>ModR/M</code> 字节，则这里 <code>0xf8</code> 即为 <code>ModR/M</code> 字节，查阅i386手册第17.2.1节。其解析方式对应Table 17-3 ，<code>0xf8</code>这个<code>ModR/M</code>字节的对应的是 <code>EAX/AX/AL</code> 这里应该对应 <code>%eax</code> 寄存器（反汇编结果显示的也比较清楚）</p>
+</li>
+<li>
+<p>最后 <code>0x01</code> 是个立即数，最后对应 AT&amp;T 格式为</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">cmp</span> <span class="o">%</span><span class="n">eax</span><span class="p">,</span> <span class="err">$</span><span class="mh">0x1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>接着查阅 <code>cmp</code> 指令对应的功能，可以看见对于 83这条指令主要是将一个==8 位==立即数存入寄存器或者地址中</p>
+<p><img
+        class="lazyload"
+        data-src="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621150737.png"
+        data-srcset="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621150737.png, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621150737.png 1.5x, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621150737.png 2x"
+        data-sizes="auto"
+        alt="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621150737.png"
+        title="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621150737.png"></p>
+<p>这里强调一下 8 位立即数，因为在这里我弄错了，创建立即数时用的时全局的 <code>data_size</code>，导致卡了两三个小时一直没发现错误</p>
+<p>此外我在返回长度的时候，返回的是 <code>len + data_size / 8</code>，也一直没发现问题，最开始给我报错的地方是将一个指令切分了，比如说这里报错的 <code>eip = 0x30053 </code></p>
+<p><img
+        class="lazyload"
+        data-src="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621151256.png"
+        data-srcset="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621151256.png, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621151256.png 1.5x, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621151256.png 2x"
+        data-sizes="auto"
+        alt="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621151256.png"
+        title="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621151256.png"></p>
+<p>而这里根本不是对应一个指令地址的开始，而是 <code>0x30050</code> 中间的部分，如下图所示：（我还去查了以 <code>0x00</code> 为开始的指令，改了改 <code>add </code>这条命令，结果发现根本就是 <code>cmp </code>写错了，导致取地址的时候取的不是某条指令开头的位置！！！）</p>
+<p><img
+        class="lazyload"
+        data-src="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621151514.png"
+        data-srcset="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621151514.png, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621151514.png 1.5x, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621151514.png 2x"
+        data-sizes="auto"
+        alt="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621151514.png"
+        title="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220621151514.png"></p>
+<p>发现问题后，很快就解决了，<code>cmp</code> 的实现，这里可以使用PA-1 中实现的 <code>alu_sub</code> 函数，手册上说了 <code>cmp</code> 将源操作数减去目的操作数，但是并不保留结果，只改变标志位（CF、OF这些）</p>
+<p>最后返回长度的时候，注意要将 len + 1 (因为还有一个8位的立即数)</p>
+<h2 id="个人踩坑点" class="headerLink">
+    <a href="#%e4%b8%aa%e4%ba%ba%e8%b8%a9%e5%9d%91%e7%82%b9" class="header-mark"></a>个人踩坑点</h2><p>下面是遇见的一些坑：</p>
+<ol>
+<li>报错的地方在某条指令中间，很有可能是前面的指令返回地址没有写正确</li>
+<li>有一些需要进行符号拓展，例如 <code>cmp</code>、<code>sub</code>这些</li>
+<li><code>test</code> 指令最后的结果需要丢弃，而不是写入 <code>DEST</code> 中，这里详细看一下手册，如果没看下面文字部分的话，就会以为需要写入 <code>DEST</code> 中</li>
+<li>指令在实现的时候，尽可能的使用框架代码提供的宏，出错的概率会小很多，其次可以利用 PA1 中已经实现的整数运算</li>
+<li>实现一条指令的同时，可以把类似的指令同时实现了，大部分指令都挺有规律的，另外感觉有一个小彩蛋，如果打开<code>opcode_ref.c</code> 这个文件，其实会发现大部分指令的格式已经写好了</li>
+</ol>
+<h2 id="部分指令的实现" class="headerLink">
+    <a href="#%e9%83%a8%e5%88%86%e6%8c%87%e4%bb%a4%e7%9a%84%e5%ae%9e%e7%8e%b0" class="header-mark"></a>部分指令的实现</h2><p>个人感觉最难实现的是 <code>call</code>、<code>ret</code>、<code>push</code> 和 <code>pop</code> 这几个指令</p>
+<p>首先看一下 <code>push</code> 指令的实现，<code>push</code> 指令是将一个寄存器/地址/立即数放入到栈中，看一下手册上的描述</p>
+<p><img
+        class="lazyload"
+        data-src="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220628111901.png"
+        data-srcset="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220628111901.png, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220628111901.png 1.5x, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220628111901.png 2x"
+        data-sizes="auto"
+        alt="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220628111901.png"
+        title="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220628111901.png">
+push 指令，先需要将栈帧腾出来相应的位置（即<code>ESP -= 2 或 4</code>），然后将待写入的数据 SOURCE 写到栈帧对应的地址上，最开始我只是简单的先将 <code>cpu.esp -= 2 或 4</code>，然后将 <code>source</code> 赋值给 <code>cpu.esp</code>，后来发现不对，是需要写入到 <code>cpu.esp</code> 对应的地址中，这样的话需要额外创建一个 <code>OPERAND</code> 来进行操作，下面是主要的代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">  <span class="mi">6</span> <span class="k">static</span> <span class="kt">void</span> <span class="nf">instr_execute_1op</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="mi">7</span>     <span class="n">operand_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">opr_src</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="mi">8</span> 
+</span></span><span class="line"><span class="cl">  <span class="mi">9</span>     <span class="k">if</span> <span class="p">(</span><span class="n">data_size</span> <span class="o">==</span> <span class="mi">16</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">10</span>         <span class="n">cpu</span><span class="p">.</span><span class="n">esp</span> <span class="o">-=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">11</span>     <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">data_size</span> <span class="o">==</span> <span class="mi">32</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">12</span>         <span class="n">cpu</span><span class="p">.</span><span class="n">esp</span> <span class="o">-=</span> <span class="mi">4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">13</span>     <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">14</span> 
+</span></span><span class="line"><span class="cl"> <span class="mi">15</span>     <span class="n">OPERAND</span> <span class="n">esp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">16</span>     <span class="n">esp</span><span class="p">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">OPR_MEM</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">17</span>     <span class="n">esp</span><span class="p">.</span><span class="n">data_size</span> <span class="o">=</span> <span class="n">data_size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">18</span>     <span class="n">esp</span><span class="p">.</span><span class="n">addr</span> <span class="o">=</span> <span class="n">cpu</span><span class="p">.</span><span class="n">esp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">19</span>     <span class="n">esp</span><span class="p">.</span><span class="n">sreg</span> <span class="o">=</span> <span class="n">SREG_SS</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">20</span>     <span class="n">esp</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">sign_ext</span><span class="p">(</span><span class="n">opr_src</span><span class="p">.</span><span class="n">val</span><span class="p">,</span> <span class="n">opr_src</span><span class="p">.</span><span class="n">data_size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">21</span> 
+</span></span><span class="line"><span class="cl"> <span class="mi">22</span>     <span class="n">operand_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">esp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">23</span> <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其实如果弄清楚手册上 <code>(SS:SP)</code> 这种带括号的是写入到地址当中就不容易出错了，就类似是一个指针 <code>int *p = &amp;a;</code>，这里 <code>p</code> 类似于栈帧（ESP），然后我需要将数据写入到 <code>p</code> 所指的那个地址当中，也就是变量 <code>a</code> 的地址</p>
+<p>目前我只实现了 <code>E8</code> 这条指令，也就是 <code>call near</code>，看一下这条指令的描述</p>
+<p><img
+        class="lazyload"
+        data-src="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220628111511.png"
+        data-srcset="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220628111511.png, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220628111511.png 1.5x, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220628111511.png 2x"
+        data-sizes="auto"
+        alt="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220628111511.png"
+        title="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220628111511.png">
+可以看到首先需要将当前指令执行的位置（也就是 EIP）的下一个指令放入到栈中，然后 EIP 再加上一个立即数地址，Push EIP 前面已经提过思路，具体代码如下，其实很类似：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">//push(IP)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="mi">7</span>     <span class="n">OPERAND</span> <span class="n">esp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="mi">8</span>     <span class="n">esp</span><span class="p">.</span><span class="n">data_size</span> <span class="o">=</span> <span class="n">data_size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="mi">9</span>     <span class="n">esp</span><span class="p">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">OPR_MEM</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">10</span> 
+</span></span><span class="line"><span class="cl"> <span class="mi">11</span>     <span class="n">cpu</span><span class="p">.</span><span class="n">esp</span> <span class="o">-=</span> <span class="n">data_size</span> <span class="o">/</span> <span class="mi">8</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">12</span> 
+</span></span><span class="line"><span class="cl"> <span class="mi">13</span>     <span class="n">esp</span><span class="p">.</span><span class="n">addr</span> <span class="o">=</span> <span class="n">cpu</span><span class="p">.</span><span class="n">esp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">14</span>     <span class="n">esp</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">eip</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">data_size</span> <span class="o">/</span> <span class="mi">8</span><span class="p">;</span> <span class="c1">//注意这里是当前指令的下一个指令地址，所以需要额外加上 data_size/8
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="mi">15</span>     <span class="c1">//printf(&#34;in call_near eip is %x\n&#34;, eip);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="mi">16</span>     <span class="n">operand_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">esp</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后是加上一个立即数，这里在 jmp_near 指令实现上已经给出类似的思路了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"> <span class="mi">18</span>     <span class="c1">//EIP = EIP + rel16/32
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="mi">19</span>     <span class="n">OPERAND</span> <span class="n">rel</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">20</span>     <span class="n">rel</span><span class="p">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">OPR_IMM</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">21</span>     <span class="n">rel</span><span class="p">.</span><span class="n">sreg</span> <span class="o">=</span> <span class="n">SREG_CS</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">22</span>     <span class="n">rel</span><span class="p">.</span><span class="n">data_size</span> <span class="o">=</span> <span class="n">data_size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">23</span>     <span class="n">rel</span><span class="p">.</span><span class="n">addr</span> <span class="o">=</span> <span class="n">eip</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>                                                     
+</span></span><span class="line"><span class="cl"> <span class="mi">24</span> 
+</span></span><span class="line"><span class="cl"> <span class="mi">25</span>     <span class="nf">operand_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rel</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">26</span> 
+</span></span><span class="line"><span class="cl"> <span class="mi">27</span>     <span class="kt">int</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">sign_ext</span><span class="p">(</span><span class="n">rel</span><span class="p">.</span><span class="n">val</span><span class="p">,</span> <span class="n">data_size</span><span class="p">);</span><span class="c1">//符号拓展
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="mi">28</span>     <span class="n">cpu</span><span class="p">.</span><span class="n">eip</span> <span class="o">+=</span> <span class="n">offset</span><span class="p">;</span> <span class="c1">//偏移量，加上立即数的值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="mi">29</span>		<span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">data_size</span> <span class="o">/</span> <span class="mi">8</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>ret</code> 指令注意取出栈帧的值后赋给 <code>eip</code>，最后返回值不需要返回额外的长度，返回 0 即可</p>
+<h2 id="小结" class="headerLink">
+    <a href="#%e5%b0%8f%e7%bb%93" class="header-mark"></a>小结</h2><p>PA2-1 总共花了约 35h，最开始折磨在每条指令实现上，后面慢慢发现框架代码提供的宏，比起自己写要准确的多，然后是一些指令的理解没有到位，尤其是后面说的 <code>call</code>、<code>ret</code>、<code>push</code> 和 <code>pop</code> 这几个，导致直接出现死循环的情况，也不知道是哪个地方实现错了，还有就是有的指令实现没有进行符号拓展，最后虽然通过了测试用例，但是感觉还是有很多细节部分没有做的很好，还需要继续加油~</p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-06-28</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span><a class="link-to-mardown" href=/nju-ics2021-pa2-1/index.md target="_blank" rel="noopener noreferrer">阅读原始文档</a>
+                    </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ics/">ICS</a>,&nbsp;<a href="/tags/pa/">PA</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/nju-ics2021-pa0pa1%E5%B0%8F%E7%BB%93/" class="prev" rel="prev" title="NJU-ICS2021 | PA0&amp;PA1实验小结"><i class="fas fa-angle-left fa-fw"></i>NJU-ICS2021 | PA0&amp;PA1实验小结</a></div>
+</div>
+<div id="comments"><div id="utterances"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
+            </noscript></div></article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                    由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.3">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Silas</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/fuse/fuse.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/tablesort/tablesort.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ephmeral/hugoblogtalks"}},"data":{"desktop-header-typeit":"Ephmeral","mobile-header-typeit":"Ephmeral"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"table":{"sort":true},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/utterances.min.js" defer></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript></div>
+</body>
+
+</html>
