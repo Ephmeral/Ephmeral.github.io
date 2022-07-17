@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>cache - 标签 - </title>
+        <link>https://blog.silasblog.top/tags/cache/</link>
+        <description>cache - 标签 - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 05 Jul 2022 14:43:52 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/tags/cache/" rel="self" type="application/rss+xml" /><item>
+    <title>Cache 的基本工作原理</title>
+    <link>https://blog.silasblog.top/cache-%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</link>
+    <pubDate>Tue, 05 Jul 2022 14:43:52 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/cache-%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</guid>
+    <description><![CDATA[局部性原理时间局部性：指被访问的某个存储单元在一个较短的时间内很可能还会继续被访问 空间局部性：被访问的某个存储单元临近的单元在一个较短时间内]]></description>
+</item></channel>
+</rss>
