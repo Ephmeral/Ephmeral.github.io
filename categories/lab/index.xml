@@ -3,7 +3,14 @@
         <title>Lab - 分类 - </title>
         <link>https://blog.silasblog.top/categories/lab/</link>
         <description>Lab - 分类 - </description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 28 Jun 2022 10:50:48 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/categories/lab/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 17 Jul 2022 14:06:24 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/categories/lab/" rel="self" type="application/rss+xml" /><item>
+    <title>NJU-ICS2020 | PA3-1 小结</title>
+    <link>https://blog.silasblog.top/nju-ics2020-pa3-1-%E5%B0%8F%E7%BB%93/</link>
+    <pubDate>Sun, 17 Jul 2022 14:06:24 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/nju-ics2020-pa3-1-%E5%B0%8F%E7%BB%93/</guid>
+    <description><![CDATA[前言PA3 存储管理，3-1对cache进行了简单的模拟，3-2开启了类似80386的保护机制，3-3实现了分页机制（虚拟地址转换） PA4-1]]></description>
+</item><item>
     <title>NJU-ICS2021 | PA2-1实验小结</title>
     <link>https://blog.silasblog.top/nju-ics2021-pa2-1%E5%B0%8F%E7%BB%93/</link>
     <pubDate>Tue, 28 Jun 2022 10:50:48 &#43;0800</pubDate><author>
