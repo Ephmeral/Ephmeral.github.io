@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>xv6 - 标签 - </title>
+        <link>https://blog.silasblog.top/tags/xv6/</link>
+        <description>xv6 - 标签 - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 17 Jul 2022 19:27:07 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/tags/xv6/" rel="self" type="application/rss+xml" /><item>
+    <title>MIT6S.081-lab1:Xv6 and Unix utilities</title>
+    <link>https://blog.silasblog.top/mit6s.081-lab1xv6-and-unix-utilities/</link>
+    <pubDate>Sun, 17 Jul 2022 19:27:07 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/mit6s.081-lab1xv6-and-unix-utilities/</guid>
+    <description><![CDATA[sleep比较容易，主要是看系统调用的掌握，注意main函数传入的参数如何处理 1 2 3 4 5 6 7 8 9 10 11 12 #include &#34;kernel/types.h&#34;#include &#34;kernel/stat.h&#34;#include &#34;user/user.h&#34; int main(int argc, char *argv[]) { if (argc != 2) { printf(&#34;Usage: sleep time\n&#34;); exit(1);]]></description>
+</item></channel>
+</rss>
