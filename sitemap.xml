@@ -2,15 +2,16 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://blog.silasblog.top/</loc><lastmod>2022-07-17T19:27:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.silasblog.top/categories/</loc><lastmod>2022-07-17T19:27:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.silasblog.top/</loc><lastmod>2022-07-18T12:45:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.silasblog.top/categories/</loc><lastmod>2022-07-18T12:45:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.silasblog.top/categories/lab/</loc><lastmod>2022-07-18T12:45:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.silasblog.top/mit6s.081-lab2-system-calls/</loc><lastmod>2022-07-18T12:45:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.silasblog.top/categories/os/</loc><lastmod>2022-07-18T12:45:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.silasblog.top/posts/</loc><lastmod>2022-07-18T12:45:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.silasblog.top/tags/</loc><lastmod>2022-07-18T12:45:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.silasblog.top/tags/xv6/</loc><lastmod>2022-07-18T12:45:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://blog.silasblog.top/mit6s.081-lab1xv6-and-unix-utilities/</loc><lastmod>2022-07-17T19:27:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.silasblog.top/categories/os/</loc><lastmod>2022-07-17T19:27:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.silasblog.top/posts/</loc><lastmod>2022-07-17T19:27:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.silasblog.top/tags/</loc><lastmod>2022-07-17T19:27:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.silasblog.top/tags/xv6/</loc><lastmod>2022-07-17T19:27:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://blog.silasblog.top/tags/ics/</loc><lastmod>2022-07-17T14:06:24&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.silasblog.top/categories/lab/</loc><lastmod>2022-07-17T14:06:24&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://blog.silasblog.top/nju-ics2020-pa3-1-%E5%B0%8F%E7%BB%93/</loc><lastmod>2022-07-17T14:06:24&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://blog.silasblog.top/tags/pa/</loc><lastmod>2022-07-17T14:06:24&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://blog.silasblog.top/tags/cache/</loc><lastmod>2022-07-17T14:43:52&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>

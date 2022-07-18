@@ -3,9 +3,16 @@
         <title></title>
         <link>https://blog.silasblog.top/</link>
         <description></description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 17 Jul 2022 19:27:07 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 18 Jul 2022 12:45:07 &#43;0800</lastBuildDate>
             <atom:link href="https://blog.silasblog.top/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>MIT6S.081-Lab2: system calls</title>
+    <link>https://blog.silasblog.top/mit6s.081-lab2-system-calls/</link>
+    <pubDate>Mon, 18 Jul 2022 12:45:07 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/mit6s.081-lab2-system-calls/</guid>
+    <description><![CDATA[System call tracingtrace 的功能就是根据提供的掩码 mask，来跟踪后续执行的系统调用情况，用户级的 trace 将传入的一个数字通过内核态的系统调用 sys_trace 来设置进程的掩码 mas]]></description>
+</item><item>
     <title>MIT6S.081-lab1:Xv6 and Unix utilities</title>
     <link>https://blog.silasblog.top/mit6s.081-lab1xv6-and-unix-utilities/</link>
     <pubDate>Sun, 17 Jul 2022 19:27:07 &#43;0800</pubDate><author>
