@@ -3,7 +3,42 @@
         <title>Lab - 分类 - </title>
         <link>https://blog.silasblog.top/categories/lab/</link>
         <description>Lab - 分类 - </description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 18 Jul 2022 12:45:07 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/categories/lab/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 26 Jul 2022 17:59:26 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/categories/lab/" rel="self" type="application/rss+xml" /><item>
+    <title>CS144-2021: lab1</title>
+    <link>https://blog.silasblog.top/cs144-2021-lab1/</link>
+    <pubDate>Tue, 26 Jul 2022 17:59:26 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/cs144-2021-lab1/</guid>
+    <description><![CDATA[lab1 StreamReassembler这个 lab 是为了将得到不同的字节流重新组合得到完整的连续的字节信息，我们知道tcp在传输过程中不是将一大段报]]></description>
+</item><item>
+    <title>CS144-2021: lab0</title>
+    <link>https://blog.silasblog.top/cs144-2021-lab0/</link>
+    <pubDate>Sun, 24 Jul 2022 19:57:48 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/cs144-2021-lab0/</guid>
+    <description><![CDATA[关于现代 C++，CS144建议以下几点： Use the language documentation at https://en.cppreference.com as a resource. Never use malloc() or free(). Never use new or delete. Essentially never use raw pointers (*), and use “smart” pointers (unique ptr or shared ptr) only when necessary(You will not need to use these in]]></description>
+</item><item>
+    <title>MIT6S.081-Lab6: Multithreading</title>
+    <link>https://blog.silasblog.top/mit6s.081-lab6-multithreading/</link>
+    <pubDate>Sun, 24 Jul 2022 16:08:22 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/mit6s.081-lab6-multithreading/</guid>
+    <description><![CDATA[Uthread: switching between threads这个实验主要是让我们了解线程上下文切换需要做的哪些内容 大部分内容都可以参照内核态的进程进行上下文切换时保存的寄存器 首先在]]></description>
+</item><item>
+    <title>MIT6S.081-Lab4: traps</title>
+    <link>https://blog.silasblog.top/mit6s.081-lab4-traps/</link>
+    <pubDate>Wed, 20 Jul 2022 13:41:54 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/mit6s.081-lab4-traps/</guid>
+    <description><![CDATA[RISC-V assembly 哪些寄存器保存函数的参数？例如，在main对printf的调用中，哪个寄存器保存13？ a0-a7 中存放参数，a2 保存了 13 main的汇编代码中对函]]></description>
+</item><item>
+    <title>MIT6S.081-Lab3: page tables</title>
+    <link>https://blog.silasblog.top/mit6s.081-lab3-page-tables/</link>
+    <pubDate>Tue, 19 Jul 2022 22:14:30 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/mit6s.081-lab3-page-tables/</guid>
+    <description><![CDATA[Speed up system calls最开始参考实验部分的是课程介绍 · 6.S081 All-In-One，做完打印页表实验后发现没法通过，然后反应过来这个中文翻译是基于xv6]]></description>
+</item><item>
     <title>MIT6S.081-Lab2: system calls</title>
     <link>https://blog.silasblog.top/mit6s.081-lab2-system-calls/</link>
     <pubDate>Mon, 18 Jul 2022 12:45:07 &#43;0800</pubDate><author>

@@ -1,0 +1,21 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>cs144 - 标签 - </title>
+        <link>https://blog.silasblog.top/tags/cs144/</link>
+        <description>cs144 - 标签 - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 26 Jul 2022 17:59:26 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/tags/cs144/" rel="self" type="application/rss+xml" /><item>
+    <title>CS144-2021: lab1</title>
+    <link>https://blog.silasblog.top/cs144-2021-lab1/</link>
+    <pubDate>Tue, 26 Jul 2022 17:59:26 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/cs144-2021-lab1/</guid>
+    <description><![CDATA[lab1 StreamReassembler这个 lab 是为了将得到不同的字节流重新组合得到完整的连续的字节信息，我们知道tcp在传输过程中不是将一大段报]]></description>
+</item><item>
+    <title>CS144-2021: lab0</title>
+    <link>https://blog.silasblog.top/cs144-2021-lab0/</link>
+    <pubDate>Sun, 24 Jul 2022 19:57:48 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/cs144-2021-lab0/</guid>
+    <description><![CDATA[关于现代 C++，CS144建议以下几点： Use the language documentation at https://en.cppreference.com as a resource. Never use malloc() or free(). Never use new or delete. Essentially never use raw pointers (*), and use “smart” pointers (unique ptr or shared ptr) only when necessary(You will not need to use these in]]></description>
+</item></channel>
+</rss>

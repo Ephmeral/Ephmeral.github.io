@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">MIT6S.081-Lab3: page tables - </title><meta name="Description" content=""><meta property="og:title" content="MIT6S.081-Lab3: page tables" />
+<meta property="og:description" content="Speed up system calls最开始参考实验部分的是课程介绍 · 6.S081 All-In-One，做完打印页表实验后发现没法通过，然后反应过来这个中文翻译是基于xv6" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.silasblog.top/mit6s.081-lab3-page-tables/" /><meta property="og:image" content="https://blog.silasblog.top/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-07-19T22:14:30+08:00" />
+<meta property="article:modified_time" content="2022-07-19T22:14:31+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.silasblog.top/logo.png"/>
+
+<meta name="twitter:title" content="MIT6S.081-Lab3: page tables"/>
+<meta name="twitter:description" content="Speed up system calls最开始参考实验部分的是课程介绍 · 6.S081 All-In-One，做完打印页表实验后发现没法通过，然后反应过来这个中文翻译是基于xv6"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content="">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="https://blog.silasblog.top/mit6s.081-lab3-page-tables/" /><link rel="prev" href="https://blog.silasblog.top/mit6s.081-lab2-system-calls/" /><link rel="next" href="https://blog.silasblog.top/mit6s.081-lab4-traps/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "MIT6S.081-Lab3: page tables",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.silasblog.top\/mit6s.081-lab3-page-tables\/"
+        },"genre": "posts","keywords": "xv6-lab-2021","wordcount":  2085 ,
+        "url": "https:\/\/blog.silasblog.top\/mit6s.081-lab3-page-tables\/","datePublished": "2022-07-19T22:14:30+08:00","dateModified": "2022-07-19T22:14:31+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Silas"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="normal" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"><i class='folder-open-solid'></i> 分类 </a><a class="menu-item" href="/series/"> 系列 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title=""><i class='folder-open-solid'></i>分类</a><a class="menu-item" href="/series/" title="">系列</a><a class="menu-item" href="/about/" title="">关于</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#speed-up-system-calls">Speed up system calls</a></li>
+    <li><a href="#print-a-page-table">Print a page table</a></li>
+    <li><a href="#detecting-which-pages-have-been-accessed">Detecting which pages have been accessed</a></li>
+  </ul>
+</nav></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">MIT6S.081-Lab3: page tables</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Silas</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/os/"><i class="far fa-folder fa-fw"></i>OS</a>&nbsp;<a href="/categories/lab/"><i class="far fa-folder fa-fw"></i>Lab</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-07-19">2022-07-19</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-07-19">2022-07-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2085 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#speed-up-system-calls">Speed up system calls</a></li>
+    <li><a href="#print-a-page-table">Print a page table</a></li>
+    <li><a href="#detecting-which-pages-have-been-accessed">Detecting which pages have been accessed</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="speed-up-system-calls" class="headerLink">
+    <a href="#speed-up-system-calls" class="header-mark"></a>Speed up system calls</h2><p>最开始参考实验部分的是<a href="http://xv6.dgs.zone/" target="_blank" rel="noopener noreffer">课程介绍 · 6.S081 All-In-One</a>，做完打印页表实验后发现没法通过，然后反应过来这个中文翻译是基于xv6-lab-2020的，而我用的代码框架是2021年的，就有一点出入，仔细看了官网的<a href="https://pdos.csail.mit.edu/6.S081/2021/labs/pgtbl.html" target="_blank" rel="noopener noreffer">Lab: page tables</a>发现第三个实验页表有点不一样（可能因为20年页表比较难，21年降低了难度）</p>
+<p>回到这个实验，这里需要添加的功能是增加一个内核态和用户态共享的一段数据区域，来加快某些系统调用</p>
+<p>具体实现是在创建每个进程后，在 USYSCALL（定义在kernel/memlayout.h 中）上映射一个只读页面。在此页面的开头，存储一个结构 usyscall（也在 memlayout.h 中定义），并对其进行初始化以存储当前进程的 PID</p>
+<p>USYCALL 通过观察定义其实就是 <code>(1L &lt;&lt; (9 + 9 + 9 + 12 - 1)) - 4096 - 4096 - 4096</code> ，相当于是在最大的地址空间往下分配的第三个大小为4096的页面，它和 TRAPFRAME 这块区域有很大共同之处</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">//kernel/memlayout.h
+</span></span></span><span class="line"><span class="cl"><span class="c1">// MAXVA = (1L &lt;&lt; (9 + 9 + 9 + 12 - 1))
+</span></span></span><span class="line"><span class="cl"><span class="c1">// PGSIZE = 4096
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define TRAMPOLINE (MAXVA - PGSIZE)
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define TRAPFRAME (TRAMPOLINE - PGSIZE)
+</span></span></span><span class="line"><span class="cl"><span class="cp">#ifdef LAB_PGTBL
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define USYSCALL (TRAPFRAME - PGSIZE)
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">usyscall</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">pid</span><span class="p">;</span>  <span class="c1">// Process ID
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>首先由于是创建每个进程都会映射这样的一个页面，所以此时需要在 proc 进程的结构体上定义一个这样的指针，类似于<code>trapframe</code> 结构体</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">//kernel/proc.h
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">proc</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">struct</span> <span class="n">spinlock</span> <span class="n">lock</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//这里用了宏，因为usycall结构体定义的时候就在宏内部
+</span></span></span><span class="line"><span class="cl"><span class="c1">//这里保持一致，下同
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#ifdef LAB_PGTBL
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  <span class="k">struct</span> <span class="n">usyscall</span> <span class="o">*</span><span class="n">usyscall</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  
+</span></span><span class="line"><span class="cl">  <span class="n">pagetable_t</span> <span class="n">pagetable</span><span class="p">;</span>       <span class="c1">// User page table
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">struct</span> <span class="n">trapframe</span> <span class="o">*</span><span class="n">trapframe</span><span class="p">;</span> <span class="c1">// data page for trampoline.S
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后就是在创建进程的时候需要分配这个页面，提示信息也给了：需要在 <code>proc_pagetable()</code> 中执行映射，这里需要用 <code>mappages</code> 来映射这个界面，通过观察函数原型可以发现，mappages 传入参数分别为 页表、起始的虚拟地址、大小、物理地址和标志位</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="nf">mappages</span><span class="p">(</span><span class="n">pagetable_t</span> <span class="n">pagetable</span><span class="p">,</span> <span class="n">uint64</span> <span class="n">va</span><span class="p">,</span> <span class="n">uint64</span> <span class="n">size</span><span class="p">,</span> <span class="n">uint64</span> <span class="n">pa</span><span class="p">,</span> <span class="kt">int</span> <span class="n">perm</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>页表和大小不用多说，就是上面已经定义的 pagetable 和 PGSIZE (4096)，对于起始的虚拟地址，由于是在 USYCALL 这里分配的4096个字节的页面，所以就是 USYCALL，物理地址则是进程中的 usyscall 结构体指针对于的地址（可以参照上面的写法），而标志位由于是只读的需要设为 PTE_R ，同时这里是用户态和内核态共享的页面需要设为 PTE_U，最后不难写出如下代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">//kernel/proc.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">pagetable_t</span>
+</span></span><span class="line"><span class="cl"><span class="nf">proc_pagetable</span><span class="p">(</span><span class="k">struct</span> <span class="n">proc</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	
+</span></span><span class="line"><span class="cl"><span class="cp">#ifdef LAB_PGTBL
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  <span class="c1">//分配一个用户态和内核态之间的可读区，加速系统调用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span><span class="p">(</span><span class="n">mappages</span><span class="p">(</span><span class="n">pagetable</span><span class="p">,</span> <span class="n">USYSCALL</span><span class="p">,</span> <span class="n">PGSIZE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="p">(</span><span class="n">uint64</span><span class="p">)(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">usyscall</span><span class="p">),</span> <span class="n">PTE_R</span> <span class="o">|</span> <span class="n">PTE_U</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//下面是分配失败的同时释放已经分配过的页面
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">uvmunmap</span><span class="p">(</span><span class="n">pagetable</span><span class="p">,</span> <span class="n">TRAMPOLINE</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">uvmunmap</span><span class="p">(</span><span class="n">pagetable</span><span class="p">,</span> <span class="n">TRAPFRAME</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">uvmfree</span><span class="p">(</span><span class="n">pagetable</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">pagetable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行映射创建好了就是需要到 <code>allocproc()</code> 中进行初始化和分配页面，主要是仿照上面给 trapframe 初始化和分配的写法，注意需要同时将进程 id 初始化</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="k">struct</span> <span class="n">proc</span><span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="nf">allocproc</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	
+</span></span><span class="line"><span class="cl">  <span class="c1">// Allocate a trapframe page.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span><span class="p">((</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">trapframe</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">trapframe</span> <span class="o">*</span><span class="p">)</span><span class="n">kalloc</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">freeproc</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">release</span><span class="p">(</span><span class="o">&amp;</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#ifdef LAB_PGTBL
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  <span class="c1">// 分配一个加速系统调用页
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span><span class="p">((</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">usyscall</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">usyscall</span> <span class="o">*</span><span class="p">)</span><span class="n">kalloc</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">freeproc</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">release</span><span class="p">(</span><span class="o">&amp;</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">lock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">//进程id初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">p</span><span class="o">-&gt;</span><span class="n">usyscall</span><span class="o">-&gt;</span><span class="n">pid</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">pid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl">  <span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>既有初始化和分配，肯定也需要释放，在 <code>freeproc()</code> 中执行释放页面操作，仿写即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span>
+</span></span><span class="line"><span class="cl"><span class="nf">freeproc</span><span class="p">(</span><span class="k">struct</span> <span class="n">proc</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">trapframe</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">kfree</span><span class="p">((</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">trapframe</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">p</span><span class="o">-&gt;</span><span class="n">trapframe</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//释放加速系统调用页
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#ifdef LAB_PGTBL
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  <span class="k">if</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">usyscall</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">kfree</span><span class="p">((</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">usyscall</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">p</span><span class="o">-&gt;</span><span class="n">usyscall</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  <span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>最后需要在 <code>proc_freepagetable</code> 释放进程的页表和已经映射的页面，不然会报 <code>panic: freewalk: leaf</code> 的错误</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span>
+</span></span><span class="line"><span class="cl"><span class="nf">proc_freepagetable</span><span class="p">(</span><span class="n">pagetable_t</span> <span class="n">pagetable</span><span class="p">,</span> <span class="n">uint64</span> <span class="n">sz</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">uvmunmap</span><span class="p">(</span><span class="n">pagetable</span><span class="p">,</span> <span class="n">TRAMPOLINE</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">uvmunmap</span><span class="p">(</span><span class="n">pagetable</span><span class="p">,</span> <span class="n">TRAPFRAME</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#ifdef LAB_PGTBL
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  <span class="n">uvmunmap</span><span class="p">(</span><span class="n">pagetable</span><span class="p">,</span> <span class="n">USYSCALL</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  <span class="n">uvmfree</span><span class="p">(</span><span class="n">pagetable</span><span class="p">,</span> <span class="n">sz</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="print-a-page-table" class="headerLink">
+    <a href="#print-a-page-table" class="header-mark"></a>Print a page table</h2><p>这个实验是需要添加一个打印页表的功能，参考 <code>freewalk</code> 首先枚举512个页表项，对于每一项看是否有效，如果有效进行打印输出，同时判断是否为叶子节点（也就是判断PTE_R|PTE_W|PTE_X 是否都为0），然后就是需要一些递归深度的处理，这里用一个变量，比较容易想到</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">//kernel//vm.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">_vmprint</span><span class="p">(</span><span class="n">pagetable_t</span> <span class="n">pagetable</span><span class="p">,</span> <span class="kt">int</span> <span class="n">level</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// there are 2^9 = 512 PTEs in a page table.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">512</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pte_t</span> <span class="n">pte</span> <span class="o">=</span> <span class="n">pagetable</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">((</span><span class="n">pte</span> <span class="o">&amp;</span> <span class="n">PTE_V</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// this PTE points to a lower-level page table.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">level</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="n">printf</span><span class="p">(</span><span class="s">&#34;..&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="n">printf</span><span class="p">(</span><span class="s">&#34; ..&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="n">uint64</span> <span class="n">child</span> <span class="o">=</span> <span class="n">PTE2PA</span><span class="p">(</span><span class="n">pte</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d: pte %p pa %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">pte</span><span class="p">,</span> <span class="n">child</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">((</span><span class="n">pte</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">PTE_R</span><span class="o">|</span><span class="n">PTE_W</span><span class="o">|</span><span class="n">PTE_X</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_vmprint</span><span class="p">((</span><span class="n">pagetable_t</span><span class="p">)</span><span class="n">child</span><span class="p">,</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">vmprint</span><span class="p">(</span><span class="n">pagetable_t</span> <span class="n">pagetable</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;page table %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pagetable</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_vmprint</span><span class="p">(</span><span class="n">pagetable</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="detecting-which-pages-have-been-accessed" class="headerLink">
+    <a href="#detecting-which-pages-have-been-accessed" class="header-mark"></a>Detecting which pages have been accessed</h2><p>这个实验是检测进程对应的页表是否已经访问过，首先需要我们自己设置 PTE_A 位，通过查看xv6 book 可以发现，页表 A 位在第6号位，所以 PTE_A 就是 1L &laquo; 6</p>
+<p><img
+        class="lazyload"
+        data-src="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220720003255.png"
+        data-srcset="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220720003255.png, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220720003255.png 1.5x, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220720003255.png 2x"
+        data-sizes="auto"
+        alt="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220720003255.png"
+        title="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220720003255.png"></p>
+<p>然后就是 sys_paaccess 系统调用的实现，首先根据提示获得三个参数，第一个参数为用户页表的起始地址，第二个参数为需要检查的页表数目，第三个参数为用户地址（用来返回数据信息的）</p>
+<p>根据提示和之前的实验，可以知道通过 argaddr 能够获取地址，argint 能够获取整数变量，注意传入的参数要与之对应</p>
+<p>然后就是根据 walk 函数来查找对应的页表，因为有了用户页表的起始地址，再加上每次循环的个数，就能够得到对应页表的地址，根据这个地址来判断 PET_ A 为是否为1，为1的话将掩码对应的位置置为1，最后根据 copyout 写回用户态即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#ifdef LAB_PGTBL
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="nf">sys_pgaccess</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// lab pgtbl: your code here.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">uint64</span> <span class="n">va</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">uint64</span> <span class="n">addr</span><span class="p">;</span> <span class="c1">// user address
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span><span class="p">(</span><span class="n">argaddr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">va</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span><span class="p">(</span><span class="n">argint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span><span class="p">(</span><span class="n">argaddr</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">addr</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span><span class="p">(</span><span class="n">va</span> <span class="o">&gt;=</span> <span class="n">MAXVA</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">panic</span><span class="p">(</span><span class="s">&#34;walk&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">struct</span> <span class="n">proc</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">myproc</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">pagetable_t</span> <span class="n">pagetable</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">pagetable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">uint64</span> <span class="n">mask</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pte_t</span> <span class="o">*</span><span class="n">pte</span> <span class="o">=</span> <span class="n">walk</span><span class="p">(</span><span class="n">pagetable</span><span class="p">,</span> <span class="p">(</span><span class="n">uint64</span><span class="p">)</span><span class="n">va</span> <span class="o">+</span> <span class="p">(</span><span class="n">uint64</span><span class="p">)</span><span class="n">PGSIZE</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">((</span><span class="n">pte</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">((</span><span class="o">*</span><span class="n">pte</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">PTE_A</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">mask</span> <span class="o">|=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">//清空 PTE_A 位
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="o">*</span><span class="n">pte</span> <span class="o">&amp;=</span> <span class="o">~</span><span class="n">PTE_A</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">copyout</span><span class="p">(</span><span class="n">pagetable</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">mask</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">mask</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>完结证明：
+<img
+        class="lazyload"
+        data-src="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220720004055.png"
+        data-srcset="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220720004055.png, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220720004055.png 1.5x, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220720004055.png 2x"
+        data-sizes="auto"
+        alt="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220720004055.png"
+        title="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220720004055.png"></p>
+<p>lab3 让我对页表机制重新复习了一遍，之前做过南大的PA，页表这方面内容有所接触，不过感觉20年的lab3难一点，有时间可以做一下</p>
+<p>参考资料：
+<a href="https://zhuanlan.zhihu.com/p/347172409" target="_blank" rel="noopener noreffer">MIT 6.S081 2020 LAB3记录 - 知乎</a></p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-07-19</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span><a class="link-to-mardown" href=/mit6s.081-lab3-page-tables/index.md target="_blank" rel="noopener noreferrer">阅读原始文档</a>
+                    </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/xv6-lab-2021/">xv6-lab-2021</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/mit6s.081-lab2-system-calls/" class="prev" rel="prev" title="MIT6S.081-Lab2: system calls"><i class="fas fa-angle-left fa-fw"></i>MIT6S.081-Lab2: system calls</a>
+            <a href="/mit6s.081-lab4-traps/" class="next" rel="next" title="MIT6S.081-Lab4: traps">MIT6S.081-Lab4: traps<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="utterances"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
+            </noscript></div></article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                    由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.3">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Silas</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/fuse/fuse.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/tablesort/tablesort.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ephmeral/hugoblogtalks"}},"data":{"desktop-header-typeit":"Ephmeral","mobile-header-typeit":"Ephmeral"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"table":{"sort":true},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/utterances.min.js" defer></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript></div>
+</body>
+
+</html>

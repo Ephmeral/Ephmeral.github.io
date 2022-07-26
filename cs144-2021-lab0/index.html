@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">CS144-2021: lab0 - </title><meta name="Description" content=""><meta property="og:title" content="CS144-2021: lab0" />
+<meta property="og:description" content="关于现代 C&#43;&#43;，CS144建议以下几点： Use the language documentation at https://en.cppreference.com as a resource. Never use malloc() or free(). Never use new or delete. Essentially never use raw pointers (*), and use “smart” pointers (unique ptr or shared ptr) only when necessary(You will not need to use these in" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.silasblog.top/cs144-2021-lab0/" /><meta property="og:image" content="https://blog.silasblog.top/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-07-24T19:57:48+08:00" />
+<meta property="article:modified_time" content="2022-07-25T13:08:43+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.silasblog.top/logo.png"/>
+
+<meta name="twitter:title" content="CS144-2021: lab0"/>
+<meta name="twitter:description" content="关于现代 C&#43;&#43;，CS144建议以下几点： Use the language documentation at https://en.cppreference.com as a resource. Never use malloc() or free(). Never use new or delete. Essentially never use raw pointers (*), and use “smart” pointers (unique ptr or shared ptr) only when necessary(You will not need to use these in"/>
+<meta name="application-name" content="">
+<meta name="apple-mobile-web-app-title" content="">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="https://blog.silasblog.top/cs144-2021-lab0/" /><link rel="prev" href="https://blog.silasblog.top/mit6s.081-lab6-multithreading/" /><link rel="next" href="https://blog.silasblog.top/cs144-2021-lab1/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CS144-2021: lab0",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.silasblog.top\/cs144-2021-lab0\/"
+        },"genre": "posts","keywords": "cs144","wordcount":  1342 ,
+        "url": "https:\/\/blog.silasblog.top\/cs144-2021-lab0\/","datePublished": "2022-07-24T19:57:48+08:00","dateModified": "2022-07-25T13:08:43+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Silas"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="normal" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="desktop-header-typeit" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"><i class='folder-open-solid'></i> 分类 </a><a class="menu-item" href="/series/"> 系列 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="mobile-header-typeit" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title=""><i class='folder-open-solid'></i>分类</a><a class="menu-item" href="/series/" title="">系列</a><a class="menu-item" href="/about/" title="">关于</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#34-writing-webget">3.4 Writing webget</a></li>
+    <li><a href="#4-an-in-memory-reliable-byte-stream">4 An in-memory reliable byte stream</a></li>
+    <li><a href="#小结">小结</a></li>
+  </ul>
+</nav></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CS144-2021: lab0</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Silas</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/internet/"><i class="far fa-folder fa-fw"></i>Internet</a>&nbsp;<a href="/categories/lab/"><i class="far fa-folder fa-fw"></i>Lab</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-07-24">2022-07-24</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-07-25">2022-07-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1342 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#34-writing-webget">3.4 Writing webget</a></li>
+    <li><a href="#4-an-in-memory-reliable-byte-stream">4 An in-memory reliable byte stream</a></li>
+    <li><a href="#小结">小结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>关于现代 C++，CS144建议以下几点：</p>
+<ul>
+<li>Use the language documentation at <a href="https://en.cppreference.com" target="_blank" rel="noopener noreffer">https://en.cppreference.com</a> as a resource.</li>
+<li>Never use <code>malloc()</code> or <code>free()</code>.</li>
+<li>Never use <code>new</code> or <code>delete</code>.</li>
+<li>Essentially never use <strong>raw pointers</strong> (*), and use “<strong>smart” pointers</strong> (unique ptr or shared ptr) only when necessary(You will not need to use these in CS144.)</li>
+<li>Avoid templates, threads, locks, and virtual functions. (You will not need to use these in CS144.)</li>
+<li>Avoid C-style strings (<strong><code>char *str</code></strong>) or string functions (<code>strlen()</code>, <code>strcpy()</code>). These are pretty error-prone. Use a <strong>std::string</strong> instead</li>
+<li>Never use C-style casts (e.g., (FILE *)x). Use a C++ static cast if you have to (you generally will not need this in CS144).</li>
+<li>Prefer passing function arguments by <strong>const</strong> reference (e.g.: <strong>const Address &amp; address</strong>).</li>
+<li>Make every variable <strong>const</strong> unless it needs to be mutated.</li>
+<li>Make every method <strong>const</strong> unless it needs to mutate the object.</li>
+<li>Avoid global variables, and give every variable the smallest scope possible.</li>
+<li>Before handing in an assignment, please run <strong>make format</strong> to normalize the coding style</li>
+</ul>
+<p>感觉还是挺严格的，不知道实际工程项目当中是不是也有类似的要求</p>
+<h2 id="34-writing-webget" class="headerLink">
+    <a href="#34-writing-webget" class="header-mark"></a>3.4 Writing webget</h2><p>这个就是让我们熟悉一下 Socket 的 API 如何使用，刚开始不太理解，没仔细看实验手册给的链接</p>
+<p>仔细看下给的 TCPSocket 的使用发现其实就是首先客户端和服务器建立连接，然后客户端向服务器发送请求，最后读取服务器响应的内容，代码如下：</p>
+<p>注意：请求报文的换行是 <code>\r\n</code> 并且请求结束时要多加一个换行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">get_URL</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">host</span><span class="p">,</span> <span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Your code here.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">TCPSocket</span> <span class="n">sock</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sock</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">Address</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="s">&#34;http&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sock</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#34;GET &#34;</span> <span class="o">+</span> <span class="n">path</span> <span class="o">+</span> <span class="s">&#34; HTTP/1.1</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sock</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#34;Host: &#34;</span> <span class="o">+</span> <span class="n">host</span> <span class="o">+</span> <span class="s">&#34;</span><span class="se">\r\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sock</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#34;Connection: close</span><span class="se">\r\n\r\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// sock.shutdown(SHUT_WR);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">sock</span><span class="p">.</span><span class="n">eof</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">sock</span><span class="p">.</span><span class="n">read</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sock</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// You will need to connect to the &#34;http&#34; service on
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// the computer whose name is in the &#34;host&#34; string,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// then request the URL path given in the &#34;path&#34; string.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Then you&#39;ll need to print out everything the server sends back,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// (not just one call to read() -- everything) until you reach
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// the &#34;eof&#34; (end of file).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// cerr &lt;&lt; &#34;Function called: get_URL(&#34; &lt;&lt; host &lt;&lt; &#34;, &#34; &lt;&lt; path &lt;&lt; &#34;).\n&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// cerr &lt;&lt; &#34;Warning: get_URL() has not been implemented yet.\n&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>完成测试的样子：
+<img
+        class="lazyload"
+        data-src="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220725130555.png"
+        data-srcset="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220725130555.png, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220725130555.png 1.5x, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220725130555.png 2x"
+        data-sizes="auto"
+        alt="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220725130555.png"
+        title="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220725130555.png"></p>
+<h2 id="4-an-in-memory-reliable-byte-stream" class="headerLink">
+    <a href="#4-an-in-memory-reliable-byte-stream" class="header-mark"></a>4 An in-memory reliable byte stream</h2><p>这个就是实现一个可靠的字节流，类似于管道，从一端写入，另外一端读取，这样的话用双端队列 deque 比较合适</p>
+<p>下面是添加在头文件中的变量：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ByteStream</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Your code here -- add private members as necessary.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">std</span><span class="o">::</span><span class="n">deque</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">buffer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="n">size_t</span> <span class="n">cap</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="n">size_t</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="n">size_t</span> <span class="n">read_len</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="n">size_t</span> <span class="n">write_len</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="kt">bool</span> <span class="n">input_end</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="c1">// Hint: This doesn&#39;t need to be a sophisticated data structure at
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// all, but if any of your tests are taking longer than a second,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// that&#39;s a sign that you probably want to keep exploring
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// different approaches.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">_error</span><span class="p">{};</span>  <span class="c1">//!&lt; Flag indicating that the stream suffered an error.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后是具体 <code>ByteStream</code> 的实现，比较重要的是 eof 的判断，也是参考了其他博客的思路，当字符流也就是 buffer 为空了，并且没有继续输入的字符也就是 input_end 结束了，就达到 eof 了</p>
+<p>然后踩坑的地方：当实现完的时候，以为直接结束了，可以测试，然后一直通不过，也不知道啥原因，后来发现需要先 <code>make</code> 把错误代码改过来，并且编译一下，然后再<code>make check_lab0</code> 就可以测试了</p>
+<p>然后就是我写代码过程中发现的错误：C++的列表初始化顺序要和变量定义的顺序一致（感觉之前C++白学了，笑）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;byte_stream.hh&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Dummy implementation of a flow-controlled in-memory byte stream.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// For Lab 0, please replace with a real implementation that passes the
+</span></span></span><span class="line"><span class="cl"><span class="c1">// automated checks run by `make check_lab0`.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// You will need to add private members to the class declaration in `byte_stream.hh`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">...</span> <span class="n">Targs</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">DUMMY_CODE</span><span class="p">(</span><span class="n">Targs</span> <span class="o">&amp;&amp;</span><span class="p">...</span> <span class="cm">/* unused */</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ByteStream</span><span class="o">::</span><span class="n">ByteStream</span><span class="p">(</span><span class="k">const</span> <span class="n">size_t</span> <span class="n">capacity</span><span class="p">)</span> <span class="o">:</span> <span class="n">buffer</span><span class="p">(</span><span class="n">capacity</span><span class="p">),</span> <span class="n">cap</span><span class="p">(</span><span class="n">capacity</span><span class="p">)</span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">buffer</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">buffer</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">buffer</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">size_t</span> <span class="n">ByteStream</span><span class="o">::</span><span class="n">write</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span> <span class="o">&amp;</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">input_end</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">size_t</span> <span class="n">pre</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">char</span> <span class="nl">c</span> <span class="p">:</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">buffer</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">cap</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">buffer</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="o">-&gt;</span><span class="n">write_len</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">buffer</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="n">pre</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//! \param[in] len bytes will be copied from the output side of the buffer
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span> <span class="n">ByteStream</span><span class="o">::</span><span class="n">peek_output</span><span class="p">(</span><span class="k">const</span> <span class="n">size_t</span> <span class="n">len</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">string</span> <span class="n">ans</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">buffer</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">         <span class="o">++</span><span class="n">it</span><span class="p">,</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">ans</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="o">*</span><span class="n">it</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//! \param[in] len bytes will be removed from the output side of the buffer
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="n">ByteStream</span><span class="o">::</span><span class="n">pop_output</span><span class="p">(</span><span class="k">const</span> <span class="n">size_t</span> <span class="n">len</span><span class="p">)</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">buffer</span><span class="p">.</span><span class="n">empty</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">buffer</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">-&gt;</span><span class="n">read_len</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//! Read (i.e., copy and then pop) the next &#34;len&#34; bytes of the stream
+</span></span></span><span class="line"><span class="cl"><span class="c1">//! \param[in] len bytes will be popped and returned
+</span></span></span><span class="line"><span class="cl"><span class="c1">//! \returns a string
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">ByteStream</span><span class="o">::</span><span class="n">read</span><span class="p">(</span><span class="k">const</span> <span class="n">size_t</span> <span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">string</span> <span class="n">ans</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">         <span class="n">it</span> <span class="o">!=</span> <span class="n">buffer</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">buffer</span><span class="p">.</span><span class="n">empty</span><span class="p">();</span> <span class="o">++</span><span class="n">it</span><span class="p">,</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">ans</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="o">*</span><span class="n">it</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">buffer</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="o">-&gt;</span><span class="n">read_len</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">ByteStream</span><span class="o">::</span><span class="n">end_input</span><span class="p">()</span> <span class="p">{</span> <span class="n">input_end</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">ByteStream</span><span class="o">::</span><span class="n">input_ended</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">input_end</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">size_t</span> <span class="n">ByteStream</span><span class="o">::</span><span class="n">buffer_size</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">buffer</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">ByteStream</span><span class="o">::</span><span class="n">buffer_empty</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">buffer</span><span class="p">.</span><span class="n">empty</span><span class="p">();</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">ByteStream</span><span class="o">::</span><span class="n">eof</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">buffer</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">input_end</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">size_t</span> <span class="n">ByteStream</span><span class="o">::</span><span class="n">bytes_written</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">write_len</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">size_t</span> <span class="n">ByteStream</span><span class="o">::</span><span class="n">bytes_read</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">read_len</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">size_t</span> <span class="n">ByteStream</span><span class="o">::</span><span class="n">remaining_capacity</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">cap</span> <span class="o">-</span> <span class="n">buffer</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>完结证明：</p>
+<p><img
+        class="lazyload"
+        data-src="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220725102612.png"
+        data-srcset="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220725102612.png, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220725102612.png 1.5x, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220725102612.png 2x"
+        data-sizes="auto"
+        alt="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220725102612.png"
+        title="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20220725102612.png"></p>
+<h2 id="小结" class="headerLink">
+    <a href="#%e5%b0%8f%e7%bb%93" class="header-mark"></a>小结</h2><p>lab0 其实花了我挺久的，大概3-4小时，主要是刚开始没反应过来先 make 一下测试代码编译是否正确</p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-07-25</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span><a class="link-to-mardown" href=/cs144-2021-lab0/index.md target="_blank" rel="noopener noreferrer">阅读原始文档</a>
+                    </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/cs144/">cs144</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/mit6s.081-lab6-multithreading/" class="prev" rel="prev" title="MIT6S.081-Lab6: Multithreading"><i class="fas fa-angle-left fa-fw"></i>MIT6S.081-Lab6: Multithreading</a>
+            <a href="/cs144-2021-lab1/" class="next" rel="next" title="CS144-2021: lab1">CS144-2021: lab1<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="utterances"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
+            </noscript></div></article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                    由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.97.3">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Silas</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/fuse/fuse.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/tablesort/tablesort.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"ephmeral/hugoblogtalks"}},"data":{"desktop-header-typeit":"Ephmeral","mobile-header-typeit":"Ephmeral"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/index.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"没有找到结果","snippetLength":50,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"table":{"sort":true},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/utterances.min.js" defer></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js" defer></script><script type="text/javascript" src="/lib/katex/auto-render.min.js" defer></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js" defer></script><script type="text/javascript" src="/lib/katex/mhchem.min.js" defer></script><script type="text/javascript" src="/js/katex.min.js" defer></script><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/katex/copy-tex.min.css">
+        <noscript><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"></noscript></div>
+</body>
+
+</html>
