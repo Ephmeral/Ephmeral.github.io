@@ -3,9 +3,23 @@
         <title></title>
         <link>https://blog.silasblog.top/</link>
         <description></description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 26 Jul 2022 17:59:26 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 01 Aug 2022 21:31:39 &#43;0800</lastBuildDate>
             <atom:link href="https://blog.silasblog.top/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>CS144-2021 lab2</title>
+    <link>https://blog.silasblog.top/cs144-2021-lab2/</link>
+    <pubDate>Mon, 01 Aug 2022 21:31:39 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/cs144-2021-lab2/</guid>
+    <description><![CDATA[lab2 主要是实现 TCPReceiver，就是将接收到的 TCPSegment （TCP报文段）写入到我们之前实现的流当中 3.1 Translating between 64-bit indexes and 32-bit seqnos我们在lab1实现的]]></description>
+</item><item>
+    <title>MIT6S.081-Lab9 File system</title>
+    <link>https://blog.silasblog.top/mit6s.081-lab9-file-system/</link>
+    <pubDate>Sat, 30 Jul 2022 17:07:17 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/mit6s.081-lab9-file-system/</guid>
+    <description><![CDATA[Large files这个部分是要拓展xv6原来的文件系统，本来的inode是一级的，addrs数组中最后一个元素对应一个间接引用节点的地址，这个节点]]></description>
+</item><item>
     <title>CS144-2021: lab1</title>
     <link>https://blog.silasblog.top/cs144-2021-lab1/</link>
     <pubDate>Tue, 26 Jul 2022 17:59:26 &#43;0800</pubDate><author>
@@ -61,19 +75,5 @@
         <name>Silas</name>
     </author><guid>https://blog.silasblog.top/nju-ics2020-pa3-1-%E5%B0%8F%E7%BB%93/</guid>
     <description><![CDATA[前言PA3 存储管理，3-1对cache进行了简单的模拟，3-2开启了类似80386的保护机制，3-3实现了分页机制（虚拟地址转换） PA4-1]]></description>
-</item><item>
-    <title>Cache 的基本工作原理</title>
-    <link>https://blog.silasblog.top/cache-%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</link>
-    <pubDate>Tue, 05 Jul 2022 14:43:52 &#43;0800</pubDate><author>
-        <name>Silas</name>
-    </author><guid>https://blog.silasblog.top/cache-%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</guid>
-    <description><![CDATA[局部性原理时间局部性：指被访问的某个存储单元在一个较短的时间内很可能还会继续被访问 空间局部性：被访问的某个存储单元临近的单元在一个较短时间内]]></description>
-</item><item>
-    <title>NJU-ICS2021 | PA2-1实验小结</title>
-    <link>https://blog.silasblog.top/nju-ics2021-pa2-1%E5%B0%8F%E7%BB%93/</link>
-    <pubDate>Tue, 28 Jun 2022 10:50:48 &#43;0800</pubDate><author>
-        <name>Silas</name>
-    </author><guid>https://blog.silasblog.top/nju-ics2021-pa2-1%E5%B0%8F%E7%BB%93/</guid>
-    <description><![CDATA[前言PA2-1 需要实现每个指令的解码和执行，具体需要在项目根目录下先执行 make test_pa-2-1，查看当前缺少哪条指令，然后去实现对应指令即]]></description>
 </item></channel>
 </rss>

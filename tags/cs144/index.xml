@@ -3,7 +3,14 @@
         <title>cs144 - 标签 - </title>
         <link>https://blog.silasblog.top/tags/cs144/</link>
         <description>cs144 - 标签 - </description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 26 Jul 2022 17:59:26 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/tags/cs144/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 01 Aug 2022 21:31:39 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/tags/cs144/" rel="self" type="application/rss+xml" /><item>
+    <title>CS144-2021 lab2</title>
+    <link>https://blog.silasblog.top/cs144-2021-lab2/</link>
+    <pubDate>Mon, 01 Aug 2022 21:31:39 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/cs144-2021-lab2/</guid>
+    <description><![CDATA[lab2 主要是实现 TCPReceiver，就是将接收到的 TCPSegment （TCP报文段）写入到我们之前实现的流当中 3.1 Translating between 64-bit indexes and 32-bit seqnos我们在lab1实现的]]></description>
+</item><item>
     <title>CS144-2021: lab1</title>
     <link>https://blog.silasblog.top/cs144-2021-lab1/</link>
     <pubDate>Tue, 26 Jul 2022 17:59:26 &#43;0800</pubDate><author>

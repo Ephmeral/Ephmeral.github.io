@@ -3,7 +3,21 @@
         <title>Lab - 分类 - </title>
         <link>https://blog.silasblog.top/categories/lab/</link>
         <description>Lab - 分类 - </description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 26 Jul 2022 17:59:26 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/categories/lab/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 01 Aug 2022 21:31:39 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/categories/lab/" rel="self" type="application/rss+xml" /><item>
+    <title>CS144-2021 lab2</title>
+    <link>https://blog.silasblog.top/cs144-2021-lab2/</link>
+    <pubDate>Mon, 01 Aug 2022 21:31:39 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/cs144-2021-lab2/</guid>
+    <description><![CDATA[lab2 主要是实现 TCPReceiver，就是将接收到的 TCPSegment （TCP报文段）写入到我们之前实现的流当中 3.1 Translating between 64-bit indexes and 32-bit seqnos我们在lab1实现的]]></description>
+</item><item>
+    <title>MIT6S.081-Lab9 File system</title>
+    <link>https://blog.silasblog.top/mit6s.081-lab9-file-system/</link>
+    <pubDate>Sat, 30 Jul 2022 17:07:17 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/mit6s.081-lab9-file-system/</guid>
+    <description><![CDATA[Large files这个部分是要拓展xv6原来的文件系统，本来的inode是一级的，addrs数组中最后一个元素对应一个间接引用节点的地址，这个节点]]></description>
+</item><item>
     <title>CS144-2021: lab1</title>
     <link>https://blog.silasblog.top/cs144-2021-lab1/</link>
     <pubDate>Tue, 26 Jul 2022 17:59:26 &#43;0800</pubDate><author>
@@ -59,19 +73,5 @@
         <name>Silas</name>
     </author><guid>https://blog.silasblog.top/nju-ics2020-pa3-1-%E5%B0%8F%E7%BB%93/</guid>
     <description><![CDATA[前言PA3 存储管理，3-1对cache进行了简单的模拟，3-2开启了类似80386的保护机制，3-3实现了分页机制（虚拟地址转换） PA4-1]]></description>
-</item><item>
-    <title>NJU-ICS2021 | PA2-1实验小结</title>
-    <link>https://blog.silasblog.top/nju-ics2021-pa2-1%E5%B0%8F%E7%BB%93/</link>
-    <pubDate>Tue, 28 Jun 2022 10:50:48 &#43;0800</pubDate><author>
-        <name>Silas</name>
-    </author><guid>https://blog.silasblog.top/nju-ics2021-pa2-1%E5%B0%8F%E7%BB%93/</guid>
-    <description><![CDATA[前言PA2-1 需要实现每个指令的解码和执行，具体需要在项目根目录下先执行 make test_pa-2-1，查看当前缺少哪条指令，然后去实现对应指令即]]></description>
-</item><item>
-    <title>NJU-ICS2021 | PA0&amp;PA1实验小结</title>
-    <link>https://blog.silasblog.top/nju-ics2021-pa0pa1%E5%B0%8F%E7%BB%93/</link>
-    <pubDate>Sun, 26 Jun 2022 17:31:09 &#43;0800</pubDate><author>
-        <name>Silas</name>
-    </author><guid>https://blog.silasblog.top/nju-ics2021-pa0pa1%E5%B0%8F%E7%BB%93/</guid>
-    <description><![CDATA[前言这里简单记录一下自己做PA实验的体会，既是及时做个整理总结，也希望能够帮助到后续做PA实验的同学。 首先声明本人非南大学生，也并非科班学生]]></description>
 </item></channel>
 </rss>

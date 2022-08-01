@@ -3,7 +3,14 @@
         <title>xv6-lab-2021 - 标签 - </title>
         <link>https://blog.silasblog.top/tags/xv6-lab-2021/</link>
         <description>xv6-lab-2021 - 标签 - </description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 24 Jul 2022 16:08:22 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/tags/xv6-lab-2021/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 30 Jul 2022 17:07:17 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/tags/xv6-lab-2021/" rel="self" type="application/rss+xml" /><item>
+    <title>MIT6S.081-Lab9 File system</title>
+    <link>https://blog.silasblog.top/mit6s.081-lab9-file-system/</link>
+    <pubDate>Sat, 30 Jul 2022 17:07:17 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/mit6s.081-lab9-file-system/</guid>
+    <description><![CDATA[Large files这个部分是要拓展xv6原来的文件系统，本来的inode是一级的，addrs数组中最后一个元素对应一个间接引用节点的地址，这个节点]]></description>
+</item><item>
     <title>MIT6S.081-Lab6: Multithreading</title>
     <link>https://blog.silasblog.top/mit6s.081-lab6-multithreading/</link>
     <pubDate>Sun, 24 Jul 2022 16:08:22 &#43;0800</pubDate><author>
