@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Database - 分类 - </title>
+        <link>https://blog.silasblog.top/categories/database/</link>
+        <description>Database - 分类 - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 16 Sep 2022 17:46:55 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/categories/database/" rel="self" type="application/rss+xml" /><item>
+    <title>CMU15-445: Project0-字典树</title>
+    <link>https://blog.silasblog.top/cmu15-445-project0-%E5%AD%97%E5%85%B8%E6%A0%91/</link>
+    <pubDate>Fri, 16 Sep 2022 17:46:55 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/cmu15-445-project0-%E5%AD%97%E5%85%B8%E6%A0%91/</guid>
+    <description><![CDATA[前言PROJECT #0 - C++ PRIMER：是要求实现一个支持并发插入键值对的字典树，如果堆字典树不了解可以先看一下 Leetcode 这道题 208. 实现 Trie (前缀树) 写这]]></description>
+</item></channel>
+</rss>

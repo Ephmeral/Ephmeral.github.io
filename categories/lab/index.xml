@@ -3,7 +3,14 @@
         <title>Lab - 分类 - </title>
         <link>https://blog.silasblog.top/categories/lab/</link>
         <description>Lab - 分类 - </description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 01 Aug 2022 21:31:39 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/categories/lab/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 16 Sep 2022 17:46:55 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/categories/lab/" rel="self" type="application/rss+xml" /><item>
+    <title>CMU15-445: Project0-字典树</title>
+    <link>https://blog.silasblog.top/cmu15-445-project0-%E5%AD%97%E5%85%B8%E6%A0%91/</link>
+    <pubDate>Fri, 16 Sep 2022 17:46:55 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/cmu15-445-project0-%E5%AD%97%E5%85%B8%E6%A0%91/</guid>
+    <description><![CDATA[前言PROJECT #0 - C++ PRIMER：是要求实现一个支持并发插入键值对的字典树，如果堆字典树不了解可以先看一下 Leetcode 这道题 208. 实现 Trie (前缀树) 写这]]></description>
+</item><item>
     <title>CS144-2021 lab2</title>
     <link>https://blog.silasblog.top/cs144-2021-lab2/</link>
     <pubDate>Mon, 01 Aug 2022 21:31:39 &#43;0800</pubDate><author>
@@ -66,12 +73,5 @@
         <name>Silas</name>
     </author><guid>https://blog.silasblog.top/mit6s.081-lab1xv6-and-unix-utilities/</guid>
     <description><![CDATA[sleep比较容易，主要是看系统调用的掌握，注意main函数传入的参数如何处理 1 2 3 4 5 6 7 8 9 10 11 12 #include &#34;kernel/types.h&#34;#include &#34;kernel/stat.h&#34;#include &#34;user/user.h&#34; int main(int argc, char *argv[]) { if (argc != 2) { printf(&#34;Usage: sleep time\n&#34;); exit(1);]]></description>
-</item><item>
-    <title>NJU-ICS2020 | PA3-1 小结</title>
-    <link>https://blog.silasblog.top/nju-ics2020-pa3-1-%E5%B0%8F%E7%BB%93/</link>
-    <pubDate>Sun, 17 Jul 2022 14:06:24 &#43;0800</pubDate><author>
-        <name>Silas</name>
-    </author><guid>https://blog.silasblog.top/nju-ics2020-pa3-1-%E5%B0%8F%E7%BB%93/</guid>
-    <description><![CDATA[前言PA3 存储管理，3-1对cache进行了简单的模拟，3-2开启了类似80386的保护机制，3-3实现了分页机制（虚拟地址转换） PA4-1]]></description>
 </item></channel>
 </rss>
