@@ -2,14 +2,14 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://blog.silasblog.top/</loc><lastmod>2022-09-19T16:57:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.silasblog.top/categories/</loc><lastmod>2022-09-19T16:57:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.silasblog.top/tags/cmu15-445/</loc><lastmod>2022-09-19T16:57:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.silasblog.top/cmu15-445-project0-%E5%AD%97%E5%85%B8%E6%A0%91/</loc><lastmod>2022-09-19T16:57:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.silasblog.top/categories/database/</loc><lastmod>2022-09-19T16:57:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.silasblog.top/categories/lab/</loc><lastmod>2022-09-19T16:57:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.silasblog.top/posts/</loc><lastmod>2022-09-19T16:57:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.silasblog.top/tags/</loc><lastmod>2022-09-19T16:57:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://blog.silasblog.top/</loc><lastmod>2022-09-19T16:57:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://blog.silasblog.top/categories/</loc><lastmod>2022-09-19T16:57:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://blog.silasblog.top/tags/cmu15-445/</loc><lastmod>2022-09-19T16:57:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://blog.silasblog.top/cmu15-445-project0-%E5%AD%97%E5%85%B8%E6%A0%91/</loc><lastmod>2022-09-19T16:57:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://blog.silasblog.top/categories/database/</loc><lastmod>2022-09-19T16:57:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://blog.silasblog.top/categories/lab/</loc><lastmod>2022-09-19T16:57:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://blog.silasblog.top/posts/</loc><lastmod>2022-09-19T16:57:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://blog.silasblog.top/tags/</loc><lastmod>2022-09-19T16:57:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
             <loc>https://blog.silasblog.top/tags/cs144/</loc><lastmod>2022-08-01T21:31:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.silasblog.top/cs144-2021-lab2/</loc><lastmod>2022-08-01T21:31:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.silasblog.top/categories/internet/</loc><lastmod>2022-08-01T21:31:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
