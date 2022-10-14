@@ -3,7 +3,14 @@
         <title>所有文章 - </title>
         <link>https://blog.silasblog.top/posts/</link>
         <description>所有文章 | </description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 16 Sep 2022 17:46:55 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 12 Oct 2022 09:30:09 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>CMU15-445 - Project1 Buffer Pool</title>
+    <link>https://blog.silasblog.top/cmu15-445-project1-buffer-pool/</link>
+    <pubDate>Wed, 12 Oct 2022 09:30:09 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/cmu15-445-project1-buffer-pool/</guid>
+    <description><![CDATA[前言我做的是 CMU15-445 2022年秋季版本，目前课程尚未完结，poject和 gradescope 也在慢慢开放中，目前我的进度到Project1 buffer pool，这篇总结一下我]]></description>
+</item><item>
     <title>CMU15-445: Project0-字典树</title>
     <link>https://blog.silasblog.top/cmu15-445-project0-%E5%AD%97%E5%85%B8%E6%A0%91/</link>
     <pubDate>Fri, 16 Sep 2022 17:46:55 &#43;0800</pubDate><author>
@@ -66,12 +73,5 @@
         <name>Silas</name>
     </author><guid>https://blog.silasblog.top/mit6s.081-lab2-system-calls/</guid>
     <description><![CDATA[System call tracingtrace 的功能就是根据提供的掩码 mask，来跟踪后续执行的系统调用情况，用户级的 trace 将传入的一个数字通过内核态的系统调用 sys_trace 来设置进程的掩码 mas]]></description>
-</item><item>
-    <title>MIT6S.081-lab1:Xv6 and Unix utilities</title>
-    <link>https://blog.silasblog.top/mit6s.081-lab1xv6-and-unix-utilities/</link>
-    <pubDate>Sun, 17 Jul 2022 19:27:07 &#43;0800</pubDate><author>
-        <name>Silas</name>
-    </author><guid>https://blog.silasblog.top/mit6s.081-lab1xv6-and-unix-utilities/</guid>
-    <description><![CDATA[sleep比较容易，主要是看系统调用的掌握，注意main函数传入的参数如何处理 1 2 3 4 5 6 7 8 9 10 11 12 #include &#34;kernel/types.h&#34;#include &#34;kernel/stat.h&#34;#include &#34;user/user.h&#34; int main(int argc, char *argv[]) { if (argc != 2) { printf(&#34;Usage: sleep time\n&#34;); exit(1);]]></description>
 </item></channel>
 </rss>

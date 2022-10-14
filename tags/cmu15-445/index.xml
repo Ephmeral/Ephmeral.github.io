@@ -3,7 +3,14 @@
         <title>CMU15-445 - 标签 - </title>
         <link>https://blog.silasblog.top/tags/cmu15-445/</link>
         <description>CMU15-445 - 标签 - </description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 16 Sep 2022 17:46:55 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/tags/cmu15-445/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 12 Oct 2022 09:30:09 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/tags/cmu15-445/" rel="self" type="application/rss+xml" /><item>
+    <title>CMU15-445 - Project1 Buffer Pool</title>
+    <link>https://blog.silasblog.top/cmu15-445-project1-buffer-pool/</link>
+    <pubDate>Wed, 12 Oct 2022 09:30:09 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/cmu15-445-project1-buffer-pool/</guid>
+    <description><![CDATA[前言我做的是 CMU15-445 2022年秋季版本，目前课程尚未完结，poject和 gradescope 也在慢慢开放中，目前我的进度到Project1 buffer pool，这篇总结一下我]]></description>
+</item><item>
     <title>CMU15-445: Project0-字典树</title>
     <link>https://blog.silasblog.top/cmu15-445-project0-%E5%AD%97%E5%85%B8%E6%A0%91/</link>
     <pubDate>Fri, 16 Sep 2022 17:46:55 &#43;0800</pubDate><author>

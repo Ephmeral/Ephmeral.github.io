@@ -5,36 +5,36 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp" />
-    <title class="pjax-title">CMU15-445: Project0-字典树 - </title><meta name="Description" content=""><meta property="og:title" content="CMU15-445: Project0-字典树" />
-<meta property="og:description" content="前言PROJECT #0 - C&#43;&#43; PRIMER：是要求实现一个支持并发插入键值对的字典树，如果堆字典树不了解可以先看一下 Leetcode 这道题 208. 实现 Trie (前缀树) 写这" />
+    <title class="pjax-title">CMU15-445 - Project1 Buffer Pool - </title><meta name="Description" content=""><meta property="og:title" content="CMU15-445 - Project1 Buffer Pool" />
+<meta property="og:description" content="前言我做的是 CMU15-445 2022年秋季版本，目前课程尚未完结，poject和 gradescope 也在慢慢开放中，目前我的进度到Project1 buffer pool，这篇总结一下我" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.silasblog.top/cmu15-445-project0-%E5%AD%97%E5%85%B8%E6%A0%91/" /><meta property="og:image" content="https://blog.silasblog.top/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-09-16T17:46:55+08:00" />
-<meta property="article:modified_time" content="2022-09-19T16:57:36+08:00" />
+<meta property="og:url" content="https://blog.silasblog.top/cmu15-445-project1-buffer-pool/" /><meta property="og:image" content="https://blog.silasblog.top/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-10-12T09:30:09+08:00" />
+<meta property="article:modified_time" content="2022-10-12T09:30:09+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://blog.silasblog.top/logo.png"/>
 
-<meta name="twitter:title" content="CMU15-445: Project0-字典树"/>
-<meta name="twitter:description" content="前言PROJECT #0 - C&#43;&#43; PRIMER：是要求实现一个支持并发插入键值对的字典树，如果堆字典树不了解可以先看一下 Leetcode 这道题 208. 实现 Trie (前缀树) 写这"/>
+<meta name="twitter:title" content="CMU15-445 - Project1 Buffer Pool"/>
+<meta name="twitter:description" content="前言我做的是 CMU15-445 2022年秋季版本，目前课程尚未完结，poject和 gradescope 也在慢慢开放中，目前我的进度到Project1 buffer pool，这篇总结一下我"/>
 <meta name="application-name" content="">
 <meta name="apple-mobile-web-app-title" content="">
 
 <meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="https://blog.silasblog.top/cmu15-445-project0-%E5%AD%97%E5%85%B8%E6%A0%91/" /><link rel="prev" href="https://blog.silasblog.top/cs144-2021-lab2/" /><link rel="next" href="https://blog.silasblog.top/cmu15-445-project1-buffer-pool/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="https://blog.silasblog.top/cmu15-445-project1-buffer-pool/" /><link rel="prev" href="https://blog.silasblog.top/cmu15-445-project0-%E5%AD%97%E5%85%B8%E6%A0%91/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
         <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
         <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "CMU15-445: Project0-字典树",
+        "headline": "CMU15-445 - Project1 Buffer Pool",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/blog.silasblog.top\/cmu15-445-project0-%E5%AD%97%E5%85%B8%E6%A0%91\/"
-        },"genre": "posts","keywords": "CMU15-445","wordcount":  838 ,
-        "url": "https:\/\/blog.silasblog.top\/cmu15-445-project0-%E5%AD%97%E5%85%B8%E6%A0%91\/","datePublished": "2022-09-16T17:46:55+08:00","dateModified": "2022-09-19T16:57:36+08:00","publisher": {
+            "@id": "https:\/\/blog.silasblog.top\/cmu15-445-project1-buffer-pool\/"
+        },"genre": "posts","keywords": "CMU15-445","wordcount":  1727 ,
+        "url": "https:\/\/blog.silasblog.top\/cmu15-445-project1-buffer-pool\/","datePublished": "2022-10-12T09:30:09+08:00","dateModified": "2022-10-12T09:30:09+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -117,17 +117,22 @@
         <div class="toc-content" id="toc-content-auto"><nav id="TableOfContents">
   <ul>
     <li><a href="#前言">前言</a></li>
-    <li><a href="#一些问题">一些问题</a></li>
-    <li><a href="#小tips">小Tips</a></li>
-    <li><a href="#完结证明">完结证明</a></li>
+    <li><a href="#task-1---extendible-hash-table">Task #1 - Extendible Hash Table</a></li>
+    <li><a href="#task-2---lru-k-replacement-policy">Task #2 - LRU-K Replacement Policy</a></li>
+    <li><a href="#task-3---buffer-pool-manager-instance">Task #3 - Buffer Pool Manager Instance</a></li>
+    <li><a href="#小结">小结</a>
+      <ul>
+        <li><a href="#data-race">Data Race</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
-    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CMU15-445: Project0-字典树</h1><div class="post-meta">
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CMU15-445 - Project1 Buffer Pool</h1><div class="post-meta">
             <div class="post-meta-line">
                 <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Silas</a>
                 </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/database/"><i class="far fa-folder fa-fw"></i>Database</a>&nbsp;<a href="/categories/lab/"><i class="far fa-folder fa-fw"></i>Lab</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-09-16">2022-09-16</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-09-19">2022-09-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 838 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-10-12">2022-10-12</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-10-12">2022-10-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1727 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -136,89 +141,74 @@
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#前言">前言</a></li>
-    <li><a href="#一些问题">一些问题</a></li>
-    <li><a href="#小tips">小Tips</a></li>
-    <li><a href="#完结证明">完结证明</a></li>
+    <li><a href="#task-1---extendible-hash-table">Task #1 - Extendible Hash Table</a></li>
+    <li><a href="#task-2---lru-k-replacement-policy">Task #2 - LRU-K Replacement Policy</a></li>
+    <li><a href="#task-3---buffer-pool-manager-instance">Task #3 - Buffer Pool Manager Instance</a></li>
+    <li><a href="#小结">小结</a>
+      <ul>
+        <li><a href="#data-race">Data Race</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="前言" class="headerLink">
-    <a href="#%e5%89%8d%e8%a8%80" class="header-mark"></a>前言</h2><p>PROJECT #0 - C++ PRIMER：是要求实现一个支持并发插入键值对的字典树，如果堆字典树不了解可以先看一下 Leetcode 这道题 <a href="https://leetcode.cn/problems/implement-trie-prefix-tree/" target="_blank" rel="noopener noreffer">208. 实现 Trie (前缀树)</a></p>
-<p>写这个 project 一定要好好看看清楚给的提示以及代码当中的注释，写的很详细，根据这些各个函数的功能基本上可以实现。可能需要注意的就是一些 C++11 的语法，像智能指针、移动构造、std::move 函数等这些，如果不了解的话比较难上手，建议提前稍微了解一下，关于并发其实就是上个锁即可，并不涉及比较高级的技巧，这个不需要太担心</p>
-<h2 id="一些问题" class="headerLink">
-    <a href="#%e4%b8%80%e4%ba%9b%e9%97%ae%e9%a2%98" class="header-mark"></a>一些问题</h2><ol>
-<li>首先是移动构造</li>
-</ol>
-<p>最开始我也不是很熟悉，但是我把涉及移动构造的都用 std::move 函数进行转移所有权（应该是这样），然后就没啥大问题了，使用 std::move 之后原来的变量就不存在了，不能继续使用了</p>
-<ol start="2">
-<li>关于Trie::Insert() 这个函数</li>
-</ol>
-<p>最开始理解错了，把每一步都由 TrieNode 转换为 TrieNodeWithValue 了，其实只要到最后一个字符对应的 TrieNode 看看是否需要转换即可</p>
-<ol start="3">
-<li>关于 TrieNodeWithValue 和 TrieNode 的转换</li>
-</ol>
-<p>这个是运行时多态，可以动态绑定，具体转换我是创建一个新的变量，然后用 std::move 转移所有权（也可以用 std::make_unique 函数直接创建）</p>
-<ol start="4">
-<li>
-<p>关于 Trie::Remove() 函数
-个人感觉用迭代会简单点，递归不太好想，而且工程上尽量避免递归吧，可以用 vector 存放父节点模拟一下栈（这里的思路主要参考自<a href="https://www.cnblogs.com/alyjay/p/16698477.html" target="_blank" rel="noopener noreffer">这个博客</a></p>
-</li>
-<li>
-<p>关于 Trie::GetValue() 函数</p>
-<p>最开始写错了，类型不匹配的时候 success 也设置成 true 了</p>
-</li>
-<li>
-<p>最后的最后卡了我好久的小bug</p>
-</li>
-</ol>
-<p>一直以为我的 Remove 写错了，直到后来发现是 TrieNode::HasChildren() 这个函数实现错了，其实本来很简单，我写成了遍历26个字母分别调用 HasChild 这个函数，后来发现不只是26个字母。。。还有数字啥的，这个错误导致我卡了两三天，一定一定要仔细看提示和代码注释</p>
-<h2 id="小tips" class="headerLink">
-    <a href="#%e5%b0%8ftips" class="header-mark"></a>小Tips</h2><p>本地测试会比gradescope 测试少很多，如果想知道gradescope上面的测试代码，可以根据提交之后上面会显示测试代码的路径，这个时候可以把代码打印出来，就可以知道测试代码了</p>
-<p>下面是我打印测试用例的代码，文件名换成其他的应该也可以把其他 project 测试用例打印出来</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">buffer</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">ifstream</span> <span class="n">in_file</span><span class="p">(</span><span class="s">&#34;/autograder/bustub/test/primer/grading_starter_trie_test.cpp&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">in_file</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">in_file</span><span class="p">.</span><span class="n">eof</span><span class="p">())</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="n">getline</span><span class="p">(</span><span class="n">in_file</span><span class="p">,</span> <span class="n">buffer</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">buffer</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">in_file</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="完结证明" class="headerLink">
-    <a href="#%e5%ae%8c%e7%bb%93%e8%af%81%e6%98%8e" class="header-mark"></a>完结证明</h2><p><img
+    <a href="#%e5%89%8d%e8%a8%80" class="header-mark"></a>前言</h2><p>我做的是 CMU15-445 2022年秋季版本，目前课程尚未完结，poject和 gradescope 也在慢慢开放中，目前我的进度到Project1 buffer pool，这篇总结一下我做这个实验的基本思路以及遇见的一些坑</p>
+<p>首先说一下做这个实验的感受，这个实验大概拖了一个月才完成，中间半个月国庆摸鱼去了。。。大概花了40个多小时才写完，前面十几个小时其实已经写差不多了，最后20多个小时因为一个小bug导致卡了这么长时间，实验的文档和代码注释写的比较清晰了，可能就是前两个 task 涉及的知识点不熟悉的话，需要去网上找找相关资料，知道咋回事之后就没那么难</p>
+<h2 id="task-1---extendible-hash-table" class="headerLink">
+    <a href="#task-1---extendible-hash-table" class="header-mark"></a>Task #1 - Extendible Hash Table</h2><p>可以先参考一下这两篇文章大概弄清楚可拓展哈希的原理</p>
+<ul>
+<li><a href="https://www.cnblogs.com/kegeyang/archive/2012/04/05/2432608.html" target="_blank" rel="noopener noreffer">【转】动态hash方法（数据库索引技术） - Gwa - 博客园</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/375039823" target="_blank" rel="noopener noreffer">数据库——可拓展哈希（Extendable Hashing） - 知乎</a></li>
+</ul>
+<p>后来我发现书上好像有这部分内容，刚开始没有书，只能参考博客了，后面去图书馆借了一本。因为也是最开始做的，过了好久了，具体细节也忘记了，这部分就略过吧</p>
+<h2 id="task-2---lru-k-replacement-policy" class="headerLink">
+    <a href="#task-2---lru-k-replacement-policy" class="header-mark"></a>Task #2 - LRU-K Replacement Policy</h2><p>经典的 LRU 在可以先去力扣做一下 <a href="https://leetcode.cn/problems/lru-cache/" target="_blank" rel="noopener noreffer">146. LRU 缓存</a>，基本思路就是双链表+哈希表，链表记录数据，哈希表记录数据存放在链表中对应的迭代器</p>
+<p>LRU-K 的话，网上我看到的说法是用一个历史队列存放访问次数小于k的数据，当访问次数达到k的时候，将数据从历史队列移动到缓存队列中，缓存队列采用LRU算法进行淘汰</p>
+<p>最开始我把历史队列也采取LRU策略进行淘汰，然后会发现有问题，仔细看看LRU-K的头文件关于 Evict 方法的描述</p>
+<p><img
         class="lazyload"
-        data-src="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/202209191643517.png"
-        data-srcset="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/202209191643517.png, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/202209191643517.png 1.5x, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/202209191643517.png 2x"
+        data-src="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20221012103029.png"
+        data-srcset="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20221012103029.png, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20221012103029.png 1.5x, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20221012103029.png 2x"
         data-sizes="auto"
-        alt="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/202209191643517.png"
-        title="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/202209191643517.png"></p>
-<p>写于：2022/09/19 17:39 总共实验用时大约 12.5h</p>
+        alt="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20221012103029.png"
+        title="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20221012103029.png"></p>
+<p>最后如果有较多超过 k-distance 的，替换出最早时间戳的 frame，其实就是根据入队列的先后顺序要替换，注意当一个 frame 再次被访问的时候，不需要改变 frame 在历史队列中的顺序，除非访问次数大于等于k，也就是说只需要根据 frame 第一次访问的时间进行 FIFO 替换即可</p>
+<p>然后说一下我在这里遇见的一个bug，我是用链表+哈希表模拟队列（即上述的历史队列），这样就可以O(1) 的复杂度记录以及查找 frame 对应的位置，我遇见的问题是我用了一个迭代器从哈希表中查找 frame 的迭代器，然后在访问次数大于等于k的时候，先转移到缓存队列中，然后再删除历史队列的记录，删除的时候我先把哈希表中 frame_id 删除了，然后导致原来的迭代器失效了，我最后又去根据迭代器删除链表中的 frame，就导致删除一个未定义的位置！这个bug卡了我接近20h，开始的时候先在gradescope上面提交发现除了LRU-K通不过其他都能通过，然后我换了个方法实现LRU-K，结果buffer pool一直过不去，我又找了其他已经通过的小伙伴，把他的 buffer pool 拿了过来，发现还是不行，只能说明还是LRU-K有问题，最后回到之前提交的，一调试发现这个bug，这告诉我卡在一个地方的时候一定要进行调试，调试找到问题并解决之后再去做下一个任务，不然可能会花费大量的时间做无用功</p>
+<h2 id="task-3---buffer-pool-manager-instance" class="headerLink">
+    <a href="#task-3---buffer-pool-manager-instance" class="header-mark"></a>Task #3 - Buffer Pool Manager Instance</h2><p>刚开始做这个的时候没有搞清楚，page_id 和 frame_id 的关系，其实就是 page_id 对应的是磁盘中文件的下标（可以将磁盘抽象看出一个大的数组，page_id 就是数组的下标），而 frame_id 是 Buffer Pool 的下标，这两个很清楚再去看代码框架给的提示就很清晰了</p>
+<p>可能会出问题的地方：</p>
+<ul>
+<li>Unpin 的时候，只有当 is_dirty 是 true 的时候才设置 page 的 dirty标记，如果为 false，不能直接设置，因为可能原来就是 true</li>
+<li>创建一个新页和获取一个页面的时候都需要调用 replacer_ 的 RecordAccess 以及 SetEvictable 设置 frame 不可以被替换出</li>
+<li>当替换出一个页面的时候如果是脏页需要将数据写回磁盘中</li>
+<li>LRU上锁的时候要在一开始就上锁，我写Remove的时候，把find函数写在锁外面了，导致测试时候出现data race的情况，原因是unordered_map本身也不是线程安全的，所以加锁的时候记得要加全局的</li>
+</ul>
+<p>其他的感觉可能出现问题的地方比较少，前提是前面两个实现的没有问题（逃 ~）</p>
+<h2 id="小结" class="headerLink">
+    <a href="#%e5%b0%8f%e7%bb%93" class="header-mark"></a>小结</h2><p>这部分前前后后加上调试总共花了41.5h，如果早点进行调试估计会少花一半的时间，不得不说调试真的很重要，另外就是多看看提示，很多可能出现问题的地方代码注释都写出来了</p>
+<p>最后是完结证明：
+<img
+        class="lazyload"
+        data-src="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20221014141734.png"
+        data-srcset="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20221014141734.png, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20221014141734.png 1.5x, https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20221014141734.png 2x"
+        data-sizes="auto"
+        alt="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20221014141734.png"
+        title="https://silas-py-oss.oss-cn-chengdu.aliyuncs.com/img/20221014141734.png"></p>
+<p>写于：2022/10/12 总共实验用时大约41.5h</p>
+<h3 id="data-race" class="headerLink">
+    <a href="#data-race" class="header-mark"></a>Data Race</h3><p>Data Race是指多个线程在没有正确加锁的情况下，同时访问同一块数据，并且至少有一个线程是写操作，对数据的读取和修改产生了竞争，从而导致各种不可预计的问题。</p>
 </div>
 
         <div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2022-09-19</span>
+                <span>更新于 2022-10-12</span>
             </div>
             <div class="post-info-license"></div>
         </div>
         <div class="post-info-line">
-            <div class="post-info-md"><span><a class="link-to-mardown" href=/cmu15-445-project0-%E5%AD%97%E5%85%B8%E6%A0%91/index.md target="_blank" rel="noopener noreferrer">阅读原始文档</a>
+            <div class="post-info-md"><span><a class="link-to-mardown" href=/cmu15-445-project1-buffer-pool/index.md target="_blank" rel="noopener noreferrer">阅读原始文档</a>
                     </span></div>
             <div class="post-info-share">
                 <span></span>
@@ -233,8 +223,7 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/cs144-2021-lab2/" class="prev" rel="prev" title="CS144-2021 lab2"><i class="fas fa-angle-left fa-fw"></i>CS144-2021 lab2</a>
-            <a href="/cmu15-445-project1-buffer-pool/" class="next" rel="next" title="CMU15-445 - Project1 Buffer Pool">CMU15-445 - Project1 Buffer Pool<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/cmu15-445-project0-%E5%AD%97%E5%85%B8%E6%A0%91/" class="prev" rel="prev" title="CMU15-445: Project0-字典树"><i class="fas fa-angle-left fa-fw"></i>CMU15-445: Project0-字典树</a></div>
 </div>
 <div id="comments"><div id="utterances"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">Utterances</a>.
