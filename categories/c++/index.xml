@@ -3,7 +3,14 @@
         <title>C&#43;&#43; - 分类 - </title>
         <link>https://blog.silasblog.top/categories/c&#43;&#43;/</link>
         <description>C&#43;&#43; - 分类 - </description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 07 May 2022 08:45:45 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/categories/c&#43;&#43;/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 14 Oct 2022 18:44:50 &#43;0800</lastBuildDate><atom:link href="https://blog.silasblog.top/categories/c&#43;&#43;/" rel="self" type="application/rss+xml" /><item>
+    <title>侯捷 C&#43;&#43;11&amp;14 课程笔记</title>
+    <link>https://blog.silasblog.top/%E4%BE%AF%E6%8D%B7-c-1114-%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/</link>
+    <pubDate>Fri, 14 Oct 2022 18:44:50 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/%E4%BE%AF%E6%8D%B7-c-1114-%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/</guid>
+    <description><![CDATA[前言本文是我看侯捷老师C++11课程视频做的简短的笔记，主要便于后续复习，做笔记的思路来源于 侯捷——C++面向对象高级开发（上）（面向对象程]]></description>
+</item><item>
     <title>《C&#43;&#43;Primer》| 第十六章 模板与泛型编程</title>
     <link>https://blog.silasblog.top/chapter16-%E6%A8%A1%E6%9D%BF%E4%B8%8E%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/</link>
     <pubDate>Sat, 07 May 2022 08:45:45 &#43;0800</pubDate><author>
