@@ -3,9 +3,16 @@
         <title></title>
         <link>https://blog.silasblog.top/</link>
         <description></description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 14 Oct 2022 18:44:50 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 30 Dec 2022 18:50:10 &#43;0800</lastBuildDate>
             <atom:link href="https://blog.silasblog.top/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>2022年度学习小结</title>
+    <link>https://blog.silasblog.top/2022%E5%B9%B4%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%B0%8F%E7%BB%93/</link>
+    <pubDate>Fri, 30 Dec 2022 18:50:10 &#43;0800</pubDate><author>
+        <name>Silas</name>
+    </author><guid>https://blog.silasblog.top/2022%E5%B9%B4%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%B0%8F%E7%BB%93/</guid>
+    <description><![CDATA[我的2022年计算机学习小结前言最近陆续在各个平台上看见年度总结，也看见不少网友在分享自己的2022年总结，我这里就简单对今年学过的计算机知]]></description>
+</item><item>
     <title>侯捷 C&#43;&#43;11&amp;14 课程笔记</title>
     <link>https://blog.silasblog.top/%E4%BE%AF%E6%8D%B7-c-1114-%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/</link>
     <pubDate>Fri, 14 Oct 2022 18:44:50 &#43;0800</pubDate><author>
@@ -68,12 +75,5 @@
         <name>Silas</name>
     </author><guid>https://blog.silasblog.top/mit6s.081-lab4-traps/</guid>
     <description><![CDATA[RISC-V assembly 哪些寄存器保存函数的参数？例如，在main对printf的调用中，哪个寄存器保存13？ a0-a7 中存放参数，a2 保存了 13 main的汇编代码中对函]]></description>
-</item><item>
-    <title>MIT6S.081-Lab3: page tables</title>
-    <link>https://blog.silasblog.top/mit6s.081-lab3-page-tables/</link>
-    <pubDate>Tue, 19 Jul 2022 22:14:30 &#43;0800</pubDate><author>
-        <name>Silas</name>
-    </author><guid>https://blog.silasblog.top/mit6s.081-lab3-page-tables/</guid>
-    <description><![CDATA[Speed up system calls最开始参考实验部分的是课程介绍 · 6.S081 All-In-One，做完打印页表实验后发现没法通过，然后反应过来这个中文翻译是基于xv6]]></description>
 </item></channel>
 </rss>
