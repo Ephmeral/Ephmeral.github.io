@@ -1,0 +1,33 @@
+# Ephmeral
+
+> Silas 的笔记站。2021–2022 年的 C++ 与系统实验笔记，接下来写 Go 后端和 AI Agent。
+
+站点：https://ephmeral.github.io/
+
+## 文章
+
+- [LC 133.克隆图](https://ephmeral.github.io/algorithms/leetcode-133-clone-graph/): LeetCode 133 克隆图笔记。遍历图里的每个顶点并做深拷贝，用哈希表记下旧节点到新节点的对应关系。DFS 和 BFS 都是单独拷贝邻居，不能在构造节点时把邻接表直接复制过去。
+- [2022年度学习小结](https://ephmeral.github.io/essays/2022-learning-review/): 2022 年计算机学习小结。这一年主要在力扣刷题和打周赛，重读了 C++ Primer 并看了侯捷课程，实验做了南大 PA、MIT 6.S081、CS144 和 CMU 15-445，文末记了时间分配、反思和次年计划。
+- [5.1 二叉树及其表示](https://ephmeral.github.io/algorithms/binary-tree-representation/): 数据结构笔记：从有根树的深度、层次、祖先、子树和高度讲起，再写二叉树与多叉树的父节点、孩子列表表示，以及用长子和兄弟指针把有序多叉树转成二叉树。文末给出叶节点个数 n0 = n2 + 1。
+- [Cache 的基本工作原理](https://ephmeral.github.io/computer-systems/cache-basics/): Cache 工作原理笔记。先讲时间局部性和空间局部性，再比较直接映射、全相联和组相联，并用一道组相联例题划分地址。后半整理 FIFO、LRU、LFU、随机替换，以及全写法和回写法。
+- [《C++Primer》| 第十四章 重载运算与类型转换](https://ephmeral.github.io/cpp/cpp-primer-ch14-overloaded-operations/): 《C++ Primer》第 14 章笔记。记录重载运算符的参数个数、调用方式和不能重载的情况，并依次整理输入输出、算术关系、赋值、下标、递增递减、成员访问、函数调用运算符和类型转换。
+- [《C++Primer》| 第十五章 面向对象程序设计](https://ephmeral.github.io/cpp/cpp-primer-ch15-oop/): 《C++ Primer》第 15 章笔记。围绕数据抽象、继承和动态绑定，记录基类与派生类、虚函数、抽象基类、访问控制、继承中的作用域，以及构造函数和拷贝控制在继承体系里怎么写。
+- [《C++Primer》| 第十六章 模板与泛型编程](https://ephmeral.github.io/cpp/cpp-primer-ch16-templates/): 《C++ Primer》第 16 章笔记。从几乎相同的 compare 重载讲起，说明函数模板的类型参数、非类型参数和实例化时机，再记录类模板的成员函数、友元、类型别名和 static 成员。
+- [CMU15-445: Project0-字典树](https://ephmeral.github.io/database/cmu15-445-project0-trie/): CMU 15-445 2022 秋季 Project 0 笔记，实现支持并发插入的字典树。记录了移动构造、Insert 只在最后一个字符转成带值节点、Remove 用迭代，以及 HasChildren 不能只检查 26 个字母。
+- [CMU15-445 - Project1 Buffer Pool](https://ephmeral.github.io/database/cmu15-445-project1-buffer-pool/): CMU 15-445 2022 秋季 Project 1 Buffer Pool 笔记。分可扩展哈希、LRU-K 替换和 Buffer Pool Manager 三部分，记下历史队列按第一次访问做 FIFO，以及先删哈希再删链表导致迭代器失效。
+- [CS144-2021: lab0](https://ephmeral.github.io/network/cs144-lab0/): CS144 2021 Lab 0 笔记。先按实验要求整理现代 C++ 的写法，再用 TCPSocket 实现 webget：建立连接、发送请求并读回响应；后半在内存里实现可靠字节流 ByteStream 的读写和容量限制。
+- [CS144-2021: lab1](https://ephmeral.github.io/network/cs144-lab1/): CS144 2021 Lab 1 笔记，实现 StreamReassembler，把乱序到达的字节片段重新拼成连续字节流。按已排序、已排序未写入和未排序三类处理，容量不超过 Lab 0 的 ByteStream，再写入连续前缀。
+- [CS144-2021 lab2](https://ephmeral.github.io/network/cs144-lab2/): CS144 2021 Lab 2 笔记，实现 TCPReceiver。先在 64 位绝对序号和 32 位 seqno 之间做回绕转换，再把收到的报文段写入前面的字节流，并按 SYN、FIN 计算下一个 ackno。
+- [decltype](https://ephmeral.github.io/cpp/decltype/): C++ 短笔记，说明 decltype 只分析表达式的类型、不计算它的值。对比它和 auto 的三处差别：是否求值、是否保留顶层 const，以及给变量多加一层括号时会得到引用类型。
+- [MIT6S.081-lab1:Xv6 and Unix utilities](https://ephmeral.github.io/os/mit6.s081-lab1-xv6-and-unix-utilities/): MIT 6.S081 Lab 1 笔记，在 xv6 里写 sleep、pingpong、素数筛、find 和 xargs。素数筛用管道把数字传给子进程，丢掉第一个数的倍数后再交给下一层进程。
+- [MIT6S.081-Lab2: system calls](https://ephmeral.github.io/os/mit6.s081-lab2-system-calls/): MIT 6.S081 Lab 2 笔记，给 xv6 增加 trace 和 sysinfo 两个系统调用。trace 用掩码记录要跟踪的调用并在 fork 时传给子进程，sysinfo 仿照 fstat 把内核信息拷回用户态。
+- [MIT6S.081-Lab3: page tables](https://ephmeral.github.io/os/mit6.s081-lab3-page-tables/): MIT 6.S081 2021 Lab 3 页表笔记。在 USYSCALL 放一块只读共享页来加速读取 pid，递归打印页表，并检测哪些页面被访问过。文中也说明中文资料对应的是 2020 版实验。
+- [MIT6S.081-Lab4: traps](https://ephmeral.github.io/os/mit6.s081-lab4-traps/): MIT 6.S081 Lab 4 陷阱笔记。先看 RISC-V 汇编里参数寄存器和函数内联，再按栈帧布局打印调用栈，最后实现 alarm：定时调用用户处理函数，并用 sigreturn 回到被打断的位置。
+- [MIT6S.081-Lab6: Multithreading](https://ephmeral.github.io/os/mit6.s081-lab6-multithreading/): MIT 6.S081 Lab 6 多线程笔记。用户态线程切换时保存 ra、sp 和被调用者保存寄存器；屏障要处理多轮调用，用互斥锁保护计数，避免有线程提前进入下一轮时把计数加错。
+- [MIT6S.081-Lab9 File system](https://ephmeral.github.io/os/mit6.s081-lab9-file-system/): MIT 6.S081 Lab 9 文件系统笔记。把 xv6 的一级间接块扩成二级间接块以支持大文件，并增加 symlink 系统调用。创建符号链接时要把路径写进 inode，而不是只改 addrs 数组。
+- [NJU-ICS2020 | PA3-1 小结](https://ephmeral.github.io/computer-systems/nju-ics-pa3-1/): 南大 ICS PA3-1 小结，在 NEMU 里模拟 cache。按实验要求做成 64 字节块、64KB、8 路组相联，只设 valid 位，随机替换，写策略是 write through 且 not write allocate。
+- [NJU-ICS2021 | PA0&PA1实验小结](https://ephmeral.github.io/computer-systems/nju-ics-pa0-pa1/): 南大 ICS 2021 PA0 与 PA1 实验小结。PA0 记录 Debian 10 的环境，PA1 写整数和浮点数在 NEMU 里的表示、用 union 模拟寄存器，以及 ALU 的进位、奇偶、零、符号、溢出标志和单精度浮点规格化。
+- [NJU-ICS2021 | PA2-1实验小结](https://ephmeral.github.io/computer-systems/nju-ics-pa2-1/): 南大 ICS 2021 PA2-1 实验小结，实现各条指令的译码和执行。记录了怎样用 i386 手册从 opcode 和 ModR/M 查出 cmp 等指令，以及实现这些指令时踩过的坑。
+- [并查集](https://ephmeral.github.io/algorithms/union-find/): 并查集短笔记，给出一份 C++ 模板。用数组保存父节点，开始时每个节点的父节点是自己；查找时沿着 parent 走到根，合并时把两棵树的根接到一起，并让连通分量减一。
+- [侯捷 C++11&14 课程笔记](https://ephmeral.github.io/cpp/houjie-cpp11-14-notes/): 侯捷 C++11/14 课程笔记，按视频顺序整理可变参数模板、统一初始化、lambda、decltype、右值引用与移动语义、完美转发，以及 array、hashtable 和 tuple 等标准库设施。
+- [关于我](https://ephmeral.github.io/about/): 关于页。保留了 2022 年写博客时的自述：半路转到计算机，用笔记记住课程和实验。站点接下来会继续写 Go 后端和 AI Agent，这两个目录已经留好，文章还在整理。
