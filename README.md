@@ -1,8 +1,6 @@
 # Ephmeral 的笔记
 
-这个仓库是 [https://ephmeral.github.io/](https://ephmeral.github.io/) 的源码。`quartz` 分支用 Quartz **v4.5.2** 生成站点；`master` 仍是 2022 年 Hugo 生成的旧站，用来随时回滚。
-
-现在还没有切换 GitHub Pages。Pages 继续从 `master` 发布，这个分支上的 Actions **只构建和校验，不会部署**。
+这个仓库是 [https://ephmeral.github.io/](https://ephmeral.github.io/) 的源码，用 Quartz **v4.5.2** 生成。拉取请求只构建和校验；推送到 `master` 的工作流会部署到 GitHub Pages。
 
 ## 目录
 
@@ -11,7 +9,9 @@ content/                 文章，也是以后从 Obsidian 发布的出口
 quartz/                  只放配置和少量覆盖文件，不含 Quartz 框架源码
   quartz.config.ts
   quartz.layout.ts
-  custom/components/Head.tsx   canonical、发布时间、JSON-LD
+  custom/components/Head.tsx         canonical、发布时间、JSON-LD
+  custom/components/ArticleIndex.tsx 首页和归档的文章列表
+  custom/components/SiteNav.tsx      首页、归档、标签、关于
   custom/static/               robots.txt、llms.txt
   legacy-urls.txt              要保住的旧 URL
   build.sh                     本地构建
@@ -34,7 +34,7 @@ bash quartz/build.sh
 
 新文章用英文路径，例如 `/network/cs144-lab0`。每篇正文开头的重复标题已去掉，标题、日期和标签写在 frontmatter 里。摘要是迁移时按原文补的，旧站的 description 是空的。
 
-旧的中文地址写成 alias，形式是 `原路径/index`，这样 Quartz 会生成 `原路径/index.html`。GitHub Pages 上的 `/原路径/` 才能打开，而不是 404。在 sitemap 里出现过的空归档页（`/archive/`、`/life/杂记/`）和分类总入口（`/categories/`）会跳到首页。`/tags/` 用 Quartz 自己的标签索引。
+旧的中文地址写成 alias，形式是 `原路径/index`，这样 Quartz 会生成 `原路径/index.html`。GitHub Pages 上的 `/原路径/` 才能打开，而不是 404。旧的 `/archive/` 会跳到新的归档页。`/life/杂记/` 和 `/categories/` 仍跳到首页。`/tags/` 用 Quartz 自己的标签索引。
 
 两篇重复的没有单独再放一份：
 
@@ -57,6 +57,12 @@ bash quartz/build.sh
 - MIT 6.S081 lab 4 和 lab 9 引用的 `xv6.dgs.zone` 图片当时已经返回 500，正文里的地址没改。
 - 侯捷笔记里的 `20221019201556.png` 在迁移前多次请求超时，是否还能打开没有确认。
 - Quartz 把文章输出成 `路径.html`。GitHub Pages 能打开不带结尾斜杠的新地址；带结尾斜杠的规范地址要等 Pages 的实际行为再核对。旧地址因为用了 `原路径/index`，带斜杠可以打开。
+
+## 上线时改一次 Pages 设置
+
+把这个改动合并进 `master` 之后，打开仓库的 Settings → Pages → Source，把发布源从 “Deploy from a branch” 改成 **GitHub Actions**。别的仓库设置不用动。
+
+建议先合并，再改这个设置。`deploy-pages` 只有在发布源已经是 GitHub Actions 时才会成功。如果合并触发的那一次部署因为还没改设置而失败，改完之后到 Actions 里把 `master` 上的工作流重新跑一遍。先改设置、后合并的话，中间没有可发布的构建，站点会空一段时间。
 
 ## 日期
 
