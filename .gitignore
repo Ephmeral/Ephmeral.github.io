@@ -1,0 +1,5 @@
+# Quartz 本地构建产物。框架源码在 CI 和 quartz/build.sh 里按 v4.5.2 临时拉取，不提交。
+.quartz-cache/
+public/
+node_modules/
+.quartz-src/

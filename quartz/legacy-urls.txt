@@ -1,0 +1,35 @@
+# 旧 URL 目录名，不含结尾斜杠。构建后应存在 public/<这一行>/index.html
+# tags 由 Quartz 标签索引生成；其余行来自 frontmatter aliases（写成 原路径/index）
+# 按方案删除、不在此列的测试页：hello_world、archive/归档1、archive/归档2、memo/新建-markdown、memo/树洞2
+# 不恢复只有 HTML 的 Hexo 旧文
+133.克隆图
+2022年度学习小结
+5.1-二叉树及其表示
+cache-的基本工作原理
+chapter14-重载运算与类型转换
+chapter15-面向对象程序设计
+notes/chapter15-面向对象程序设计
+chapter16-模板与泛型编程
+cmu15-445-project0-字典树
+cmu15-445-project1-buffer-pool
+cs144-2021-lab0
+cs144-2021-lab1
+cs144-2021-lab2
+decltype
+mit6s.081-lab1xv6-and-unix-utilities
+mit6s.081-lab2-system-calls
+mit6s.081-lab3-page-tables
+mit6s.081-lab4-traps
+mit6s.081-lab6-multithreading
+mit6s.081-lab9-file-system
+nju-ics2020-pa3-1-小结
+nju-ics2021-pa0pa1小结
+nju-ics2021-pa2-1小结
+nju-ics2021-pa2-1
+notes/并查集
+侯捷-c-1114-课程笔记
+about
+archive
+life/杂记
+categories
+tags

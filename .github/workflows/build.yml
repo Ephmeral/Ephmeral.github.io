@@ -1,0 +1,100 @@
+# 只构建和校验 Quartz v4.5.2，不部署、不改 GitHub Pages。
+# 线上站点仍由 master 分支的旧 HTML 提供，切换发布源需要另外批准。
+name: Build & Verify (Quartz)
+
+on:
+  push:
+    branches: [quartz]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quartz-build-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  QUARTZ_REF: v4.5.2
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出站点源码
+        uses: actions/checkout@v4
+        with:
+          path: site
+
+      - name: 检出固定版本的 Quartz
+        uses: actions/checkout@v4
+        with:
+          repository: jackyzha0/quartz
+          ref: ${{ env.QUARTZ_REF }}
+          path: qz
+
+      - name: 安装 Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: qz/package-lock.json
+
+      - name: 把内容和配置覆盖进 Quartz
+        run: |
+          set -euo pipefail
+          test -f qz/package.json
+          grep -q '"version": "4.5.2"' qz/package.json
+          rm -rf qz/content
+          cp -a site/content qz/content
+          cp site/quartz/quartz.config.ts site/quartz/quartz.layout.ts qz/
+          cp -a site/quartz/custom/. qz/quartz/
+          # 爬虫要的是站点根上的 robots.txt / llms.txt，Quartz 默认把 static 放到 /static/。
+          # 两处都保留：/static/ 里有一份，根上再复制一份。
+
+      - name: 安装依赖
+        working-directory: qz
+        run: npm ci
+
+      - name: 构建
+        working-directory: qz
+        run: npx quartz build
+
+      - name: 把 robots.txt 和 llms.txt 放到站点根
+        run: |
+          set -euo pipefail
+          cp qz/quartz/static/robots.txt qz/public/robots.txt
+          cp qz/quartz/static/llms.txt qz/public/llms.txt
+          test ! -e qz/public/CNAME
+          test ! -e qz/public/CNMAE
+
+      - name: 校验旧 URL、canonical 和 JSON-LD
+        run: |
+          set -euo pipefail
+          missing=0
+          while IFS= read -r s || [ -n "$s" ]; do
+            case "$s" in
+              ""|\#*) continue ;;
+            esac
+            if [ ! -f "qz/public/$s/index.html" ]; then
+              echo "MISSING $s"
+              missing=1
+            fi
+          done < site/quartz/legacy-urls.txt
+          test "$missing" -eq 0
+
+          canon='href="https://ephmeral.github.io/network/cs144-lab0/"'
+          grep -F "$canon" qz/public/network/cs144-lab0.html >/dev/null
+          grep -F 'property="og:type" content="article"' qz/public/network/cs144-lab0.html >/dev/null
+          grep -F 'property="article:published_time"' qz/public/network/cs144-lab0.html >/dev/null
+          grep -F '"@type":"BlogPosting"' qz/public/network/cs144-lab0.html >/dev/null
+          grep -F 'https://ephmeral.github.io/' qz/public/sitemap.xml >/dev/null
+          if grep -q 'silasblog' qz/public/sitemap.xml qz/public/index.xml; then
+            echo "sitemap 或 RSS 仍指向已失效的自定义域名"
+            exit 1
+          fi
+          # 合并页的旧地址必须是跳转页，而不是第二份正文。
+          grep -F 'http-equiv="refresh"' "qz/public/nju-ics2021-pa2-1/index.html" >/dev/null
+          grep -F 'http-equiv="refresh"' "qz/public/notes/chapter15-面向对象程序设计/index.html" >/dev/null
+          grep -F 'http-equiv="refresh"' "qz/public/archive/index.html" >/dev/null
