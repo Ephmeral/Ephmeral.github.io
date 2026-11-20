@@ -1,19 +1,20 @@
-# 只构建和校验 Quartz v4.5.2，不部署、不改 GitHub Pages。
-# 线上站点仍由 master 分支的旧 HTML 提供，切换发布源需要另外批准。
-name: Build & Verify (Quartz)
+# 拉取请求只构建和校验。推送到 master 时额外部署到 GitHub Pages。
+# 部署要等仓库 Settings → Pages → Source 改成 GitHub Actions 之后才会成功。
+name: Build & Deploy (Quartz)
 
 on:
   push:
-    branches: [quartz]
+    branches: [master]
   pull_request:
-  workflow_dispatch:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
 
 concurrency:
-  group: quartz-build-${{ github.ref }}
-  cancel-in-progress: true
+  group: quartz-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
 
 env:
   QUARTZ_REF: v4.5.2
@@ -50,8 +51,6 @@ jobs:
           cp -a site/content qz/content
           cp site/quartz/quartz.config.ts site/quartz/quartz.layout.ts qz/
           cp -a site/quartz/custom/. qz/quartz/
-          # 爬虫要的是站点根上的 robots.txt / llms.txt，Quartz 默认把 static 放到 /static/。
-          # 两处都保留：/static/ 里有一份，根上再复制一份。
 
       - name: 安装依赖
         working-directory: qz
@@ -94,7 +93,39 @@ jobs:
             echo "sitemap 或 RSS 仍指向已失效的自定义域名"
             exit 1
           fi
-          # 合并页的旧地址必须是跳转页，而不是第二份正文。
           grep -F 'http-equiv="refresh"' "qz/public/nju-ics2021-pa2-1/index.html" >/dev/null
           grep -F 'http-equiv="refresh"' "qz/public/notes/chapter15-面向对象程序设计/index.html" >/dev/null
-          grep -F 'http-equiv="refresh"' "qz/public/archive/index.html" >/dev/null
+          # 旧 /archive/ 跳到归档页，不再跳回首页。
+          grep -F 'http-equiv="refresh"' qz/public/archive/index.html >/dev/null
+          grep -F 'url=../archive' qz/public/archive/index.html >/dev/null
+          test -f qz/public/archive.html
+          test -f qz/public/tags/index.html
+          grep -F '总共有' qz/public/tags/index.html >/dev/null
+          # 构建结果是压缩成一行的 HTML，按出现次数而不是行数来数。
+          test "$(grep -o 'class="blog-item"' qz/public/index.html | wc -l)" -ge 24
+          test "$(grep -o 'class="blog-item"' qz/public/archive.html | wc -l)" -ge 24
+
+      - name: 配置 GitHub Pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: actions/configure-pages@v5
+
+      - name: 上传 Pages 产物
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: qz/public
+
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: 部署到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

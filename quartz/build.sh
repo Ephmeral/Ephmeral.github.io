@@ -49,5 +49,11 @@ if grep -q 'silasblog' "$WORK/public/sitemap.xml" "$WORK/public/index.xml"; then
   echo "sitemap 或 RSS 仍指向已失效的自定义域名"
   exit 1
 fi
+grep -F 'url=../archive' "$WORK/public/archive/index.html" >/dev/null
+test -f "$WORK/public/archive.html"
+test -f "$WORK/public/tags/index.html"
+# 构建结果是压缩成一行的 HTML，按出现次数而不是行数来数。
+test "$(grep -o 'class="blog-item"' "$WORK/public/index.html" | wc -l)" -ge 24
+test "$(grep -o 'class="blog-item"' "$WORK/public/archive.html" | wc -l)" -ge 24
 
 echo "构建通过：$WORK/public"
